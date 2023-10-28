@@ -1,5 +1,23 @@
 #include"Board.h"
 
+
+uint8_t Board::getLine() {
+	return this->line;
+}
+
+uint8_t Board::getColumn() {
+	return this->column;
+}
+
+void Board::setLine(uint8_t line) {
+	this->line = line;
+}
+
+void Board::setColumn(uint8_t column) {
+	this->column = column;
+}
+
+
 Board::Board(uint8_t line ,uint8_t column)
 {
 	this->line = line;
