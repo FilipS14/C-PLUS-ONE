@@ -23,4 +23,5 @@ public:
 	void setX(uint16_t x);
 	void setY(uint16_t y);
 	void setTeam(Team team);
+	void isValid(uint16_t x, uint16_t y);
 };
