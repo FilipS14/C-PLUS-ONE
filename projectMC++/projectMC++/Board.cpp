@@ -1,6 +1,5 @@
 #include"Board.h"
 
-
 uint8_t Board::getLine() {
 	return this->line;
 }
@@ -35,4 +34,24 @@ Board::~Board()
 		delete[]matrix[i];
 	}
 	delete[] matrix;
+}
+
+Board::Board(const Board& other) {
+	this->line = other.line;
+	this->column = other.column;
+	if (other.matrix != nullptr)
+	{
+		this->matrix = new uint8_t *[this->line];
+		for (uint8_t i = 0; i < this->line; ++i)
+		{
+			this->matrix[i] = new uint8_t[this->column];
+			for (uint8_t j = 0; j < this->column; ++j)
+			{
+				this->matrix[i][j] = other.matrix[i][j];
+			}
+		}
+	}
+	else {
+		this->matrix = nullptr;
+	}
 }
