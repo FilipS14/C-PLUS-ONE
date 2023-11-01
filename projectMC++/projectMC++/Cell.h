@@ -14,4 +14,6 @@ private:
 public:
 	Cell();
 	Cell(bool, uint8_t, uint8_t, bool, bool);
+
+	bool este_ocupat();
 };
