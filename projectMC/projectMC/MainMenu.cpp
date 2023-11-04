@@ -14,9 +14,25 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     topSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(topSpacer);
 
-    startButton = new QPushButton("Începe jocul");
-    instructionsButton = new QPushButton("Instrucțiuni");
+    // Stilizez butoanele folosind CSS
+    QString buttonStyle = "QPushButton {"
+        "background-color: #D2691E;"
+        "border: 1px solid #000000;"
+        "color: #ffffff;"
+        "font-size: 18px;"
+        "padding: 10px 20px;"
+        "}"
+        "QPushButton:hover {"
+        "background-color: #DEB887;"
+        "}";
+
+    startButton = new QPushButton("Start Game");
+    instructionsButton = new QPushButton("Instructions");
     leaderboardButton = new QPushButton("LeaderBoard");
+
+    startButton->setStyleSheet(buttonStyle);
+    instructionsButton->setStyleSheet(buttonStyle);
+    leaderboardButton->setStyleSheet(buttonStyle);
 
     // Setez dimensiunile butoanelor
     QSize buttonSize(200, 50);
@@ -36,6 +52,10 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     QWidget* centralWidget = new QWidget;
     centralWidget->setLayout(layout);
     setCentralWidget(centralWidget);  
+
+    // Conectez butoanele la functiile corespunzatoare
+    connect(startButton, SIGNAL(clicked()), this, SLOT(startGame()));
+    connect(instructionsButton, SIGNAL(clicked()), this, SLOT(showInstructions()));
 }
 
 void MainMenu::startGame() {
