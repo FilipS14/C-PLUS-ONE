@@ -14,6 +14,14 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     topSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(topSpacer);
 
+    QString backgroundStyle = "MainMenu {"
+        "background-image: url(/Users/Filip/Desktop/facultate/anul2/sem1/mc/wood.jpg);"
+        "background-repeat: no-repeat;"
+        "background-position: center;"
+        "}";
+
+    this->setStyleSheet(backgroundStyle);
+
     // Stilizez butoanele folosind CSS
     QString buttonStyle = "QPushButton {"
         "background-color: #D2691E;"
