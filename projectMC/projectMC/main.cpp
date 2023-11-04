@@ -1,10 +1,12 @@
 #include "projectMC.h"
 #include <QtWidgets/QApplication>
+#include"MainMenu.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    projectMC w;
-    w.show();
+    MainMenu menu;
+    menu.show();
     return a.exec();
 }
