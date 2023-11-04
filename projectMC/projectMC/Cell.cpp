@@ -15,3 +15,31 @@ Cell::Cell() :
 	m_isMined{ false },
 	m_isBulldozered{ false } {
 }
+
+bool Cell::getOcupier() const {
+	return m_ocupied;
+}
+
+uint8_t Cell::getX() const {
+	return m_x;
+}
+
+uint8_t Cell::getY() const {
+	return m_y;
+}
+
+bool Cell::getIsMined() const {
+	return m_isMined;
+}
+
+bool Cell::getIsBulldozered() const {
+	return m_isBulldozered;
+}
+
+void Cell::setX(uint8_t x) {
+	m_x = x;
+}
+
+void Cell::setY(uint8_t y) {
+	m_y = y;
+}
