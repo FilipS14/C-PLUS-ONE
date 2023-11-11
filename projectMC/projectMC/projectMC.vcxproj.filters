@@ -58,6 +58,9 @@
     <ClCompile Include="Bridge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoardWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -78,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainMenu.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BoardWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -24,3 +24,13 @@ void BoardWidget::onCellClicked()
 		setIsBlack(!getIsBlack());
 	}
 }
+
+BoardWidget::BoardWidget(QWidget* parent) :
+	QMainWindow{ parent }
+{
+	setWindowTitle("Twixt Game");
+	setFixedSize(500, 500);
+	m_gridLayout = new QGridLayout();
+	const int row = 25;
+	const int column = 25;
+}

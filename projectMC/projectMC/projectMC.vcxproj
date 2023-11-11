@@ -93,6 +93,7 @@
     <QtUic Include="projectMC.ui" />
     <QtMoc Include="projectMC.h" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardWidget.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -103,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <QtMoc Include="BoardWidget.h" />
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Cell.h" />
     <QtMoc Include="MainMenu.h" />
