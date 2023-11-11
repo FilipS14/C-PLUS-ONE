@@ -33,4 +33,20 @@ BoardWidget::BoardWidget(QWidget* parent) :
 	m_gridLayout = new QGridLayout();
 	const int row = 25;
 	const int column = 25;
+
+	for (size_t i = 0; i < row; ++i)
+	{
+		QList<QPushButton*>rowButtons;
+		for (size_t j = 0; j < column; ++j)
+		{
+			QPushButton* cellButton = new QPushButton(this);
+			connect(cellButton, &QPushButton::clicked, this, &BoardWidget::onCellClicked);
+			m_gridLayout->addWidget(cellButton, i, j);
+			rowButtons.append(cellButton);
+		}
+		m_boardCells.append(rowButtons);
+	}
+	QWidget* mainWidget = new QWidget();
+	mainWidget->setLayout(m_gridLayout);
+	setCentralWidget(mainWidget);
 }
