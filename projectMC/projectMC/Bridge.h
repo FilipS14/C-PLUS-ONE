@@ -2,6 +2,7 @@
 #include<iostream>
 #include<utility>
 #include <cstdint>
+
 class Bridge
 {
 public:
