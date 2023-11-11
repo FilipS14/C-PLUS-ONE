@@ -36,10 +36,25 @@ bool Cell::getIsBulldozered() const {
 	return m_isBulldozered;
 }
 
+void Cell::setOcupied(bool ocupied)
+{
+	m_ocupied = ocupied;
+}
+
 void Cell::setX(uint8_t x) {
 	m_x = x;
 }
 
 void Cell::setY(uint8_t y) {
 	m_y = y;
+}
+
+void Cell::setMined()
+{
+	m_isMined = true;
+}
+
+void Cell::setBulldozered()
+{
+	m_isBulldozered = true;
 }

@@ -2,6 +2,7 @@
 #include <QMainWindow>
 #include<qpushbutton.h>
 
+
 class MainMenu : public QMainWindow {
     Q_OBJECT
 
