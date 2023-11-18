@@ -2,6 +2,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QGridLayout>
 #include <QPushButton>
+#include "Board.h"
 
 class BoardWidget : public QMainWindow
 {
@@ -20,4 +21,5 @@ private:
 	QGridLayout* m_gridLayout;
 	QList<QList<QPushButton*>>m_boardCells;
 	bool m_isBlack = false;//pentru a incepe sa coloreze cu rosu
+	Board board;
 };
