@@ -73,6 +73,16 @@ void Cell::resetCell()
 	m_isBulldozered = false;
 }
 
+bool Cell::emptyCell()
+{
+	return m_ocupied == false;
+}
+
+bool Cell::safeCell()
+{
+	return (!m_isMined && !m_isBulldozered);
+}
+
 
 Cell& Cell::operator=(const Cell& cell)
 {

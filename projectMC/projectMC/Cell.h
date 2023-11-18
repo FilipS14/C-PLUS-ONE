@@ -19,6 +19,9 @@ public:
 	void setBulldozered();
 	void clearCell();
 	void resetCell();
+	bool emptyCell();
+	bool safeCell();
+
 	Cell& operator=(const Cell& cell);
 
 private:
