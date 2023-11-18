@@ -25,6 +25,11 @@ void BoardWidget::onCellClicked()
 	}
 }
 
+void BoardWidget::resetBoard()
+{
+	board.reset();
+}
+
 void BoardWidget::removePiece(int row, int col)
 {
 	board.setValue(row, col, 0);

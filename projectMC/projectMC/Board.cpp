@@ -27,9 +27,9 @@ void Board::setColumn(uint8_t column) {
 	m_column = column;
 }
 
-uint8_t Board::getValue(uint8_t line, uint8_t column) const
+void Board::setValue(uint8_t line, uint8_t column, uint8_t value)
 {
-	return m_matrix[line][column];
+	m_matrix[line][column] = value;
 }
 
 void Board::drawMatrix(std::vector<std::vector< uint8_t>>& matrix) {
@@ -43,4 +43,15 @@ bool Board::isOccupied(uint8_t line, uint8_t column)
 		return false;
 	}
 	return true;
+}
+
+void Board::reset()
+{
+	for (uint8_t i = 0; i < m_line; ++i)
+	{
+		for (uint8_t j = 0; j < m_column; ++j)
+		{
+			m_matrix[i][j] = 0;
+		}
+	}
 }
