@@ -14,12 +14,22 @@ uint8_t Board::getColumn() const {
 	return m_column;
 }
 
+uint8_t Board::getValue(uint8_t line, uint8_t column) const
+{
+	return 0;
+}
+
 void Board::setLine(uint8_t line) {
 	m_line = line;
 }
 
 void Board::setColumn(uint8_t column) {
 	m_column = column;
+}
+
+uint8_t Board::getValue(uint8_t line, uint8_t column) const
+{
+	return m_matrix[line][column];
 }
 
 void Board::drawMatrix(std::vector<std::vector< uint8_t>>& matrix) {

@@ -25,6 +25,11 @@ void BoardWidget::onCellClicked()
 	}
 }
 
+void BoardWidget::removePiece(int row, int col)
+{
+	board.setValue(row, col, 0);
+}
+
 BoardWidget::BoardWidget(QWidget* parent) :
 	QMainWindow{ parent }
 {
