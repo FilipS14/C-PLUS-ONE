@@ -59,6 +59,20 @@ void Cell::setBulldozered()
 	m_isBulldozered = true;
 }
 
+void Cell::clearCell()
+{
+	m_ocupied = false; 
+	m_isMined = false; 
+	m_isBulldozered = false; 
+}
+
+void Cell::resetCell()
+{
+	m_ocupied = false;
+	m_isMined = false;
+	m_isBulldozered = false;
+}
+
 
 Cell& Cell::operator=(const Cell& cell)
 {

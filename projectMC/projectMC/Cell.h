@@ -17,6 +17,8 @@ public:
 	void setY(uint8_t y);
 	void setMined();
 	void setBulldozered();
+	void clearCell();
+	void resetCell();
 	Cell& operator=(const Cell& cell);
 
 private:
