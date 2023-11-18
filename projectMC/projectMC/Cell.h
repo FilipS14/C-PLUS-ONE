@@ -17,6 +17,7 @@ public:
 	void setY(uint8_t y);
 	void setMined();
 	void setBulldozered();
+	Cell& operator=(const Cell& cell);
 
 private:
 	bool m_ocupied;
