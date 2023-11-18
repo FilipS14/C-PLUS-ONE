@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    BoardWidget w;
+    MainMenu w;
     w.show();
     return a.exec();
 }
