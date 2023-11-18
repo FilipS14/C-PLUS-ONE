@@ -58,3 +58,40 @@ void Cell::setBulldozered()
 {
 	m_isBulldozered = true;
 }
+
+void Cell::clearCell()
+{
+	m_ocupied = false; 
+	m_isMined = false; 
+	m_isBulldozered = false; 
+}
+
+void Cell::resetCell()
+{
+	m_ocupied = false;
+	m_isMined = false;
+	m_isBulldozered = false;
+}
+
+bool Cell::emptyCell()
+{
+	return m_ocupied == false;
+}
+
+bool Cell::safeCell()
+{
+	return (!m_isMined && !m_isBulldozered);
+}
+
+
+Cell& Cell::operator=(const Cell& cell)
+{
+	if (this != &cell)
+	{
+		m_x = cell.m_x;
+		m_y = cell.m_y;
+		m_isBulldozered = cell.m_isBulldozered;
+		m_isMined = cell.m_isMined;
+		m_ocupied = cell.m_ocupied;
+	}
+}

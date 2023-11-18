@@ -5,7 +5,7 @@
 
 MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle("Twixt Game - Meniu Principal");
-    resize(200, 300);
+    setFixedSize(220, 250);
 
     QVBoxLayout* layout = new QVBoxLayout;
 
