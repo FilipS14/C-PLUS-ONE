@@ -24,4 +24,4 @@ private:
     BoardWidget* boardWidget;
 };
 
-#endif // MAINWINDOW_H
+#endif
