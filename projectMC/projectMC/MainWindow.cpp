@@ -8,6 +8,13 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	mainLayout->addWidget(mainMenu);
 	mainLayout->addWidget(boardWidget);
+
+	QWidget* centralWidget = new QWidget(this);
+	centralWidget->setLayout(mainLayout);
+	setCentralWidget(centralWidget);
+
+	connect(mainMenu, SIGNAL(startGameSignal()), this, SLOT(startGame()));
+	connect(mainMenu, SIGNAL(showInstructionsSignal()), this, SLOT(showInstructions()));
 	
 	mainMenu->show();
 	boardWidget->hide();
