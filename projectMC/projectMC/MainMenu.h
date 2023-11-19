@@ -9,7 +9,11 @@ class MainMenu : public QMainWindow {
 public:
     MainMenu(QWidget* parent = nullptr);
 
-private slots:
+signals:
+    void startGameSignal();
+    void showInstructionsSignal();
+
+public slots:
     void startGame();
     void showInstructions();
 

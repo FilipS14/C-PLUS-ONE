@@ -67,9 +67,9 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
 }
 
 void MainMenu::startGame() {
-
+    emit startGameSignal();
 }
 
 void MainMenu::showInstructions() {
-
+    emit showInstructionsSignal();
 }

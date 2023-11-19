@@ -96,8 +96,8 @@
     <ClCompile Include="BoardWidget.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Cell.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Pillar.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="projectMC.cpp" />
@@ -109,7 +109,7 @@
     <ClInclude Include="Bridge.h" />
     <ClInclude Include="Cell.h" />
     <QtMoc Include="MainMenu.h" />
-    <ClInclude Include="Game.h" />
+    <QtMoc Include="MainWindow.h" />
     <ClInclude Include="Pillar.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
