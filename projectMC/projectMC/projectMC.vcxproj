@@ -97,7 +97,6 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Pillar.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="projectMC.cpp" />
