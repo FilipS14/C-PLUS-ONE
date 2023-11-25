@@ -40,6 +40,12 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	painter.setPen(QPen(Qt::black, 2));
 	painter.drawRect(100, 100, 550, 550);
 	painter.fillRect(100, 100, 550, 550, Qt::gray);
+	painter.setPen(QPen(Qt::red, 2));
+	painter.drawLine(140, 134, 610, 134);//prima linie rosie
+	painter.drawLine(140, 617, 610, 617);//a doua line rosie
+	painter.setPen(QPen(Qt::black, 2));
+	painter.drawLine(133, 142, 133, 608);//prima linie negra
+	painter.drawLine(617, 142, 617, 608);// a doua linie neagra
 }
 
 BoardWidget::BoardWidget(QWidget* parent) :
