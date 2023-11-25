@@ -46,6 +46,8 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	painter.setPen(QPen(Qt::black, 2));
 	painter.drawLine(133, 142, 133, 608);//prima linie negra
 	painter.drawLine(617, 142, 617, 608);// a doua linie neagra
+
+	const int number = 25;
 }
 
 BoardWidget::BoardWidget(QWidget* parent) :
@@ -75,10 +77,19 @@ BoardWidget::BoardWidget(QWidget* parent) :
 				continue;
 			}
 			m_boardCells[row][col] = new QPushButton(mainWidget);
+			m_boardCells[row][col]->setFixedSize(6, 6);
 			m_boardCells[row][col]->setStyleSheet("background-color: white; border: 1px solid black; border-radius: 3px;");
 			boardLayout->addWidget(m_boardCells[row][col], row, col);
+
+			connect(m_boardCells[row][col], &QPushButton::clicked, this, &BoardWidget::onCellClicked);
 		}
 	}
+
+	mainLayout->addWidget(boardFrame, 0, Qt::AlignHCenter); // adaug frameul cu gridul in layoutul vertical al widget-ului principal si se centreaza orizontal
+
+
+	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));//adaug un spatiu in partea de jos a layoutului
+
 
 	setCentralWidget(mainWidget);
 }
