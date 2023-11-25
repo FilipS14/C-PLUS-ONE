@@ -46,25 +46,15 @@ BoardWidget::BoardWidget(QWidget* parent) :
 	QMainWindow{ parent }
 {
 	setWindowTitle("Twixt Game");
-	setFixedSize(700, 700);
-	m_gridLayout = new QGridLayout();
-	const int row = 25;
-	const int column = 25;
+	setFixedSize(750, 750);
 
-	for (size_t i = 0; i < row; ++i)
-	{
-		QList<QPushButton*>rowButtons;
-		for (size_t j = 0; j < column; ++j)
-		{
-			QPushButton* cellButton = new QPushButton(this);
-			connect(cellButton, &QPushButton::clicked, this, &BoardWidget::onCellClicked);
-			//G.board.getLine();
-			m_gridLayout->addWidget(cellButton, i, j);
-			rowButtons.append(cellButton);
-		}
-		m_boardCells.append(rowButtons);
-	}
-	QWidget* mainWidget = new QWidget();
-	mainWidget->setLayout(m_gridLayout);
-	setCentralWidget(mainWidget);
+	QWidget* mainWidget = new QWidget(this);//creez un widget principal
+
+	QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget);//creez un layout vertical pentru widgetul principal
+
+	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));//adaug un spatiu in partea de sus a layout ului
+
+	QFrame* boardFrame = new QFrame(mainWidget);//aici pun grid-ul cu celule
+
+	QGridLayout* boardLayout = new QGridLayout(boardFrame);//creez un gridlayout pentru boardFrame
 }
