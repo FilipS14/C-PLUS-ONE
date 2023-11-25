@@ -35,6 +35,13 @@ void BoardWidget::removePiece(int row, int col)
 	board.setValue(row, col, 0);
 }
 
+void BoardWidget::paintEvent(QPaintEvent* event) {
+	QPainter painter(this);
+	painter.setPen(QPen(Qt::black, 2));
+	painter.drawRect(100, 100, 550, 550);
+	painter.fillRect(100, 100, 550, 550, Qt::gray);
+}
+
 BoardWidget::BoardWidget(QWidget* parent) :
 	QMainWindow{ parent }
 {
@@ -51,6 +58,7 @@ BoardWidget::BoardWidget(QWidget* parent) :
 		{
 			QPushButton* cellButton = new QPushButton(this);
 			connect(cellButton, &QPushButton::clicked, this, &BoardWidget::onCellClicked);
+			//G.board.getLine();
 			m_gridLayout->addWidget(cellButton, i, j);
 			rowButtons.append(cellButton);
 		}

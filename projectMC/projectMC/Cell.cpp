@@ -94,4 +94,5 @@ Cell& Cell::operator=(const Cell& cell)
 		m_isMined = cell.m_isMined;
 		m_ocupied = cell.m_ocupied;
 	}
+	return *this;
 }

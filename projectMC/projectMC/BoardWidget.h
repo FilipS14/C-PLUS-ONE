@@ -3,6 +3,12 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include "Board.h"
+#include <QMainWindow>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QFrame>
+#include <QLabel>
+#include <qpainter.h>
 
 class BoardWidget : public QMainWindow
 {
@@ -16,6 +22,8 @@ public:
 	void resetBoard();
 	void displayGameOverMessage();
 	void removePiece(int row, int col);
+protected:
+	void paintEvent(QPaintEvent* event) override;\
 
 private:
 	QGridLayout* m_gridLayout;
