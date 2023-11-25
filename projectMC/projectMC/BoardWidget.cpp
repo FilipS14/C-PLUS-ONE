@@ -62,5 +62,12 @@ BoardWidget::BoardWidget(QWidget* parent) :
 
 	QFrame* boardFrame = new QFrame(mainWidget);//aici pun grid-ul cu celule
 
-	QGridLayout* boardLayout = new QGridLayout(boardFrame);//creez un gridlayout pentru boardFrame
+	boardLayout = new QGridLayout(boardFrame);//creez un gridlayout pentru boardFrame
+	
+	boardLayout->setSpacing(15);
+	const int numRows = 25;
+	const int numCols = 25;
+	m_boardCells.resize(numRows, QVector<QPushButton*>(numCols));
+
+	setCentralWidget(mainWidget);
 }

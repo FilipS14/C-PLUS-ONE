@@ -26,7 +26,7 @@ protected:
 	void paintEvent(QPaintEvent* event) override;\
 
 private:
-	QGridLayout* m_gridLayout;
+	QGridLayout* boardLayout;
 	QList<QList<QPushButton*>>m_boardCells;
 	bool m_isBlack = false;//pentru a incepe sa coloreze cu rosu
 	Board board;
