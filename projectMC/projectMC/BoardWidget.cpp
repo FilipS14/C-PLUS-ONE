@@ -48,6 +48,15 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	painter.drawLine(617, 142, 617, 608);// a doua linie neagra
 
 	const int number = 25;
+
+	for (int num = 1; num <= number; num++) {
+		QString letter = QChar('A' + num - 1);
+		painter.drawText(95 + num * 21, 100, 13, 15, Qt::AlignCenter, letter);
+		painter.drawText(95 + num * 21, 633, 13, 15, Qt::AlignCenter, letter);
+
+		painter.drawText(102, 95 + num * 21, 12, 12, Qt::AlignCenter, QString::number(num));
+		painter.drawText(635, 95 + num * 21, 12, 12, Qt::AlignCenter, QString::number(num));
+	}
 }
 
 BoardWidget::BoardWidget(QWidget* parent) :
