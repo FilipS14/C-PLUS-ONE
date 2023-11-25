@@ -69,5 +69,16 @@ BoardWidget::BoardWidget(QWidget* parent) :
 	const int numCols = 25;
 	m_boardCells.resize(numRows, QVector<QPushButton*>(numCols));
 
+	for (int row = 0; row < numRows; row++) {
+		for (int col = 0; col < numCols; col++) {
+			if ((row == 0 && col == 0) || (row == numRows - 1 && col == numCols - 1) || (row == numRows - 1 && col == 0) || (row == 0 && col == numCols - 1)) {
+				continue;
+			}
+			m_boardCells[row][col] = new QPushButton(mainWidget);
+			m_boardCells[row][col]->setStyleSheet("background-color: white; border: 1px solid black; border-radius: 3px;");
+			boardLayout->addWidget(m_boardCells[row][col], row, col);
+		}
+	}
+
 	setCentralWidget(mainWidget);
 }
