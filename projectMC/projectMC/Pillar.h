@@ -9,6 +9,7 @@ private:
 	uint8_t m_coordX, m_coordY;
 	Team m_team;
 	bool m_isConnected;
+
 public:
 	Pillar(uint8_t coordX, uint8_t coordY, Team team);
 	Pillar(const Pillar& p);
