@@ -21,5 +21,7 @@ public:
 	void setColor(std::string color);
 	void displaiInfo();
 	bool player_won();
+	void setTurn(bool turn);
+	bool getTurn() const;
 
 };

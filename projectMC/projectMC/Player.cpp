@@ -37,3 +37,13 @@ bool Player::player_won()
 {
 	return m_status;
 }
+
+void Player::setTurn(bool turn)
+{
+	m_player1_turn = turn;
+}
+
+bool Player::getTurn() const
+{
+	return m_player1_turn;
+}
