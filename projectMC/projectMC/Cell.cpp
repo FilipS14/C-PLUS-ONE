@@ -86,6 +86,13 @@ bool Cell::safeCell()
 
 bool Cell::isConnectedTo(const Cell& cell) const
 {
+	for (const Cell* connected_cell : m_connectedCells)
+	{
+		if (connected_cell == &cell)
+		{
+			return true;
+		}
+	}
 	return false;
 }
 

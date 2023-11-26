@@ -1,9 +1,10 @@
 #include"Player.h"
 
-Player::Player(std::string nume, std::string culoare, bool status) :
+Player::Player(std::string nume, std::string culoare, bool status, bool player1_turn) :
 	m_name{ nume },
 	m_color{ culoare } ,
-	m_status{ status }
+	m_status{ status },
+	m_player1_turn{player1_turn}
 {}
 
 std::string Player::getName() const {
