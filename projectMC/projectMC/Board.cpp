@@ -45,6 +45,23 @@ bool Board::isOccupied(uint8_t line, uint8_t column)
 	return true;
 }
 
+bool Board::isValidMove(uint8_t line, uint8_t column, bool isBlack)
+{
+	if (m_matrix[line][column] == 1)
+	{
+		return false;
+	}
+	else if(isBlack == true && (line < 1 || line > m_matrix.size() - 2))
+	{
+		return false;
+	}
+	else if (isBlack == false && (column < 1 || column  > m_matrix[line].size() - 2)
+	{
+		return false;
+	}
+	return true;
+}
+
 void Board::reset()
 {
 	for (uint8_t i = 0; i < m_line; ++i)
