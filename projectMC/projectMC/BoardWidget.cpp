@@ -15,11 +15,11 @@ void BoardWidget::onCellClicked()
 	{
 		if (getIsBlack())
 		{
-			clickedButton->setStyleSheet("background-color: black; border: 1px solid black; border-radius: 5px;");
+			clickedButton->setStyleSheet("background-color: black; border: 1px solid black; border-radius: 7px;");
 		}
 		else
 		{
-			clickedButton->setStyleSheet("background-color: red; border: 1px solid black; border-radius: 5px;");
+			clickedButton->setStyleSheet("background-color: red; border: 1px solid black; border-radius: 7px;");
 		}
 		setIsBlack(!getIsBlack());
 	}
@@ -39,7 +39,7 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	QPainter painter(this);
 	painter.setPen(QPen(Qt::black, 2));
 	painter.drawRect(100, 100, 550, 550);
-	painter.fillRect(100, 100, 550, 550, Qt::gray);
+	painter.fillRect(100, 100, 550, 550, "#deb887");
 	painter.setPen(QPen(Qt::red, 2));
 	painter.drawLine(140, 134, 610, 134);//prima linie rosie
 	painter.drawLine(140, 617, 610, 617);//a doua line rosie

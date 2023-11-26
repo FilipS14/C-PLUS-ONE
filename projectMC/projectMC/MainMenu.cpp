@@ -5,7 +5,7 @@
 
 MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle("Twixt Game - Meniu Principal");
-    setFixedSize(220, 250);
+    setFixedSize(750, 750);
 
     QVBoxLayout* layout = new QVBoxLayout;
 
@@ -59,7 +59,7 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
 
     QWidget* centralWidget = new QWidget;
     centralWidget->setLayout(layout);
-    setCentralWidget(centralWidget);  
+    setCentralWidget(centralWidget);
 
     // Conectez butoanele la functiile corespunzatoare
     connect(startButton, SIGNAL(clicked()), this, SLOT(startGame()));
