@@ -5,14 +5,14 @@
 
 MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle("Twixt Game - Meniu Principal");
-    setFixedSize(750, 750);
 
-    QVBoxLayout* layout = new QVBoxLayout;
+    QWidget* mainWidget = new QWidget(this);
 
-    // Adaug un spatiu vertical in partea de sus a ferestrei
-    QWidget* topSpacer = new QWidget();
-    topSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    layout->addWidget(topSpacer);
+    QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget); // Creez layout vertical
+    QHBoxLayout* centerLayout = new QHBoxLayout;           // Creez layout orizontal
+
+    mainLayout->setContentsMargins(0, 200, 0, 0);
+
 
     QString backgroundStyle = "MainMenu {"
         "background-image: url(/Users/Filip/Desktop/facultate/anul2/sem1/mc/wood.jpg);"
@@ -48,17 +48,17 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     instructionsButton->setFixedSize(buttonSize);
     leaderboardButton->setFixedSize(buttonSize);
 
-    layout->addWidget(startButton);
-    layout->addWidget(instructionsButton);
-    layout->addWidget(leaderboardButton);
+    mainLayout->addWidget(startButton);
+    mainLayout->addWidget(instructionsButton);
+    mainLayout->addWidget(leaderboardButton);
 
     // Adaug un spatiu vertical in partea de jos a ferestrei
     QWidget* bottomSpacer = new QWidget();
     bottomSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    layout->addWidget(bottomSpacer);
+    mainLayout->addWidget(bottomSpacer);
 
     QWidget* centralWidget = new QWidget;
-    centralWidget->setLayout(layout);
+    centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
 
     // Conectez butoanele la functiile corespunzatoare
