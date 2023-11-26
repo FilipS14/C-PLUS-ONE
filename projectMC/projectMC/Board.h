@@ -15,7 +15,6 @@ public:
 	void setLine(uint8_t line);
 	void setColumn(uint8_t column);
 	void setValue(uint8_t line, uint8_t column, uint8_t value);
-	void drawMatrix(std::vector<std::vector< uint8_t>>& matrix);
 	bool isOccupied(uint8_t line, uint8_t column);
 	bool isValidMove(uint8_t line, uint8_t column, bool isBlack);
 	void reset();

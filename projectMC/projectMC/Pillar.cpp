@@ -20,6 +20,11 @@ uint8_t Pillar::getCoordY() const {
 	return m_coordY;
 }
 
+uint8_t Pillar::getIsConnected() const
+{
+	return m_isConnected;
+}
+
 Team Pillar::getTeam() const {
 	return m_team;
 }
@@ -38,6 +43,11 @@ void Pillar::setCoordY(uint8_t coordY) {
 		return;
 	}
 	m_coordY = coordY;
+}
+
+void Pillar::setIsConnected(uint8_t isConnected)
+{
+	m_isConnected = isConnected;
 }
 
 void Pillar::setTeam(Team team)
