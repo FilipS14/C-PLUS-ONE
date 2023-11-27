@@ -1,12 +1,13 @@
 #include"Cell.h"
 
-Cell::Cell(bool ocupied, uint8_t x, uint8_t y, bool isMined, bool isBulldozered) :
-	m_ocupied{ ocupied },
+Cell::Cell(bool ocupied, uint8_t x, uint8_t y, bool isMined, bool isBulldozered, std::vector<const Cell*> connectedCells) :
+	m_ocupied{ ocupied},
 	m_x{ x },
 	m_y{ y },
 	m_isMined{ isMined },
-	m_isBulldozered{ isBulldozered } {
-}
+	m_isBulldozered{ isBulldozered },
+	m_connectedCells{connectedCells}
+{}
 
 Cell::Cell() :
 	m_ocupied{ false },
@@ -81,6 +82,18 @@ bool Cell::emptyCell()
 bool Cell::safeCell()
 {
 	return (!m_isMined && !m_isBulldozered);
+}
+
+bool Cell::isConnectedTo(const Cell& cell) const
+{
+	for (const Cell* connected_cell : m_connectedCells)
+	{
+		if (connected_cell == &cell)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 

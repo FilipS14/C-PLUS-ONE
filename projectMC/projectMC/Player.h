@@ -8,10 +8,11 @@ private:
 	std::string m_name;
 	std::string m_color;
 	bool m_status;
+	bool m_player1_turn;
 
 public:
 	Player() = default;
-	Player(std::string name, std::string color, bool status);
+	Player(std::string name, std::string color, bool status, bool player1_turn);
 	~Player() = default;
 	std::string getName() const;
 	std::string getColor() const;
@@ -20,5 +21,7 @@ public:
 	void setColor(std::string color);
 	void displaiInfo();
 	bool player_won();
+	void setTurn(bool turn);
+	bool getTurn() const;
 
 };

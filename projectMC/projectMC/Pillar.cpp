@@ -45,10 +45,11 @@ void Pillar::setCoordY(uint8_t coordY) {
 	m_coordY = coordY;
 }
 
-void Pillar::setIsConnected(uint8_t isConnected)
+void Pillar::setIsConneted(uint8_t isConnected)
 {
-	m_isConnected = isConnected;
+	m_isConnected = isConnected; 
 }
+
 
 void Pillar::setTeam(Team team)
 {

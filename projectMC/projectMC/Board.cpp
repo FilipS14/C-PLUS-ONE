@@ -16,7 +16,7 @@ uint8_t Board::getColumn() const {
 
 uint8_t Board::getValue(uint8_t line, uint8_t column) const
 {
-	return matrix[line][column];
+	return m_matrix[line][column];
 }
 
 void Board::setLine(uint8_t line) {
@@ -51,7 +51,7 @@ bool Board::isValidMove(uint8_t line, uint8_t column, bool isBlack)
 	{
 		return false;
 	}
-	else if (isBlack == false && (column < 1 || column  > m_matrix[line].size() - 2)
+	else if (isBlack == false && (column < 1 || column  > m_matrix[line].size() - 2))
 	{
 		return false;
 	}
