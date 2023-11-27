@@ -21,4 +21,5 @@ private:
     QPushButton* startButton;
     QPushButton* instructionsButton;
     QPushButton* leaderboardButton;
+    QPushButton* optionButton;
 };

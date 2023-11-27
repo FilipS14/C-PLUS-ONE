@@ -1,6 +1,7 @@
 ﻿#include "MainMenu.h"
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QLabel>
 
 
 MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
@@ -13,21 +14,19 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
 
     mainLayout->setContentsMargins(0, 200, 0, 0);
 
+    QLabel* logoLabel = new QLabel(mainWidget);
+    QPixmap logoPixMap("/Users/Filip/Desktop/facultate/LogoTwixt.png");
+    logoLabel->setPixmap(logoPixMap.scaledToWidth(200));
 
-    QString backgroundStyle = "MainMenu {"
-        "background-image: url(/Users/Filip/Desktop/facultate/anul2/sem1/mc/wood.jpg);"
-        "background-repeat: no-repeat;"
-        "background-position: center;"
-        "}";
-
-    this->setStyleSheet(backgroundStyle);
+    logoLabel->setGeometry(265, 100, 200, 200);
 
     // Stilizez butoanele folosind CSS
     QString buttonStyle = "QPushButton {"
         "background-color: #D2691E;"
-        "border: 1px solid #000000;"
+        "border: 3px solid #000000;"
         "color: #ffffff;"
-        "font-size: 18px;"
+        "font: Bold;"
+        "font-size: 40px;"
         "padding: 10px 20px;"
         "}"
         "QPushButton:hover {"
@@ -43,27 +42,23 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     leaderboardButton->setStyleSheet(buttonStyle);
 
     // Setez dimensiunile butoanelor
-    QSize buttonSize(200, 50);
+    QSize buttonSize(400, 85);
     startButton->setFixedSize(buttonSize);
     instructionsButton->setFixedSize(buttonSize);
     leaderboardButton->setFixedSize(buttonSize);
 
+    // Adaug butoanele intr-un layout vertical
     mainLayout->addWidget(startButton);
     mainLayout->addWidget(instructionsButton);
     mainLayout->addWidget(leaderboardButton);
 
-    // Adaug un spatiu vertical in partea de jos a ferestrei
-    QWidget* bottomSpacer = new QWidget();
-    bottomSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    mainLayout->addWidget(bottomSpacer);
-
-    QWidget* centralWidget = new QWidget;
-    centralWidget->setLayout(mainLayout);
-    setCentralWidget(centralWidget);
-
     // Conectez butoanele la functiile corespunzatoare
     connect(startButton, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(instructionsButton, SIGNAL(clicked()), this, SLOT(showInstructions()));
+
+    mainLayout->setAlignment(Qt::AlignHCenter);
+    mainWidget->setLayout(mainLayout);
+    setCentralWidget(mainWidget);
 }
 
 void MainMenu::startGame() {
