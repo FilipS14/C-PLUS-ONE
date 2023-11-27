@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	setCentralWidget(centralWidget);
 
 	connect(mainMenu, SIGNAL(startGameSignal()), this, SLOT(startGame()));
+	connect(boardWidget, SIGNAL(backToMenuSignal()), this, SLOT(backToMenu()));
 	connect(mainMenu, SIGNAL(showInstructionsSignal()), this, SLOT(showInstructions()));
 	
 	mainMenu->show();
@@ -39,6 +40,11 @@ MainWindow::~MainWindow() {
 void MainWindow::startGame() {
 	mainMenu->hide();
 	boardWidget->show();
+}
+
+void MainWindow::backToMenu() {
+	boardWidget->hide();
+	mainMenu->show();
 }
 
 void MainWindow::showInstructions() {

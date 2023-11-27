@@ -12,6 +12,7 @@ public:
 signals:
     void startGameSignal();
     void showInstructionsSignal();
+    void showOptionSignal();
 
 public slots:
     void startGame();

@@ -22,10 +22,19 @@ public:
 	void resetBoard();
 	void displayGameOverMessage();
 	void removePiece(int row, int col);
+	void addBackButton(QWidget* widget);
+
 protected:
-	void paintEvent(QPaintEvent* event) override;\
+	void paintEvent(QPaintEvent* event) override;
+
+signals:
+	void backToMenuSignal();
+
+public slots:
+	void backToMenu();
 
 private:
+	QPushButton* backButton;
 	QGridLayout* boardLayout;
 	QList<QList<QPushButton*>>m_boardCells;
 	bool m_isBlack = false;//pentru a incepe sa coloreze cu rosu

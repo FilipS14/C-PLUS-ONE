@@ -1,5 +1,15 @@
 #include "BoardWidget.h";
 
+void BoardWidget::backToMenu() {
+	emit backToMenuSignal();
+}
+
+void BoardWidget::addBackButton(QWidget* widget) {
+	backButton = new QPushButton(widget);
+	backButton->setGeometry(10, 10, 30, 30);
+	connect(backButton, SIGNAL(clicked()), this, SLOT(backToMenu()));
+}
+
 bool BoardWidget::getIsBlack() const {
 	return m_isBlack;
 }
@@ -67,6 +77,8 @@ BoardWidget::BoardWidget(QWidget* parent) :
 
 	QWidget* mainWidget = new QWidget(this);//creez un widget principal
 
+	addBackButton(mainWidget);
+
 	QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget);//creez un layout vertical pentru widgetul principal
 
 	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));//adaug un spatiu in partea de sus a layout ului
@@ -99,6 +111,6 @@ BoardWidget::BoardWidget(QWidget* parent) :
 
 	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));//adaug un spatiu in partea de jos a layoutului
 
-
+	
 	setCentralWidget(mainWidget);
 }
