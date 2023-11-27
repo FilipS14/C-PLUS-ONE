@@ -5,7 +5,20 @@ void BoardWidget::backToMenu() {
 }
 
 void BoardWidget::addBackButton(QWidget* widget) {
+	QString buttonStyle = "QPushButton {"
+		"background-color: #D2691E;"
+		"background-image: url(/Users/Filip/Desktop/facultate/backToMenu.jpg);"
+		"border: 2px solid #000000;"
+		"color: #ffffff;"
+		"font: Bold;"
+		"font-size: 40px;"
+		"padding: 10px 20px;"
+		"}"
+		"QPushButton:hover {"
+		"background-color: #DEB887;"
+		"}";
 	backButton = new QPushButton(widget);
+	backButton->setStyleSheet(buttonStyle);
 	backButton->setGeometry(10, 10, 30, 30);
 	connect(backButton, SIGNAL(clicked()), this, SLOT(backToMenu()));
 }
