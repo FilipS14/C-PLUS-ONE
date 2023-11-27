@@ -16,10 +16,11 @@ signals:
 public slots:
     void startGame();
     void showInstructions();
+    void showOptions();
 
 private:
     QPushButton* startButton;
     QPushButton* instructionsButton;
     QPushButton* leaderboardButton;
-    QPushButton* optionButton;
+    QPushButton* optionsButton;
 };

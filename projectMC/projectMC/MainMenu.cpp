@@ -12,13 +12,13 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget); // Creez layout vertical
     QHBoxLayout* centerLayout = new QHBoxLayout;           // Creez layout orizontal
 
-    mainLayout->setContentsMargins(0, 200, 0, 0);
+    mainLayout->setContentsMargins(0, 250, 0, 0);
 
     QLabel* logoLabel = new QLabel(mainWidget);
     QPixmap logoPixMap("/Users/Filip/Desktop/facultate/LogoTwixt.png");
     logoLabel->setPixmap(logoPixMap.scaledToWidth(200));
 
-    logoLabel->setGeometry(265, 100, 200, 200);
+    logoLabel->setGeometry(265, 70, 200, 200);
 
     // Stilizez butoanele folosind CSS
     QString buttonStyle = "QPushButton {"
@@ -34,26 +34,33 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
         "}";
 
     startButton = new QPushButton("Start Game");
+    optionsButton = new QPushButton("Options");
     instructionsButton = new QPushButton("Instructions");
     leaderboardButton = new QPushButton("LeaderBoard");
+    
 
     startButton->setStyleSheet(buttonStyle);
+    optionsButton->setStyleSheet(buttonStyle);
     instructionsButton->setStyleSheet(buttonStyle);
     leaderboardButton->setStyleSheet(buttonStyle);
+    
 
     // Setez dimensiunile butoanelor
     QSize buttonSize(400, 85);
     startButton->setFixedSize(buttonSize);
+    optionsButton->setFixedSize(buttonSize);
     instructionsButton->setFixedSize(buttonSize);
     leaderboardButton->setFixedSize(buttonSize);
 
     // Adaug butoanele intr-un layout vertical
     mainLayout->addWidget(startButton);
+    mainLayout->addWidget(optionsButton);
     mainLayout->addWidget(instructionsButton);
     mainLayout->addWidget(leaderboardButton);
 
     // Conectez butoanele la functiile corespunzatoare
     connect(startButton, SIGNAL(clicked()), this, SLOT(startGame()));
+    connect(optionsButton, SIGNAL(clicked()), this, SLOT(showOption()));
     connect(instructionsButton, SIGNAL(clicked()), this, SLOT(showInstructions()));
 
     mainLayout->setAlignment(Qt::AlignHCenter);
@@ -67,4 +74,7 @@ void MainMenu::startGame() {
 
 void MainMenu::showInstructions() {
     emit showInstructionsSignal();
+}
+
+void MainMenu::showOptions() {
 }
