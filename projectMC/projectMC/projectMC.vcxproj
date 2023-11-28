@@ -111,6 +111,7 @@
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Instruction.cpp" />
+    <ClCompile Include="LeaderBoard.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Option.cpp" />
@@ -128,6 +129,7 @@
     <QtMoc Include="MainWindow.h" />
     <QtMoc Include="Instruction.h" />
     <QtMoc Include="Option.h" />
+    <QtMoc Include="LeaderBoard.h" />
     <ClInclude Include="Pillar.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

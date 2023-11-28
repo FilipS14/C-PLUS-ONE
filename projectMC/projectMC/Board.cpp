@@ -60,9 +60,9 @@ bool Board::isValidMove(uint8_t line, uint8_t column, bool isBlack)
 
 void Board::reset()
 {
-	for (uint8_t i = 0; i < m_line; ++i)
+	for (size_t i = 0; i < m_line; ++i)
 	{
-		for (uint8_t j = 0; j < m_column; ++j)
+		for (size_t j = 0; j < m_column; ++j)
 		{
 			m_matrix[i][j] = 0;
 		}

@@ -70,6 +70,9 @@
     <ClCompile Include="Option.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LeaderBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Option.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="LeaderBoard.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

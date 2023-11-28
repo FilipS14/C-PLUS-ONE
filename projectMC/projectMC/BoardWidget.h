@@ -1,13 +1,12 @@
 #pragma once
-#include <QtWidgets/QMainWindow>
-#include <QGridLayout>
-#include <QPushButton>
-#include "Board.h"
+#ifndef BOARDWIDGET_H
+#define BOARDWIDGET_H
+
 #include <QMainWindow>
+#include <QWidget>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QFrame>
-#include <QLabel>
 #include <qpainter.h>
 
 class BoardWidget : public QMainWindow
@@ -20,9 +19,22 @@ public:
 	void setIsBlack(bool isBlack);
 	void onCellClicked();
 	void resetBoard();
-	void displayGameOverMessage();
 	void removePiece(int row, int col);
+
+private:
+	void initializeUI();
+	QWidget* createMainWidget();
 	void addBackButton(QWidget* widget);
+	QVBoxLayout* createMainLayout(QWidget* mainWidget);
+	QFrame* createBoardFrame(QWidget* mainWidget);
+	void setupBoardCells();
+	void addWidgetsToLayout(QVBoxLayout* mainLayout, QFrame* boardFrame);
+	bool isCornerCell(size_t row, size_t col) const;
+
+	QPushButton* m_backButton;
+	QGridLayout* m_boardLayout;
+	QVector<QVector<QPushButton*>>m_boardCells;
+	bool m_isBlack;
 
 protected:
 	void paintEvent(QPaintEvent* event) override;
@@ -32,11 +44,6 @@ signals:
 
 public slots:
 	void backToMenu();
-
-private:
-	QPushButton* backButton;
-	QGridLayout* boardLayout;
-	QList<QList<QPushButton*>>m_boardCells;
-	bool m_isBlack = false;//pentru a incepe sa coloreze cu rosu
-	Board board;
 };
+
+#endif

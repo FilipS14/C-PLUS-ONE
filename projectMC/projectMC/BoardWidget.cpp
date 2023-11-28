@@ -38,7 +38,7 @@ void BoardWidget::onCellClicked()
 	{
 		if (getIsBlack())
 		{
-			clickedButton->setStyleSheet("background-color: black; border: 1px solid black; border-radius: 7px;");
+			clickedButton->setStyleSheet("background-color: black; border: 1px solid black; border-radius: 10px;");
 		}
 		else
 		{
@@ -70,9 +70,9 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	painter.drawLine(133, 142, 133, 608);//prima linie negra
 	painter.drawLine(617, 142, 617, 608);// a doua linie neagra
 
-	const int number = 25;
+	const uint8_t number = 25;
 
-	for (int num = 1; num <= number; num++) {
+	for (uint8_t num = 1; num <= number; num++) {
 		QString letter = QChar('A' + num - 1);
 		painter.drawText(95 + num * 21, 100, 13, 15, Qt::AlignCenter, letter);
 		painter.drawText(95 + num * 21, 633, 13, 15, Qt::AlignCenter, letter);
@@ -101,17 +101,17 @@ BoardWidget::BoardWidget(QWidget* parent) :
 	boardLayout = new QGridLayout(boardFrame);//creez un gridlayout pentru boardFrame
 	
 	boardLayout->setSpacing(15);
-	const int numRows = 25;
-	const int numCols = 25;
+	const uint8_t numRows = 25;
+	const uint8_t numCols = 25;
 	m_boardCells.resize(numRows, QVector<QPushButton*>(numCols));
 
-	for (int row = 0; row < numRows; row++) {
-		for (int col = 0; col < numCols; col++) {
+	for (size_t row = 0; row < numRows; row++) {
+		for (size_t col = 0; col < numCols; col++) {
 			if ((row == 0 && col == 0) || (row == numRows - 1 && col == numCols - 1) || (row == numRows - 1 && col == 0) || (row == 0 && col == numCols - 1)) {
 				continue;
 			}
 			m_boardCells[row][col] = new QPushButton(mainWidget);
-			m_boardCells[row][col]->setFixedSize(6, 6);
+			m_boardCells[row][col]->setFixedSize(7, 7);
 			m_boardCells[row][col]->setStyleSheet("background-color: white; border: 1px solid black; border-radius: 3px;");
 			boardLayout->addWidget(m_boardCells[row][col], row, col);
 
