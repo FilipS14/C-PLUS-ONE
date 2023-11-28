@@ -1,5 +1,7 @@
 #pragma once
 #include <QMainWindow>
+#include <QWidget>
+#include "QVBoxLayout";
 
 class Option : public QMainWindow
 {
