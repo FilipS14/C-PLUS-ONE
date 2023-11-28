@@ -2,6 +2,8 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 class Instruction : public QMainWindow
 {
@@ -9,9 +11,13 @@ class Instruction : public QMainWindow
 public:
 	Instruction(QWidget* parent = nullptr);
 	~Instruction() = default;
+	void addBackButton(QWidget*);
+signals:
+	void goBackToMenuSignal();
+
 public slots:
-	void backToMenu();
+	void goBackToMenu();
 
 private:
-	
+	QPushButton *goBackButton;
 };

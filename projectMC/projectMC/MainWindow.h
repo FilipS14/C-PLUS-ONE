@@ -18,6 +18,7 @@ public slots:
     void startGame();
     void showInstructions();
     void backToMenu();
+    void backToMenuIntruction();
 
 private:
     QVBoxLayout* mainLayout;
