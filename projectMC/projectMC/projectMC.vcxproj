@@ -110,6 +110,7 @@
     <ClCompile Include="BoardWidget.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="Instruction.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Pillar.cpp" />
@@ -124,7 +125,7 @@
     <ClInclude Include="Cell.h" />
     <QtMoc Include="MainMenu.h" />
     <QtMoc Include="MainWindow.h" />
-    <ClInclude Include="Instruction.h" />
+    <QtMoc Include="Instruction.h" />
     <ClInclude Include="Pillar.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

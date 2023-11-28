@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include "MainMenu.h"
 #include "BoardWidget.h"
+#include "Instruction.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -22,6 +23,7 @@ private:
     QVBoxLayout* mainLayout;
     MainMenu* mainMenu;
     BoardWidget* boardWidget;
+    Instruction* pageInstructions;
 };
 
 #endif

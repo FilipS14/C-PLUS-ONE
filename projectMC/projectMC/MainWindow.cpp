@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	mainLayout = new QVBoxLayout;
 	mainMenu = new MainMenu(this);
 	boardWidget = new BoardWidget(this);
+	pageInstructions = new Instruction(this);
 
 	QString backgroundStyle = "MainWindow {"
 		"background-image: url(/Users/Filip/Desktop/facultate/anul2/sem1/mc/backgroundWood.jpg);"
@@ -18,6 +19,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	mainLayout->addWidget(mainMenu);
 	mainLayout->addWidget(boardWidget);
+	mainLayout->addWidget(pageInstructions);
 
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setLayout(mainLayout);
@@ -48,5 +50,6 @@ void MainWindow::backToMenu() {
 }
 
 void MainWindow::showInstructions() {
-
+	mainMenu->hide();
+	pageInstructions->show();
 }

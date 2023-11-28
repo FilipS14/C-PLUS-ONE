@@ -8,7 +8,7 @@ class Instruction : public QMainWindow
 	Q_OBJECT
 public:
 	Instruction(QWidget* parent = nullptr);
-	~Instruction();
+	~Instruction() = default;
 public slots:
 	void backToMenu();
 

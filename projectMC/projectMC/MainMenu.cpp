@@ -12,7 +12,7 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget); // Creez layout vertical
     QHBoxLayout* centerLayout = new QHBoxLayout;           // Creez layout orizontal
 
-    mainLayout->setContentsMargins(0, 250, 0, 0);
+    mainLayout->setContentsMargins(0, 300, 0, 0);
 
     QLabel* logoLabel = new QLabel(mainWidget);
     QPixmap logoPixMap("/Users/Filip/Desktop/facultate/LogoTwixt.png");
