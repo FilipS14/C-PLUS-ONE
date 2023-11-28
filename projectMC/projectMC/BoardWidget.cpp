@@ -81,7 +81,17 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 		painter.drawText(635, 95 + num * 21, 12, 12, Qt::AlignCenter, QString::number(num));
 	}
 }
+//---------------------------------------------------------------------------------------------
 
+QWidget* BoardWidget::createMainWidget() {
+	return new QWidget(this);
+}
+
+QVBoxLayout* BoardWidget::createMainLayout(QWidget* mainWidget) {
+	QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget);
+	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));
+	return mainLayout;
+}
 
 void BoardWidget::initializeUI(){
 	setWindowTitle("Twixt Game");
