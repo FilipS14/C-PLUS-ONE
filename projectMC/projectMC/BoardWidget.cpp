@@ -82,48 +82,25 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	}
 }
 
-BoardWidget::BoardWidget(QWidget* parent) :
-	QMainWindow{ parent }
-{
+
+void BoardWidget::initializeUI(){
 	setWindowTitle("Twixt Game");
 	setFixedSize(750, 750);
 
-	QWidget* mainWidget = new QWidget(this);//creez un widget principal
-
+	QWidget* mainWidget = createMainWidget();
 	addBackButton(mainWidget);
 
-	QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget);//creez un layout vertical pentru widgetul principal
+	QVBoxLayout* mainLayout = createMainLayout(mainWidget);
+	QFrame* boardFrame = createBoardFrame(mainWidget);
 
-	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));//adaug un spatiu in partea de sus a layout ului
+	setupBoardCells();
+	addWidgetsToLayout(mainLayout, boardFrame);
 
-	QFrame* boardFrame = new QFrame(mainWidget);//aici pun grid-ul cu celule
-
-	boardLayout = new QGridLayout(boardFrame);//creez un gridlayout pentru boardFrame
-	
-	boardLayout->setSpacing(15);
-	const uint8_t numRows = 25;
-	const uint8_t numCols = 25;
-	m_boardCells.resize(numRows, QVector<QPushButton*>(numCols));
-
-	for (size_t row = 0; row < numRows; row++) {
-		for (size_t col = 0; col < numCols; col++) {
-			if ((row == 0 && col == 0) || (row == numRows - 1 && col == numCols - 1) || (row == numRows - 1 && col == 0) || (row == 0 && col == numCols - 1)) {
-				continue;
-			}
-			m_boardCells[row][col] = new QPushButton(mainWidget);
-			m_boardCells[row][col]->setFixedSize(7, 7);
-			m_boardCells[row][col]->setStyleSheet("background-color: white; border: 1px solid black; border-radius: 3px;");
-			boardLayout->addWidget(m_boardCells[row][col], row, col);
-
-			connect(m_boardCells[row][col], &QPushButton::clicked, this, &BoardWidget::onCellClicked);
-		}
-	}
-
-	mainLayout->addWidget(boardFrame, 0, Qt::AlignHCenter); // adaug frameul cu gridul in layoutul vertical al widget-ului principal si se centreaza orizontal
-
-
-	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));//adaug un spatiu in partea de jos a layoutului
-
-	
 	setCentralWidget(mainWidget);
 }
+
+
+BoardWidget::BoardWidget(QWidget* parent) :
+	QMainWindow{ parent },
+	m_isBlack{ false }
+{ initializeUI(); }
