@@ -83,6 +83,17 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 }
 //---------------------------------------------------------------------------------------------
 
+bool BoardWidget::isCornerCell(size_t row, size_t col) const {
+	return (row == 0 && col == 0) || (row == m_boardCells.size() - 1 && col == m_boardCells[0].size() - 1) ||
+		(row == m_boardCells.size() - 1 && col == 0) || (row == 0 && col == m_boardCells[0].size() - 1);
+}
+
+QFrame* BoardWidget::createBoardFrame(QWidget* mainWidget) {
+	QFrame* boardFrame = new QFrame(mainWidget);
+	m_boardLayout = new QGridLayout(boardFrame);
+	return boardFrame;
+}
+
 QWidget* BoardWidget::createMainWidget() {
 	return new QWidget(this);
 }
