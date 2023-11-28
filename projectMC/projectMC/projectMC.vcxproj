@@ -113,6 +113,7 @@
     <ClCompile Include="Instruction.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Option.cpp" />
     <ClCompile Include="Pillar.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="projectMC.cpp" />
@@ -126,6 +127,7 @@
     <QtMoc Include="MainMenu.h" />
     <QtMoc Include="MainWindow.h" />
     <QtMoc Include="Instruction.h" />
+    <QtMoc Include="Option.h" />
     <ClInclude Include="Pillar.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

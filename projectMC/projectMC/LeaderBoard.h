@@ -3,12 +3,12 @@
 #include <QWidget>
 #include <QVBoxLayout>
 
-class Option : public QMainWindow
+class LeaderBoard : public QMainWindow
 {
 	Q_OBJECT
 public:
-	Option(QWidget *parent = nullptr);
-	~Option() = default;
+	LeaderBoard(QWidget* parent = nullptr);
+	~LeaderBoard() = default;
 private:
 
 };
