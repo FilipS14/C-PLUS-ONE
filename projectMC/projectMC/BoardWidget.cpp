@@ -17,10 +17,10 @@ void BoardWidget::addBackButton(QWidget* widget) {
 		"QPushButton:hover {"
 		"background-color: #DEB887;"
 		"}";
-	backButton = new QPushButton(widget);
-	backButton->setStyleSheet(buttonStyle);
-	backButton->setGeometry(10, 10, 30, 30);
-	connect(backButton, SIGNAL(clicked()), this, SLOT(backToMenu()));
+	m_backButton = new QPushButton(widget);
+	m_backButton->setStyleSheet(buttonStyle);
+	m_backButton->setGeometry(10, 10, 30, 30);
+	connect(m_backButton, SIGNAL(clicked()), this, SLOT(backToMenu()));
 }
 
 bool BoardWidget::getIsBlack() const {
@@ -48,16 +48,6 @@ void BoardWidget::onCellClicked()
 	}
 }
 
-void BoardWidget::resetBoard()
-{
-	board.reset();
-}
-
-void BoardWidget::removePiece(int row, int col)
-{
-	board.setValue(row, col, 0);
-}
-
 void BoardWidget::paintEvent(QPaintEvent* event) {
 	QPainter painter(this);
 	painter.setPen(QPen(Qt::black, 2));
@@ -70,15 +60,15 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	painter.drawLine(133, 142, 133, 608);//prima linie negra
 	painter.drawLine(617, 142, 617, 608);// a doua linie neagra
 
-	const uint8_t number = 25;
+	const uint8_t number = 24;
 
 	for (uint8_t num = 1; num <= number; num++) {
 		QString letter = QChar('A' + num - 1);
-		painter.drawText(95 + num * 21, 100, 13, 15, Qt::AlignCenter, letter);
-		painter.drawText(95 + num * 21, 633, 13, 15, Qt::AlignCenter, letter);
+		painter.drawText(94 + num * 22, 100, 13, 15, Qt::AlignCenter, letter);
+		painter.drawText(94 + num * 22, 633, 13, 15, Qt::AlignCenter, letter);
 
-		painter.drawText(102, 95 + num * 21, 12, 12, Qt::AlignCenter, QString::number(num));
-		painter.drawText(635, 95 + num * 21, 12, 12, Qt::AlignCenter, QString::number(num));
+		painter.drawText(102, 94 + num * 22, 12, 12, Qt::AlignCenter, QString::number(num));
+		painter.drawText(635, 94 + num * 22, 12, 12, Qt::AlignCenter, QString::number(num));
 	}
 }
 //---------------------------------------------------------------------------------------------
@@ -88,18 +78,24 @@ bool BoardWidget::isCornerCell(size_t row, size_t col) const {
 		(row == m_boardCells.size() - 1 && col == 0) || (row == 0 && col == m_boardCells[0].size() - 1);
 }
 
+void BoardWidget::setCellStyle(QPushButton* cellButton) const
+{
+	QString style = "background-color: white; border: 1px solid black; border-radius: 3px;";
+	cellButton->setStyleSheet(style);
+}
+
 QFrame* BoardWidget::createBoardFrame(QWidget* mainWidget) {
 	QFrame* boardFrame = new QFrame(mainWidget);
 	m_boardLayout = new QGridLayout(boardFrame);
+	m_boardLayout->setSpacing(15);
 	return boardFrame;
 }
 
 void BoardWidget::setupBoardCells()
 {
-	const uint8_t numRows = 25;
-	const uint8_t numCols = 25;
+	const uint8_t numRows = 24;
+	const uint8_t numCols = 24;
 	m_boardCells.resize(numRows, QVector<QPushButton*>(numCols, nullptr));
-
 	for (size_t row = 0; row < numRows; row++) {
 		for (size_t col = 0; col < numCols; col++) {
 			if (isCornerCell(row, col)) {
@@ -113,12 +109,14 @@ void BoardWidget::setupBoardCells()
 void BoardWidget::setupBoardCell(size_t row, size_t col) {
 	m_boardCells[row][col] = new QPushButton(this);
 	m_boardCells[row][col]->setFixedSize(7, 7);
-
-	QString cellStyle = getCellStyle();
-	m_boardCells[row][col]->setStyleSheet(cellStyle);
-
+	setCellStyle(m_boardCells[row][col]);
 	m_boardLayout->addWidget(m_boardCells[row][col], row, col);
 	connect(m_boardCells[row][col], &QPushButton::clicked, this, &BoardWidget::onCellClicked);
+}
+
+void BoardWidget::addWidgetsToLayout(QVBoxLayout* mainLayout, QFrame* boardFrame) {
+	mainLayout->addWidget(boardFrame, 0, Qt::AlignHCenter);
+	mainLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
 
 QWidget* BoardWidget::createMainWidget() {
@@ -147,8 +145,9 @@ void BoardWidget::initializeUI(){
 	setCentralWidget(mainWidget);
 }
 
-
 BoardWidget::BoardWidget(QWidget* parent) :
 	QMainWindow{ parent },
 	m_isBlack{ false }
-{ initializeUI(); }
+{
+	initializeUI();
+}

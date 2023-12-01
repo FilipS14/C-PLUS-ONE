@@ -18,8 +18,6 @@ public:
 	bool getIsBlack() const;
 	void setIsBlack(bool isBlack);
 	void onCellClicked();
-	void resetBoard();
-	void removePiece(int row, int col);
 
 private:
 	void initializeUI();
@@ -28,8 +26,10 @@ private:
 	QVBoxLayout* createMainLayout(QWidget* mainWidget);
 	QFrame* createBoardFrame(QWidget* mainWidget);
 	void setupBoardCells();
+	void setupBoardCell(size_t row, size_t col);
 	void addWidgetsToLayout(QVBoxLayout* mainLayout, QFrame* boardFrame);
 	bool isCornerCell(size_t row, size_t col) const;
+	void setCellStyle(QPushButton* cellButton) const;
 
 	QPushButton* m_backButton;
 	QGridLayout* m_boardLayout;
