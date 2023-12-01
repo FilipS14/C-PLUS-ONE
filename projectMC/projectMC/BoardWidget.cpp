@@ -94,6 +94,33 @@ QFrame* BoardWidget::createBoardFrame(QWidget* mainWidget) {
 	return boardFrame;
 }
 
+void BoardWidget::setupBoardCells()
+{
+	const uint8_t numRows = 25;
+	const uint8_t numCols = 25;
+	m_boardCells.resize(numRows, QVector<QPushButton*>(numCols, nullptr));
+
+	for (size_t row = 0; row < numRows; row++) {
+		for (size_t col = 0; col < numCols; col++) {
+			if (isCornerCell(row, col)) {
+				continue;
+			}
+			setupBoardCell(row, col);
+		}
+	}
+}
+
+void BoardWidget::setupBoardCell(size_t row, size_t col) {
+	m_boardCells[row][col] = new QPushButton(this);
+	m_boardCells[row][col]->setFixedSize(7, 7);
+
+	QString cellStyle = getCellStyle();
+	m_boardCells[row][col]->setStyleSheet(cellStyle);
+
+	m_boardLayout->addWidget(m_boardCells[row][col], row, col);
+	connect(m_boardCells[row][col], &QPushButton::clicked, this, &BoardWidget::onCellClicked);
+}
+
 QWidget* BoardWidget::createMainWidget() {
 	return new QWidget(this);
 }
