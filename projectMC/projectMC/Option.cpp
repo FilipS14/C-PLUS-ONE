@@ -41,5 +41,27 @@ void Option::applyStyles()
 
 void Option::positionWidgets()
 {
+    const int widgetWidth = 150;
+    const int widgetHeight = 30;
+    const int padding = 40;
+
+    int yPos = 320;
+    int xPos = 380;
+
+    comboBoxBoardSize->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    labelBoardSize->setGeometry(xPos - 215, yPos - 10, 100, widgetHeight);
+    yPos += widgetHeight + padding;
+
+    labelNamePlayerRed->setGeometry(xPos - 168, yPos - 10, 100, widgetHeight);
+    lineEditPlayer1->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    yPos += widgetHeight + padding;
+
+    labelNamePlayerBlack->setGeometry(xPos - 155, yPos - 10, 100, widgetHeight);
+    lineEditPlayer2->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    yPos += widgetHeight + padding;
+
+    labelSetVolume->setGeometry(xPos - 237, yPos - 10, 100, widgetHeight);
+    volumeSlider->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+
 }
 
