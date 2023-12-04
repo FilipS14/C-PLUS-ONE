@@ -86,6 +86,12 @@ void Option::applyStyles()
         "}";
     lineEditPlayer1->setStyleSheet(style);
     lineEditPlayer2->setStyleSheet(style);
+
+    const QString labelStyle = "font-weight: bold; color: #00000; font-size: 16px;";
+    labelBoardSize->setStyleSheet(labelStyle);
+    labelNamePlayerRed->setStyleSheet(labelStyle);
+    labelNamePlayerBlack->setStyleSheet(labelStyle);
+    labelSetVolume->setStyleSheet(labelStyle);
 }
 
 void Option::positionWidgets()
