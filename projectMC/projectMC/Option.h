@@ -1,6 +1,7 @@
 #ifndef OPTION_H
 #define OPTION_H
 
+#include <QMainWindow>
 #include <QWidget>
 #include <QComboBox>
 #include <QLineEdit>
@@ -14,8 +15,15 @@ class Option : public QWidget
 
 public:
     Option(QWidget* parent = nullptr);
-    ~Option();
-    void paintEvent(QPaintEvent* event);
+    ~Option() = default;
+
+protected:
+    void paintEvent(QPaintEvent* event) override;
+
+private:
+    void setupUI();
+    void applyStyles();
+    void positionWidgets();
 private:
     QSlider* volumeSlider;
     QComboBox* comboBoxBoardSize;
@@ -24,4 +32,4 @@ private:
     QPushButton* setNamePlayerRed;
     QPushButton* setNamePlayerBlack;
 };
-#endif // OPTION_H
+#endif

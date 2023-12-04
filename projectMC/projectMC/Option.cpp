@@ -1,10 +1,23 @@
 #include "Option.h"
 
 Option::Option(QWidget* parent) :
-	QMainWindow{ parent }
+	QWidget { parent }
 {
-	setWindowTitle("Twixt Game");
-	QWidget* mainWidget = new QWidget(this);
-	QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget);
-	setCentralWidget(mainWidget);
+	setupUI();
+	applyStyles();
+	positionWidgets();
+	setFixedSize(750, 750);
 }
+
+void Option::setupUI()
+{
+}
+
+void Option::applyStyles()
+{
+}
+
+void Option::positionWidgets()
+{
+}
+
