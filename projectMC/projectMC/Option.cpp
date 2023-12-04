@@ -37,6 +37,20 @@ void Option::setupUI()
 
 void Option::applyStyles()
 {
+    volumeSlider->setStyleSheet("QSlider {"
+        "  border: 4px solid #FFF3E0;"
+        "  background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
+        "                              stop:0 #FFF3E0, stop:1#FFF3E0);"
+        "  height: 20px;"
+        "  border-radius: 10px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "  background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
+        "                              stop:0 #795548, stop:1 #3e2723);"
+        "  width: 30px;"
+        "  margin: -5px 0;"
+        "  border-radius: 15px;"
+        "}");
 }
 
 void Option::positionWidgets()
