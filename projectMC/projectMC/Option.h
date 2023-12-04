@@ -31,5 +31,6 @@ private:
     QLineEdit* lineEditPlayer2;
     QPushButton* setNamePlayerRed;
     QPushButton* setNamePlayerBlack;
+   
 };
 #endif
