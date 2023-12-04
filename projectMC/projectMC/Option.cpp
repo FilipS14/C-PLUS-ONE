@@ -2,8 +2,21 @@
 
 void Option::addBackButton(QWidget* widget)
 {
+    QString buttonStyle = "QPushButton {"
+        "background-color: #D2691E;"
+        "background-image: url(/Users/Filip/Desktop/facultate/backToMenu.jpg);"
+        "border: 2px solid #000000;"
+        "color: #ffffff;"
+        "font: Bold;"
+        "font-size: 40px;"
+        "padding: 10px 20px;"
+        "}"
+        "QPushButton:hover {"
+        "background-color: #DEB887;"
+        "}";
     goBackButton = new QPushButton(widget);
-    goBackButton->setGeometry(10, 10, 40, 40);
+    goBackButton->setStyleSheet(buttonStyle);
+    goBackButton->setGeometry(10, 10, 30, 30);
     connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuOptions()));
 }
 
