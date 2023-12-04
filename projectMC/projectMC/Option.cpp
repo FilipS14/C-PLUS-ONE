@@ -72,6 +72,20 @@ void Option::applyStyles()
         "QComboBox::down-arrow {"
         "  image: url(:/images/downArrow.jpg);"
         "}");
+
+    const QString style =  
+        "QLineEdit {"
+        "  border: 4px solid #795548;"
+        "  background-color: #FFF3E0;"
+        "  padding: 5px;"
+        "  border-radius: 5px;"
+        "}"
+        "QLineEdit:focus {"
+        "  border-color: #4CAF50;"
+        "  background-color: #FFE0B2;"
+        "}";
+    lineEditPlayer1->setStyleSheet(style);
+    lineEditPlayer2->setStyleSheet(style);
 }
 
 void Option::positionWidgets()
