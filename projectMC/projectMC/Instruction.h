@@ -13,10 +13,10 @@ public:
 	~Instruction() = default;
 	void addBackButton(QWidget*);
 signals:
-	void goBackToMenuSignal();
+	void goBackToMenuSignalInstruction();
 
 public slots:
-	void goBackToMenu();
+	void goBackToMenuIntruction();
 
 private:
 	QPushButton *goBackButton;

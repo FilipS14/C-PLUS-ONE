@@ -13,9 +13,9 @@ void Instruction::addBackButton(QWidget* widget)
 {
 	goBackButton = new QPushButton(widget);
 	goBackButton->setGeometry(10, 10, 40, 40);
-	connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenu()));
+	connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuIntruction()));
 }
 
-void Instruction::goBackToMenu() {
-	emit goBackToMenuSignal();
+void Instruction::goBackToMenuIntruction() {
+	emit goBackToMenuSignalInstruction();
 }

@@ -6,6 +6,8 @@
 #include "MainMenu.h"
 #include "BoardWidget.h"
 #include "Instruction.h"
+#include "Option.h"
+#include "LeaderBoard.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -17,6 +19,7 @@ public:
 public slots:
     void startGame();
     void showInstructions();
+    //void showOptions();
     void backToMenu();
     void backToMenuIntruction();
 
@@ -25,6 +28,7 @@ private:
     MainMenu* mainMenu;
     BoardWidget* boardWidget;
     Instruction* pageInstructions;
+    Option* pageOptions;
 };
 
 #endif

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	mainMenu = new MainMenu(this);
 	boardWidget = new BoardWidget(this);
 	pageInstructions = new Instruction(this);
+	pageOptions = new Option(this);
 
 	QString backgroundStyle = "MainWindow {"
 		"background-image: url(/Users/Filip/Desktop/facultate/anul2/sem1/mc/backgroundWood.jpg);"
@@ -20,6 +21,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	mainLayout->addWidget(mainMenu);
 	mainLayout->addWidget(boardWidget);
 	mainLayout->addWidget(pageInstructions);
+	mainLayout->addWidget(pageOptions);
 
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setLayout(mainLayout);
@@ -28,9 +30,9 @@ MainWindow::MainWindow(QWidget* parent) :
 	connect(mainMenu, SIGNAL(startGameSignal()), this, SLOT(startGame()));
 	connect(boardWidget, SIGNAL(backToMenuSignal()), this, SLOT(backToMenu()));
 	connect(mainMenu, SIGNAL(showInstructionsSignal()), this, SLOT(showInstructions()));
-	connect(pageInstructions, SIGNAL(goBackToMenuSignal()), this, SLOT(backToMenuIntruction()));
+	connect(pageInstructions, SIGNAL(goBackToMenuSignalInstruction()), this, SLOT(backToMenuIntruction()));
 	
-	
+
 	mainMenu->show();
 	boardWidget->hide();
 	pageInstructions->hide();
