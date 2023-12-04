@@ -19,7 +19,7 @@ public:
 public slots:
     void startGame();
     void showInstructions();
-    //void showOptions();
+    void showOptions();
     void backToMenu();
     void backToMenuIntruction();
 

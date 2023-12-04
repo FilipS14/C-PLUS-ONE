@@ -28,14 +28,17 @@ MainWindow::MainWindow(QWidget* parent) :
 	setCentralWidget(centralWidget);
 
 	connect(mainMenu, SIGNAL(startGameSignal()), this, SLOT(startGame()));
-	connect(boardWidget, SIGNAL(backToMenuSignal()), this, SLOT(backToMenu()));
 	connect(mainMenu, SIGNAL(showInstructionsSignal()), this, SLOT(showInstructions()));
+	connect(mainMenu, SIGNAL(showOptionSignal()), this, SLOT(showOptions()));
+
+	connect(boardWidget, SIGNAL(backToMenuSignal()), this, SLOT(backToMenu()));
 	connect(pageInstructions, SIGNAL(goBackToMenuSignalInstruction()), this, SLOT(backToMenuIntruction()));
 	
 
 	mainMenu->show();
 	boardWidget->hide();
 	pageInstructions->hide();
+	pageOptions->hide();
 	setFixedSize(750, 750);
 }
 
@@ -43,6 +46,7 @@ MainWindow::~MainWindow() {
 	delete mainMenu;
 	delete boardWidget;
 	delete pageInstructions;
+	delete pageOptions;
 }
 
 void MainWindow::startGame() {
@@ -63,4 +67,9 @@ void MainWindow::backToMenuIntruction() {
 void MainWindow::showInstructions() {
 	mainMenu->hide();
 	pageInstructions->show();
+}
+
+void MainWindow::showOptions() {
+	mainMenu->hide();
+	pageOptions->show();
 }

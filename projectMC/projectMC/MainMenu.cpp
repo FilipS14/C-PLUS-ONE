@@ -60,7 +60,7 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
 
     // Conectez butoanele la functiile corespunzatoare
     connect(startButton, SIGNAL(clicked()), this, SLOT(startGame()));
-    connect(optionsButton, SIGNAL(clicked()), this, SLOT(showOption()));
+    connect(optionsButton, SIGNAL(clicked()), this, SLOT(showOptions()));
     connect(instructionsButton, SIGNAL(clicked()), this, SLOT(showInstructions()));
 
     mainLayout->setAlignment(Qt::AlignHCenter);
@@ -77,4 +77,5 @@ void MainMenu::showInstructions() {
 }
 
 void MainMenu::showOptions() {
+    emit showOptionSignal();
 }

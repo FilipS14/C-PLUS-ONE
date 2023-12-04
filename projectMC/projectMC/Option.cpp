@@ -9,6 +9,13 @@ Option::Option(QWidget* parent) :
 	setFixedSize(750, 750);
 }
 
+void Option::paintEvent(QPaintEvent* event)
+{
+    QPainter painter(this);
+    QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/woodSign.png");
+    painter.drawPixmap(100, 100, 600, 700, backgroundPixmap);
+}
+
 void Option::setupUI()
 {
     volumeSlider = new QSlider(Qt::Horizontal, this);
