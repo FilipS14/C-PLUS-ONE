@@ -22,6 +22,7 @@ public slots:
     void showOptions();
     void backToMenu();
     void backToMenuIntruction();
+    void backToMenuOption();
 
 private:
     QVBoxLayout* mainLayout;

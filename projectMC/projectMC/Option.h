@@ -17,6 +17,11 @@ class Option : public QWidget
 public:
     Option(QWidget* parent = nullptr);
     ~Option() = default;
+signals:
+    void goBackToMenuSignalOptions();
+
+public slots:
+    void goBackToMenuOptions();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -25,6 +30,7 @@ private:
     void setupUI();
     void applyStyles();
     void positionWidgets();
+    void addBackButton(QWidget*);
 private:
     QSlider* volumeSlider;
     QComboBox* comboBoxBoardSize;
@@ -36,6 +42,6 @@ private:
     QLabel* labelNamePlayerRed;
     QLabel* labelNamePlayerBlack;
     QLabel* labelSetVolume;
-   
+    QPushButton* goBackButton;
 };
 #endif

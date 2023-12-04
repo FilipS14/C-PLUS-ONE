@@ -11,7 +11,9 @@ class Instruction : public QMainWindow
 public:
 	Instruction(QWidget* parent = nullptr);
 	~Instruction() = default;
+private:
 	void addBackButton(QWidget*);
+
 signals:
 	void goBackToMenuSignalInstruction();
 
@@ -20,4 +22,5 @@ public slots:
 
 private:
 	QPushButton *goBackButton;
+
 };

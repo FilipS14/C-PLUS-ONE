@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	connect(boardWidget, SIGNAL(backToMenuSignal()), this, SLOT(backToMenu()));
 	connect(pageInstructions, SIGNAL(goBackToMenuSignalInstruction()), this, SLOT(backToMenuIntruction()));
-	
+	connect(pageOptions, SIGNAL(goBackToMenuSignalOptions()), this, SLOT(backToMenuOption()));
 
 	mainMenu->show();
 	boardWidget->hide();
@@ -61,6 +61,12 @@ void MainWindow::backToMenu() {
 
 void MainWindow::backToMenuIntruction() {
 	pageInstructions->hide();
+	mainMenu->show();
+}
+
+void MainWindow::backToMenuOption()
+{
+	pageOptions->hide();
 	mainMenu->show();
 }
 

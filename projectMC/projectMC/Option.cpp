@@ -1,11 +1,23 @@
 #include "Option.h"
 
+void Option::addBackButton(QWidget* widget)
+{
+    goBackButton = new QPushButton(widget);
+    goBackButton->setGeometry(10, 10, 40, 40);
+    connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuOptions()));
+}
+
+void Option::goBackToMenuOptions() {
+    emit goBackToMenuSignalOptions();
+}
+
 Option::Option(QWidget* parent) :
 	QWidget { parent }
 {
 	setupUI();
 	applyStyles();
 	positionWidgets();
+    addBackButton(this);
 	setFixedSize(750, 750);
 }
 
@@ -13,7 +25,7 @@ void Option::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
     QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/woodSign.png");
-    painter.drawPixmap(100, 100, 600, 700, backgroundPixmap);
+    painter.drawPixmap(20, 100, 700, 700, backgroundPixmap);
 }
 
 void Option::setupUI()
@@ -87,7 +99,7 @@ void Option::applyStyles()
     lineEditPlayer1->setStyleSheet(style);
     lineEditPlayer2->setStyleSheet(style);
 
-    const QString labelStyle = "font-weight: bold; color: #00000; font-size: 16px;";
+    const QString labelStyle = "font-weight: bold; color: #00000; font-size: 18px;";
     labelBoardSize->setStyleSheet(labelStyle);
     labelNamePlayerRed->setStyleSheet(labelStyle);
     labelNamePlayerBlack->setStyleSheet(labelStyle);
@@ -96,27 +108,27 @@ void Option::applyStyles()
 
 void Option::positionWidgets()
 {
-    const int widgetWidth = 150;
+    const int widgetWidth = 162;
     const int widgetHeight = 30;
     const int padding = 40;
 
     int yPos = 320;
-    int xPos = 380;
+    int xPos = 360;
 
-    comboBoxBoardSize->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
-    labelBoardSize->setGeometry(xPos - 215, yPos - 10, 100, widgetHeight);
+    comboBoxBoardSize->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
+    labelBoardSize->setGeometry(xPos - 180, yPos , widgetWidth, widgetHeight);//123
     yPos += widgetHeight + padding;
 
-    labelNamePlayerRed->setGeometry(xPos - 168, yPos - 10, 100, widgetHeight);
-    lineEditPlayer1->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    labelNamePlayerRed->setGeometry(xPos - 180, yPos , widgetWidth, widgetHeight);//123
+    lineEditPlayer1->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
     yPos += widgetHeight + padding;
 
-    labelNamePlayerBlack->setGeometry(xPos - 155, yPos - 10, 100, widgetHeight);
-    lineEditPlayer2->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    labelNamePlayerBlack->setGeometry(xPos - 180, yPos , widgetWidth, widgetHeight);//123
+    lineEditPlayer2->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
     yPos += widgetHeight + padding;
 
-    labelSetVolume->setGeometry(xPos - 237, yPos - 10, 100, widgetHeight);
-    volumeSlider->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    labelSetVolume->setGeometry(xPos - 180, yPos, widgetWidth, widgetHeight);//123
+    volumeSlider->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
 
 }
 
