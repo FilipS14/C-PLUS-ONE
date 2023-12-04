@@ -28,6 +28,11 @@ void Option::setupUI()
     lineEditPlayer1 = new QLineEdit(this);
     lineEditPlayer2 = new QLineEdit(this);
 
+    labelBoardSize = new QLabel("Board Size:", this);
+    labelNamePlayerRed = new QLabel("Name red player:", this);
+    labelNamePlayerBlack = new QLabel("Name black player:", this);
+    labelSetVolume = new QLabel("Volume:", this);
+
 }
 
 void Option::applyStyles()

@@ -32,6 +32,10 @@ private:
     QLineEdit* lineEditPlayer2;
     QPushButton* setNamePlayerRed;
     QPushButton* setNamePlayerBlack;
+    QLabel* labelBoardSize;
+    QLabel* labelNamePlayerRed;
+    QLabel* labelNamePlayerBlack;
+    QLabel* labelSetVolume;
    
 };
 #endif
