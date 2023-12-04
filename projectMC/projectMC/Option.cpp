@@ -51,6 +51,27 @@ void Option::applyStyles()
         "  margin: -5px 0;"
         "  border-radius: 15px;"
         "}");
+
+    comboBoxBoardSize->setStyleSheet("QComboBox {"
+        "  border: 4px solid #795548;"
+        "  background-color: #FFF3E0;"
+        "  padding: 5px;"
+        "  border-radius: 5px;"
+        "  min-width: 6em;"
+        "}"
+        "QComboBox:hover, QComboBox:focus {"
+        "  border-color: #4CAF50;"
+        "  background-color: #FFE0B2;"
+        "}"
+        "QComboBox::drop-down {"
+        "  subcontrol-origin: padding;"
+        "  subcontrol-position: right center;"
+        "  width: 20px;"
+        "  border-left: 1px solid #795548;"
+        "}"
+        "QComboBox::down-arrow {"
+        "  image: url(:/images/downArrow.jpg);"
+        "}");
 }
 
 void Option::positionWidgets()
