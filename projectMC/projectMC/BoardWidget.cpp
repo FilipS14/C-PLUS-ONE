@@ -1,4 +1,4 @@
-#include "BoardWidget.h";
+﻿#include "BoardWidget.h";
 
 void BoardWidget::backToMenu() {
 	emit backToMenuSignal();
@@ -31,23 +31,6 @@ void BoardWidget::setIsBlack(bool isBlack) {
 	m_isBlack = isBlack;
 }
 
-void BoardWidget::onCellClicked()
-{
-	QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
-	if (clickedButton)
-	{
-		if (getIsBlack())
-		{
-			clickedButton->setStyleSheet("background-color: black; border: 1px solid black; border-radius: 10px;");
-		}
-		else
-		{
-			clickedButton->setStyleSheet("background-color: red; border: 1px solid black; border-radius: 7px;");
-		}
-		setIsBlack(!getIsBlack());
-	}
-}
-
 void BoardWidget::paintEvent(QPaintEvent* event) {
 	QPainter painter(this);
 	painter.setPen(QPen(Qt::black, 2));
@@ -71,6 +54,25 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 		painter.drawText(635, 94 + num * 22, 12, 12, Qt::AlignCenter, QString::number(num));
 	}
 }
+//----------------------------------------------------
+
+void BoardWidget::onCellClicked()
+{
+	QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
+	if (clickedButton)
+	{
+		if (getIsBlack())
+		{
+			clickedButton->setStyleSheet("background-color: black; border: 1px solid black; border-radius: 10px;");
+		}
+		else
+		{
+			clickedButton->setStyleSheet("background-color: red; border: 1px solid black; border-radius: 7px;");
+		}
+		setIsBlack(!getIsBlack());
+	}
+}
+
 //---------------------------------------------------------------------------------------------
 
 bool BoardWidget::isCornerCell(size_t row, size_t col) const {

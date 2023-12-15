@@ -1,13 +1,19 @@
 #pragma once
-#include<cstdint>
+#include <cstdint>
 #include <vector>
-
+#include <QPoint>
 class Cell
 {
 public:
-	Cell(bool ocupied, uint8_t x, uint8_t y, bool isMined, bool isBulldozered, std::vector<const Cell*> connectedCells);
-	Cell();
+	//rules of 5
+	Cell(bool ocupied, QPoint coordinates, uint8_t line, uint8_t column, bool isMined, bool isBulldozered);//Constructor
+	Cell();//Constructor
+	Cell(Cell&& other) noexcept; //Move Constructor
+	Cell& operator=(Cell&& other)noexcept; // Move Assignament Constructor
+	Cell(const Cell& other); //Copy Constructor
+	Cell& operator=(const Cell& other); //Copy Assignament Operator
 	~Cell() = default;
+
 	bool getOcupier() const;
 	uint8_t getX() const;
 	uint8_t getY() const;
@@ -23,14 +29,14 @@ public:
 	bool emptyCell();
 	bool safeCell();
 	bool isConnectedTo(const Cell& cell)const;
-
 	Cell& operator=(const Cell& cell);
 
 private:
+private:
+	uint8_t m_line;
+	uint8_t m_column;
+	QPoint m_coordinates;
 	bool m_ocupied;
-	uint8_t m_x;
-	uint8_t m_y;
 	bool m_isMined;
 	bool m_isBulldozered;
-	std::vector<const Cell*> m_connectedCells;
 };
