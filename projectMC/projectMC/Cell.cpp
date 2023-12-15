@@ -58,6 +58,28 @@ Cell& Cell::operator=(Cell&& other) noexcept // Move Assignment Operator
 	return *this;
 }
 
+Cell::Cell(const Cell& other) //Copy Constructor
+	: m_ocupied{ other.m_ocupied },
+	m_coordinates{ other.m_coordinates },
+	m_line{ other.m_line },
+	m_column{ other.m_column },
+	m_isMined{ other.m_isMined },
+	m_isBulldozered{ other.m_isBulldozered }
+{}
+
+Cell& Cell::operator=(const Cell& other) //Copy Assignment Operator
+{
+	if (this != &other) {
+		m_ocupied = other.m_ocupied;
+		m_coordinates = other.m_coordinates;
+		m_line = other.m_line;
+		m_column = other.m_column;
+		m_isMined = other.m_isMined;
+		m_isBulldozered = other.m_isBulldozered;
+	}
+	return *this;
+}
+
 bool Cell::getOcupier() const {
 	return m_ocupied;
 }
