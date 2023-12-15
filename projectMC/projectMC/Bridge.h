@@ -1,21 +1,28 @@
 #pragma once
 #include<iostream>
-#include<utility>
 #include <cstdint>
+#include <QPoint>
 
 class Bridge
 {
 public:
-	Bridge(std::pair<uint8_t, uint8_t> start, std::pair<uint8_t, uint8_t> end);
-	Bridge(uint8_t xStart, uint8_t yStart, uint8_t xEnd, uint8_t yEnd);
-	~Bridge() = default;
-	std::pair<uint8_t, uint8_t> getStart() const;
-	std::pair<uint8_t, uint8_t> getEnd() const;
-	void setStart(std::pair<uint8_t, uint8_t> start);
-	void setEnd(std::pair<uint8_t, uint8_t> end);
-	void setStart(uint8_t xStart, uint8_t yStart);
-	void setEnd(uint8_t xEnd, uint8_t yEnd);
+	//rule of 5
+	Bridge() = default;
+	Bridge(QPoint start, QPoint end); //Constructor
+	Bridge(Bridge&& other) noexcept; //Move Constructor
+	Bridge& operator=(Bridge&& other)noexcept; // Move Assignament Constructor
+	Bridge(const Bridge& other); //Copy Constructor
+	Bridge& operator=(const Bridge& other); //Copy Assignament Operator
+	~Bridge() = default; //Destructor
+
+	//Getteri
+	QPoint getCoordinatesStart() const;
+	QPoint getCoordinatesEnd() const;
+
+	//Setteri
+	void setCoordinatesStart(const QPoint& start);
+	void setCoordinatesEnd(const QPoint& end);
 
 private:
-	std::pair<uint8_t, uint8_t>m_start, m_end;
+	QPoint m_start, m_end;
 };

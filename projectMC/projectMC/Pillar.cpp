@@ -59,7 +59,9 @@ void Pillar::setTeam(Team team)
 	m_team = team;
 }
 
-//overloading operators
+//Overloading Operators
 bool Pillar::operator==(const Pillar& other) const {
 	return (m_coordinates == other.m_coordinates) && (m_team == other.m_team);
 }
+
+//Pillar manipulation
