@@ -33,3 +33,26 @@ Bridge& Bridge::operator=(const Bridge& other) //Copy Assignment Operator
 	}
 	return *this;
 }
+
+//Getteri
+QPoint Bridge::getCoordinatesStart() const
+{
+	return m_start;
+}
+
+QPoint Bridge::getCoordinatesEnd() const
+{
+	return m_end;
+}
+
+//Setteri
+void Bridge::setCoordinatesStart(const QPoint& start)
+{
+	m_start = start;
+}
+
+void Bridge::setCoordinatesEnd(const QPoint& end)
+{
+	m_end = end;
+}
+
