@@ -1,20 +1,34 @@
 #include"Cell.h"
 
-Cell::Cell(bool ocupied, uint8_t x, uint8_t y, bool isMined, bool isBulldozered, std::vector<const Cell*> connectedCells) :
-	m_ocupied{ ocupied},
-	m_x{ x },
-	m_y{ y },
+Cell::Cell(bool ocupied, QPoint coordinates, uint8_t line, uint8_t column, bool isMined, bool isBulldozered) : //Constructor
+	m_ocupied{ ocupied },
+	m_coordinates{ coordinates },
+	m_line{ line },
+	m_column{ column },
 	m_isMined{ isMined },
-	m_isBulldozered{ isBulldozered },
-	m_connectedCells{connectedCells}
+	m_isBulldozered{ isBulldozered }
 {}
 
-Cell::Cell() :
+Cell::Cell() : //Constructor
 	m_ocupied{ false },
-	m_x{ 0 },
-	m_y{ 0 },
 	m_isMined{ false },
-	m_isBulldozered{ false } {
+	m_isBulldozered{ false }
+{}
+
+Cell::Cell(Cell&& other) noexcept // Move Constructor
+	: m_ocupied{ other.m_ocupied },
+	m_coordinates{ other.m_coordinates },
+	m_line{ other.m_line },
+	m_column{ other.m_column },
+	m_isMined{ other.m_isMined },
+	m_isBulldozered{ other.m_isBulldozered }
+{
+	other.m_ocupied = false;
+	other.m_coordinates = { 0,0 };
+	other.m_line = 0;
+	other.m_column = 0;
+	other.m_isMined = false;
+	other.m_isBulldozered = false;
 }
 
 bool Cell::getOcupier() const {
