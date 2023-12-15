@@ -14,24 +14,22 @@ public:
 	Cell& operator=(const Cell& other); //Copy Assignament Operator
 	~Cell() = default;
 
+	//getteri
 	bool getOcupier() const;
-	uint8_t getX() const;
-	uint8_t getY() const;
 	bool getIsMined() const;
 	bool getIsBulldozered() const;
-	void setOcupied(bool ocupied);
-	void setX(uint8_t x);
-	void setY(uint8_t y);
-	void setMined();
-	void setBulldozered();
-	void clearCell();
-	void resetCell();
-	bool emptyCell();
-	bool safeCell();
-	bool isConnectedTo(const Cell& cell)const;
-	Cell& operator=(const Cell& cell);
+	QPoint getCoordinates() const;
+	uint8_t getLine() const;
+	uint8_t getColumn() const;
 
-private:
+	//setteri
+	void setOcupied(bool status);
+	void setMined(bool status);
+	void setBulldozered(bool status);
+	void setCoordinates(const QPoint& coordinates);
+	void setLine(const uint8_t& line);
+	void setColumn(const uint8_t& column);
+
 private:
 	uint8_t m_line;
 	uint8_t m_column;
