@@ -31,6 +31,33 @@ Cell::Cell(Cell&& other) noexcept // Move Constructor
 	other.m_isBulldozered = false;
 }
 
+Cell& Cell::operator=(Cell&& other) noexcept // Move Assignment Operator
+{
+	if (this != &other) {
+		m_ocupied = false;
+		m_coordinates = { 0,0 };
+		m_line = 0;
+		m_column = 0;
+		m_isMined = false;
+		m_isBulldozered = false;
+
+		m_ocupied = other.m_ocupied;
+		m_coordinates = other.m_coordinates;
+		m_line = other.m_line;
+		m_column = other.m_column;
+		m_isMined = other.m_isMined;
+		m_isBulldozered = other.m_isBulldozered;
+
+		other.m_ocupied = false;
+		other.m_coordinates = { 0,0 };
+		other.m_line = 0;
+		other.m_column = 0;
+		other.m_isMined = false;
+		other.m_isBulldozered = false;
+	}
+	return *this;
+}
+
 bool Cell::getOcupier() const {
 	return m_ocupied;
 }
