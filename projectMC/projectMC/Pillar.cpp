@@ -20,48 +20,37 @@ Pillar& Pillar::operator=(Pillar&& other) noexcept  // Move Assignment Construct
 	return *this;
 }
 
-Pillar::Pillar(const Pillar& p) :
-	m_coordX{ p.m_coordX },
-	m_coordY{ p.m_coordY },
-	m_team{ p.m_team } {
-}
+Pillar::Pillar(const Pillar& p) : //Copy Constructor
+	m_coordinates{ p.m_coordinates },
+	m_team{ p.m_team }
+{}
 
-uint8_t Pillar::getCoordX() const {
-	return m_coordX;
-}
-
-uint8_t Pillar::getCoordY() const {
-	return m_coordY;
-}
-
-uint8_t Pillar::getIsConnected() const
+Pillar& Pillar::operator=(const Pillar& other) //Copy Assignament Operator
 {
-	return m_isConnected;
+	if (this != &other) {
+		m_coordinates = other.m_coordinates;
+		m_team = other.m_team;
+	}
+	return *this;
+}
+
+//Getteri
+QPoint Pillar::getCoordinates() const {
+	return m_coordinates;
 }
 
 Team Pillar::getTeam() const {
 	return m_team;
 }
 
-void Pillar::setCoordX(uint8_t coordX) {
-	if (m_coordX > coordX) {
-		std::cerr << "Invalid change to pillar\n";
-		return;
-	}
-	m_coordX = coordX;
-}
-
-void Pillar::setCoordY(uint8_t coordY) {
-	if (m_coordY > coordY) {
-		std::cerr << "Invalid change to pillar";
-		return;
-	}
-	m_coordY = coordY;
-}
-
-void Pillar::setIsConneted(uint8_t isConnected)
+//Setteri
+void Pillar::setTeam(Team team)
 {
-	m_isConnected = isConnected; 
+	m_team = team;
+}
+
+void Pillar::setCoordinates(const QPoint& coordinates) {
+	m_coordinates = coordinates;
 }
 
 
@@ -70,10 +59,7 @@ void Pillar::setTeam(Team team)
 	m_team = team;
 }
 
-void Pillar::isValid(uint8_t coordX, uint8_t coordY)
-{
-	if (m_coordX > coordX || m_coordY > coordY) {
-		std::cerr << "Invalid pillar";
-		return;
-	}
+//overloading operators
+bool Pillar::operator==(const Pillar& other) const {
+	return (m_coordinates == other.m_coordinates) && (m_team == other.m_team);
 }
