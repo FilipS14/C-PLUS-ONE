@@ -80,16 +80,9 @@ Cell& Cell::operator=(const Cell& other) //Copy Assignment Operator
 	return *this;
 }
 
+//Getteri
 bool Cell::getOcupier() const {
 	return m_ocupied;
-}
-
-uint8_t Cell::getX() const {
-	return m_x;
-}
-
-uint8_t Cell::getY() const {
-	return m_y;
 }
 
 bool Cell::getIsMined() const {
@@ -100,75 +93,48 @@ bool Cell::getIsBulldozered() const {
 	return m_isBulldozered;
 }
 
-void Cell::setOcupied(bool ocupied)
+QPoint Cell::getCoordinates() const
 {
-	m_ocupied = ocupied;
+	return m_coordinates;
 }
 
-void Cell::setX(uint8_t x) {
-	m_x = x;
-}
-
-void Cell::setY(uint8_t y) {
-	m_y = y;
-}
-
-void Cell::setMined()
+uint8_t Cell::getLine() const
 {
-	m_isMined = true;
+	return m_line;
 }
 
-void Cell::setBulldozered()
+uint8_t Cell::getColumn() const
 {
-	m_isBulldozered = true;
+	return m_column;
 }
 
-void Cell::clearCell()
+//Setteri
+void Cell::setMined(bool status)
 {
-	m_ocupied = false; 
-	m_isMined = false; 
-	m_isBulldozered = false; 
+	m_isMined = status;
 }
 
-void Cell::resetCell()
+void Cell::setBulldozered(bool status)
 {
-	m_ocupied = false;
-	m_isMined = false;
-	m_isBulldozered = false;
+	m_isBulldozered = status;
 }
 
-bool Cell::emptyCell()
+void Cell::setOcupied(bool status)
 {
-	return m_ocupied == false;
+	m_ocupied = status;
 }
 
-bool Cell::safeCell()
+void Cell::setCoordinates(const QPoint& coordinates) {
+	m_coordinates = coordinates;
+}
+
+void Cell::setLine(const uint8_t& line)
 {
-	return (!m_isMined && !m_isBulldozered);
+	m_line = line;
 }
 
-bool Cell::isConnectedTo(const Cell& cell) const
+void Cell::setColumn(const uint8_t& column)
 {
-	for (const Cell* connected_cell : m_connectedCells)
-	{
-		if (connected_cell == &cell)
-		{
-			return true;
-		}
-	}
-	return false;
+	m_column = column;
 }
 
-
-Cell& Cell::operator=(const Cell& cell)
-{
-	if (this != &cell)
-	{
-		m_x = cell.m_x;
-		m_y = cell.m_y;
-		m_isBulldozered = cell.m_isBulldozered;
-		m_isMined = cell.m_isMined;
-		m_ocupied = cell.m_ocupied;
-	}
-	return *this;
-}
