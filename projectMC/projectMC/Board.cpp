@@ -39,6 +39,7 @@ Board& Board::operator=(const Board& other) //Copy Assignament Operator
 	return *this;
 }
 
+//Getteri
 uint8_t Board::getLine() const {
 	return m_line;
 }
@@ -47,12 +48,30 @@ uint8_t Board::getColumn() const {
 	return m_column;
 }
 
+std::vector<std::vector<Cell>>& Board::getMatrix()
+{
+	return m_board;
+}
+
+//Setteri
 void Board::setLine(uint8_t line) {
 	m_line = line;
 }
 
 void Board::setColumn(uint8_t column) {
 	m_column = column;
+}
+
+//Manipulation Matrix
+Cell Board::getCell(uint32_t x, uint32_t y) const {
+	return m_board.at(x).at(y);
+}
+
+void Board::resizeBoard(size_t line, size_t column)
+{
+	m_line = static_cast<uint8_t>(line);
+	m_column = static_cast<uint8_t>(column);
+	m_board.resize(m_line, std::vector<Cell>(m_column));
 }
 
 
