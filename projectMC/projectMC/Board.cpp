@@ -117,7 +117,7 @@ std::vector<Cell> Board::getBlackBase() const
 	return firstColumn;
 }
 
-//Setteri
+//SETTERS
 void Board::setLine(uint8_t line) {
 	m_line = line;
 }
@@ -126,7 +126,7 @@ void Board::setColumn(uint8_t column) {
 	m_column = column;
 }
 
-//Manipulation Matrix
+//MATRIX HANDLING
 Cell Board::getCell(uint32_t x, uint32_t y) const {
 	return m_board.at(x).at(y);
 }
@@ -136,6 +136,29 @@ void Board::resizeBoard(size_t line, size_t column)
 	m_line = static_cast<uint8_t>(line);
 	m_column = static_cast<uint8_t>(column);
 	m_board.resize(m_line, std::vector<Cell>(m_column));
+}
+
+void Board::addCell(size_t line, size_t column, QPoint coordinates)
+{
+	m_board.at(line).at(column) = { false, coordinates, static_cast<uint8_t>(line), static_cast<uint8_t>(column), false, false };
+}
+
+//CHECKS PILLARS
+bool Board::isValidPillarMove(const Cell& cell, const Player& player)
+{
+	if (cell.getOcupier())
+		return false;
+	if (checkPillarsOverlap(cell))
+		return false;
+	if (checkOpponentBase(cell, player))
+		return false;
+	return true;
+}
+
+bool Board::checkPillarsOverlap(const Cell& Cell)
+{
+	auto pillarIt = m_pillars.find(Cell.getCoordinates());
+	return pillarIt != m_pillars.end();
 }
 
 
