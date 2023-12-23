@@ -297,3 +297,14 @@ bool Board::checkBridgesIntersection(const Cell& startCell, const Cell& endCell)
 
 	return true;
 }
+
+//PILLARS AND BRIDGES HANDLING
+void Board::addPillar(const Pillar& pillar)
+{
+	m_pillars[pillar.getCoordinates()] = pillar;
+}
+
+void Board::addBridge(const Bridge& bridge) {
+	TwoPoint key{ bridge.getCoordinatesStart(), bridge.getCoordinatesEnd() };
+	m_bridges[key] = bridge;
+}
