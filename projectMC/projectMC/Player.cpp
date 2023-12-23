@@ -1,23 +1,38 @@
-#include"Player.h"
+#include "Player.h"
 
-Player::Player(std::string nume, std::string culoare, bool status, bool player1_turn) :
-	m_name{ nume },
-	m_color{ culoare } ,
-	m_status{ status },
-	m_player1_turn{player1_turn}
-{}
+Player::Player(std::string name, Team team) :
+	m_name{ name },
+	m_team{ team }
+{
+	m_numberOfPillars = 50;
+	m_numbersOfBridges = 50;
+	m_movePillar = false;
+}
 
-std::string Player::getName() const {
+//GETTERS
+std::string Player::getName() const
+{
 	return m_name;
 }
 
-std::string Player::getColor() const {
-	return m_color;
+Team Player::getTeam() const
+{
+	return m_team;
 }
 
-bool Player::get_status() const
+uint8_t Player::getNumberOfPillars() const
 {
-	return false;
+	return m_numberOfPillars;
+}
+
+uint8_t Player::getNumberOfBridges() const
+{
+	return m_numbersOfBridges;
+}
+
+bool Player::getMovePillar() const
+{
+	return m_movePillar;
 }
 
 void Player::setName(std::string name) {
