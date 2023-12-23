@@ -217,3 +217,14 @@ bool Board::areCellsPillars(const Cell& startCell, const Cell& endCell)
 
 	return true;
 }
+
+bool Board::arePillarsSameColor(const Cell& startCell, const Cell& endCell)
+{
+	auto startPillar = m_pillars.find(startCell.getCoordinates());
+	auto endPillar = m_pillars.find(endCell.getCoordinates());
+
+	if (startPillar->second.getColor() != endPillar->second.getColor())
+		return false;
+
+	return true;
+}
