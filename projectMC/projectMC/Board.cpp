@@ -1,5 +1,6 @@
 #include"Board.h"
 
+//RULE OF FIVE
 Board::Board(uint8_t line, uint8_t column) : //Constructor
 	m_line{ line },
 	m_column{ column } {
@@ -39,7 +40,7 @@ Board& Board::operator=(const Board& other) //Copy Assignament Operator
 	return *this;
 }
 
-//Getteri
+//GETTERS
 uint8_t Board::getLine() const {
 	return m_line;
 }
@@ -52,6 +53,41 @@ std::vector<std::vector<Cell>>& Board::getMatrix()
 {
 	return m_board;
 }
+
+std::unordered_map<QPoint, Pillar, PillarHash>& Board::getPillars()
+{
+	return m_pillars;
+}
+
+std::unordered_map<TwoPoint, Bridge, TwoPointHash>& Board::getBridges() {
+	return m_bridges;
+}
+
+std::vector<Cell> Board::getRedBase() const
+{
+	try
+	{
+		if (m_board.empty())
+		{
+			throw std::out_of_range("Board is empty");
+		}
+
+		const std::vector<Cell>& firstRow = m_board.at(0);
+
+		if (firstRow.empty())
+		{
+			throw std::out_of_range("First row is empty");
+		}
+
+		return firstRow;
+	}
+	catch (const std::out_of_range& e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+		return std::vector<Cell>();
+	}
+}
+
 
 //Setteri
 void Board::setLine(uint8_t line) {
