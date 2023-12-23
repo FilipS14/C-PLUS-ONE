@@ -71,7 +71,22 @@ public:
 	void addBridge(const Bridge& bridge);
 	void removeBridge(const Cell& startCell, const Cell& endCell);
 
-	//CHECK PILLARS
+	//CHECKS CALLED
+	bool isValidPillarMove(const Cell& cell, const Player& player);
+	bool isValidBridgeMove(const Cell& startCell, const Cell& endCell, const Player& player);
+
+	//CHECKS BRIDGES
+	bool areCellsOccupied(const Cell& startCell, const Cell& endCell);
+	bool areCellsPillars(const Cell& startCell, const Cell& endCell);
+	bool arePillarsSameColor(const Cell& startCell, const Cell& endCell);
+	bool arePillarsPlayerColor(const Cell& startCell, const Cell& endCell, const Player& player);
+	bool checkDistaceToBridge(const Cell& startCell, const Cell& endCell);
+	bool checkBridgesIntersection(const Cell& startCell, const Cell& endCell);
+	bool doSegmentsIntersect(const QPoint& start1, const QPoint& end1, const QPoint& start2, const QPoint& end2);
+	int orientation(const QPoint& p, const QPoint& q, const QPoint& r);
+
+
+	//CHECKS PILLARS
 	bool checkPillarsOverlap(const Cell& Cell);
 	bool checkOpponentBase(const Cell& Cell, const Player& Player);
 
