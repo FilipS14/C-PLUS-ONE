@@ -198,3 +198,22 @@ bool Board::isValidBridgeMove(const Cell& startCell, const Cell& endCell, const 
 
 	return true;
 }
+
+bool Board::areCellsOccupied(const Cell& startCell, const Cell& endCell)
+{
+	if (!startCell.getOcupier() || !endCell.getOcupier())
+		return false;
+
+	return true;
+}
+
+bool Board::areCellsPillars(const Cell& startCell, const Cell& endCell)
+{
+	auto startPillar = m_pillars.find(startCell.getCoordinates());
+	auto endPillar = m_pillars.find(endCell.getCoordinates());
+
+	if (startPillar == m_pillars.end() || endPillar == m_pillars.end())
+		return false;
+
+	return true;
+}
