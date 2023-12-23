@@ -2,14 +2,13 @@
 #include <iostream>
 #include <cstdint>
 #include <QPoint>
-
-enum class Team { none, red, black };
+#include <QColor>
 
 class Pillar {
 
 public:
 	//rule of 5
-	Pillar(QPoint coordinates, Team team); //Constructor
+	Pillar(QPoint coordinates, QColor color); //Constructor
 	Pillar() = default; //Constructor
 	Pillar(Pillar&& other) noexcept; //Move Constructor
 	Pillar& operator=(Pillar&& other) noexcept; //Move Assignament Constructor
@@ -19,18 +18,16 @@ public:
 
 	//overloading operators
 	bool operator==(const Pillar& other) const;
-	
+
 	//Getteri
 	QPoint getCoordinates() const;
-	Team getTeam() const;
-	
+	QColor getColor() const;
+
 	//Setteri
 	void setCoordinates(const QPoint& coordinates);
-	void setTeam(Team team);
-	void isValid(int32_t x, int32_t y);
-
+	void setColor(QColor color);
 
 private:
 	QPoint m_coordinates;
-	Team m_team;
+	QColor m_color;
 };

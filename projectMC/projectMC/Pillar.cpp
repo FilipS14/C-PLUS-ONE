@@ -1,13 +1,13 @@
 #include "Pillar.h"
 
-Pillar::Pillar(QPoint coordinates, Team team) : //Constructor
+Pillar::Pillar(QPoint coordinates, QColor color) : //Constructor
 	m_coordinates{ coordinates },
-	m_team{ team }
+	m_color{ color }
 {}
 
 Pillar::Pillar(Pillar&& other) noexcept // Move Constructor
 	: m_coordinates(std::exchange(other.m_coordinates, QPoint())),
-	m_team(std::exchange(other.m_team, Team::none))
+	m_color(std::exchange(other.m_color, other.m_color))
 {}
 
 
@@ -15,47 +15,48 @@ Pillar& Pillar::operator=(Pillar&& other) noexcept  // Move Assignment Construct
 {
 	if (this != &other) {
 		m_coordinates = std::exchange(other.m_coordinates, QPoint());
-		m_team = std::exchange(other.m_team, Team::none);
+		m_color = std::exchange(other.m_color, other.m_color);
 	}
 	return *this;
 }
 
 Pillar::Pillar(const Pillar& p) : //Copy Constructor
 	m_coordinates{ p.m_coordinates },
-	m_team{ p.m_team }
+	m_color{ p.m_color }
 {}
 
 Pillar& Pillar::operator=(const Pillar& other) //Copy Assignament Operator
 {
 	if (this != &other) {
 		m_coordinates = other.m_coordinates;
-		m_team = other.m_team;
+		m_color = other.m_color;
 	}
 	return *this;
 }
 
-//Getteri
+//GETTERS
 QPoint Pillar::getCoordinates() const {
 	return m_coordinates;
 }
 
-Team Pillar::getTeam() const {
-	return m_team;
+QColor Pillar::getColor() const
+{
+	return m_color;
 }
 
-//Setteri
-void Pillar::setTeam(Team team)
+
+//SETTERS
+void Pillar::setColor(QColor color)
 {
-	m_team = team;
+	m_color = color;
 }
 
 void Pillar::setCoordinates(const QPoint& coordinates) {
 	m_coordinates = coordinates;
 }
 
-//Overloading Operators
+//OVERLOADING OPERATORS
 bool Pillar::operator==(const Pillar& other) const {
-	return (m_coordinates == other.m_coordinates) && (m_team == other.m_team);
+	return m_coordinates == other.m_coordinates;
 }
 
-//Pillar manipulation
