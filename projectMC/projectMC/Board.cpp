@@ -161,4 +161,17 @@ bool Board::checkPillarsOverlap(const Cell& Cell)
 	return pillarIt != m_pillars.end();
 }
 
+bool Board::checkOpponentBase(const Cell& cell, const Player& player)
+{
+	const auto& team = player.getTeam();
+	const auto& column = cell.getColumn();
+	const auto& line = cell.getLine();
+
+	if (team == Team::red)
+		return column == 0 || column == m_column - 1;
+	else
+		return line == 0 || line == m_line - 1;
+
+	return false;
+}
 
