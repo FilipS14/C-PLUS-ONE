@@ -53,12 +53,6 @@ void Pillar::setCoordinates(const QPoint& coordinates) {
 	m_coordinates = coordinates;
 }
 
-
-void Pillar::setTeam(Team team)
-{
-	m_team = team;
-}
-
 //Overloading Operators
 bool Pillar::operator==(const Pillar& other) const {
 	return (m_coordinates == other.m_coordinates) && (m_team == other.m_team);
