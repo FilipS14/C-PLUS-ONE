@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <memory>
+#include <array>
 
 struct TwoPoint {
 	QPoint point1;
