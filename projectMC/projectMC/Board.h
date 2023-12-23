@@ -11,6 +11,23 @@
 #include <unordered_set>
 #include <memory>
 
+struct TwoPoint {
+	QPoint point1;
+	QPoint point2;
+
+	bool operator==(const TwoPoint& other) const {
+		return point1 == other.point1 && point2 == other.point2;
+	}
+};
+
+struct TwoPointHash {
+	std::size_t operator()(const TwoPoint& tp) const {
+		std::size_t h1 = std::hash<int>()(tp.point1.x()) ^ std::hash<int>()(tp.point1.y());
+		std::size_t h2 = std::hash<int>()(tp.point2.x()) ^ std::hash<int>()(tp.point2.y());
+		return h1 ^ (h2 << 1);
+	}
+};
+
 struct PillarHash {
 	std::size_t operator()(const QPoint& point) const {
 		std::size_t h1 = std::hash<int>()(point.x());
@@ -54,5 +71,6 @@ private:
 	uint8_t m_line, m_column;
 	std::vector<std::vector<Cell>>m_board;
 	std::unordered_map<QPoint, Pillar, PillarHash> m_pillars;
+	std::unordered_map<TwoPoint, Bridge, TwoPointHash> m_bridges;
 };
 
