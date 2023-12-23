@@ -52,6 +52,10 @@ public:
 	uint8_t getLine() const;
 	uint8_t getColumn() const;
 	std::vector<std::vector<Cell>>& getMatrix();
+	std::unordered_map<QPoint, Pillar, PillarHash>& getPillars();
+	std::unordered_map<TwoPoint, Bridge, TwoPointHash>& getBridges();
+	std::vector<Cell> getRedBase() const;
+	std::vector<Cell> getBlackBase() const;
 
 	//SETTERS
 	void setLine(uint8_t line);
@@ -66,6 +70,10 @@ public:
 	void addPillar(const Pillar& pillar);
 	void addBridge(const Bridge& bridge);
 	void removeBridge(const Cell& startCell, const Cell& endCell);
+
+	//CHECK PILLARS
+	bool checkPillarsOverlap(const Cell& Cell);
+	bool checkOpponentBase(const Cell& Cell, const Player& Player);
 
 private:
 	uint8_t m_line, m_column;
