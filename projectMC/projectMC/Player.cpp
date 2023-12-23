@@ -39,26 +39,37 @@ void Player::setName(std::string name) {
 	m_name = name;
 }
 
-void Player::setColor(std::string color) {
-	m_color = color;
+//SETTERS
+void Player::setName(std::string name) {
+	m_name = name;
 }
 
-void Player::displaiInfo()
-{
-	std::cout << "Player information: " << "Name: " << m_name << " | Color: " << m_color << std::endl;
+void Player::setTeam(Team team) {
+	m_team = team;
 }
 
-bool Player::player_won()
+void Player::setNumberOfPillars(uint8_t number)
 {
-	return m_status;
+	m_numberOfPillars = number;
 }
 
-void Player::setTurn(bool turn)
+void Player::setNumberOfBridges(uint8_t number)
 {
-	m_player1_turn = turn;
+	m_numbersOfBridges = number;
 }
 
-bool Player::getTurn() const
+void Player::setMovePillar(bool move)
 {
-	return m_player1_turn;
+	m_movePillar = move;
+}
+
+//PLAYER HANDLING
+void Player::updateNumberOfPillars(uint8_t number)
+{
+	m_numberOfPillars -= number;
+}
+
+void Player::updateNumberOfBridges(uint8_t number)
+{
+	m_numbersOfBridges -= number;
 }
