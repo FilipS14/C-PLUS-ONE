@@ -88,6 +88,34 @@ std::vector<Cell> Board::getRedBase() const
 	}
 }
 
+std::vector<Cell> Board::getBlackBase() const
+{
+	std::vector<Cell> firstColumn;
+	try
+	{
+		if (m_board.empty())
+		{
+			throw std::out_of_range("Board is empty");
+		}
+
+		for (const auto& row : m_board)
+		{
+			if (row.empty())
+			{
+				throw std::out_of_range("Row is empty");
+			}
+
+			firstColumn.push_back(row.at(0));
+		}
+	}
+	catch (const std::out_of_range& e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+		return std::vector<Cell>();
+	}
+
+	return firstColumn;
+}
 
 //Setteri
 void Board::setLine(uint8_t line) {
