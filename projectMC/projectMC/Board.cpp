@@ -175,3 +175,26 @@ bool Board::checkOpponentBase(const Cell& cell, const Player& player)
 	return false;
 }
 
+//BRIDGE CHECKS
+bool Board::isValidBridgeMove(const Cell& startCell, const Cell& endCell, const Player& player)
+{
+	if (!areCellsOccupied(startCell, endCell))
+		return false;
+
+	if (!areCellsPillars(startCell, endCell))
+		return false;
+
+	if (!arePillarsSameColor(startCell, endCell))
+		return false;
+
+	if (!arePillarsPlayerColor(startCell, endCell, player))
+		return false;
+
+	if (!checkDistaceToBridge(startCell, endCell))
+		return false;
+
+	if (!checkBridgesIntersection(startCell, endCell))
+		return false;
+
+	return true;
+}
