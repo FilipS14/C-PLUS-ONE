@@ -308,3 +308,14 @@ void Board::addBridge(const Bridge& bridge) {
 	TwoPoint key{ bridge.getCoordinatesStart(), bridge.getCoordinatesEnd() };
 	m_bridges[key] = bridge;
 }
+
+void Board::removeBridge(const Cell& startCell, const Cell& endCell)
+{
+	TwoPoint key{ startCell.getCoordinates(), endCell.getCoordinates() };
+	auto bridgeIt = m_bridges.find(key);
+
+	if (bridgeIt != m_bridges.end())
+	{
+		m_bridges.erase(bridgeIt);
+	}
+}
