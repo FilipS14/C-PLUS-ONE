@@ -269,3 +269,31 @@ int Board::orientation(const QPoint& p, const QPoint& q, const QPoint& r) {
 	if (val == 0) return 0;
 	return (val > 0) ? 1 : 2;
 }
+
+bool Board::checkBridgesIntersection(const Cell& startCell, const Cell& endCell)
+{
+	constexpr int shrinkAmount{ 1 };
+
+	auto shrunkStart = startCell.getCoordinates();
+	auto shrunkEnd = endCell.getCoordinates();
+
+	shrunkStart.setX(shrunkStart.x() + shrinkAmount);
+	shrunkStart.setY(shrunkStart.y() + shrinkAmount);
+
+	shrunkEnd.setX(shrunkEnd.x() - shrinkAmount);
+	shrunkEnd.setY(shrunkEnd.y() - shrinkAmount);
+
+	for (const auto& bridge : m_bridges)
+	{
+		const Bridge& existingBridge = bridge.second;
+		const auto& existingStart = existingBridge.getCoordinatesStart();
+		const auto& existingEnd = existingBridge.getCoordinatesEnd();
+
+		if (doSegmentsIntersect(existingStart, existingEnd, shrunkStart, shrunkEnd))
+		{
+			return false;//se intersecteaza cu un pod
+		}
+	}
+
+	return true;
+}
