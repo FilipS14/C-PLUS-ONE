@@ -240,3 +240,16 @@ bool Board::arePillarsPlayerColor(const Cell& startCell, const Cell& endCell, co
 
 	return true;
 }
+
+bool Board::checkDistaceToBridge(const Cell& startCell, const Cell& endCell)
+{
+	constexpr std::array<int, 8> dX{ -2, -2, -1, -1, 1, 1, 2, 2 };
+	constexpr std::array<int, 8> dY{ -1, 1, -2, 2, -2, 2, -1, 1 };
+
+	for (size_t i = 0; i < 8; i++) {
+		if (endCell.getLine() + dX[i] == startCell.getLine() &&
+			endCell.getColumn() + dY[i] == startCell.getColumn())
+			return true;
+	}
+	return false;
+}
