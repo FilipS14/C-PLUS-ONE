@@ -4,6 +4,7 @@
 #include "Bridge.h"
 #include "Player.h"
 #include <QPoint>
+#include <QColor>
 #include <iostream>
 #include <cstdint>
 #include <vector>
