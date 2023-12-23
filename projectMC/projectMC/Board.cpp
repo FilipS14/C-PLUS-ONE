@@ -253,3 +253,19 @@ bool Board::checkDistaceToBridge(const Cell& startCell, const Cell& endCell)
 	}
 	return false;
 }
+
+bool Board::doSegmentsIntersect(const QPoint& start1, const QPoint& end1, const QPoint& start2, const QPoint& end2) {
+	int orientation1 = orientation(start1, end1, start2);
+	int orientation2 = orientation(start1, end1, end2);
+	int orientation3 = orientation(start2, end2, start1);
+	int orientation4 = orientation(start2, end2, end1);
+
+	return ((orientation1 != orientation2) && (orientation3 != orientation4));
+}
+
+int Board::orientation(const QPoint& p, const QPoint& q, const QPoint& r) {
+	int val = (q.x() - p.x()) * (r.y() - q.y()) - (q.y() - p.y()) * (r.x() - q.x());
+
+	if (val == 0) return 0;
+	return (val > 0) ? 1 : 2;
+}
