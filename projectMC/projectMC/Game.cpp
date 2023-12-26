@@ -1,5 +1,12 @@
 #include "Game.h"
 
+Game::Game() :
+m_board(std::make_unique<Board>()),
+m_redPlayer(std::make_unique<Player>("default", Team::red)),
+m_blackPlayer(std::make_unique<Player>("deafult", Team::black)),
+m_currentPlayer(m_redPlayer.get())
+{}
+
 //GETTERS
 Board& Game::getBoard() const
 {
@@ -21,6 +28,12 @@ Player& Game::getCurrentPlayer() const {
 }
 
 //GAME HANDLER
+void Game::initializationGame(uint8_t line , uint8_t column) {
+    //trbuie sa ma uit aici
+    m_currentPlayer = m_redPlayer.get();
+    m_board.get()->resizeBoard(line, column);
+}
+
 bool Game::checkWinCondition(Player& player) {
     const int dX[8]{ -2, -2, -1, -1, 1, 1, 2, 2 }, dY[8]{ -1, +1, -2, +2, -2, +2, -1, +1 };
     std::unordered_set<Cell, CellHash, CellEqual> visitedCells;

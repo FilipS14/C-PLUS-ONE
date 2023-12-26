@@ -1,6 +1,8 @@
 #pragma once
 #include "Player.h"
 #include "Board.h"
+#include <QMessageBox>
+#include <functional>
 #include <memory>
 #include <stack>
 
@@ -29,12 +31,7 @@ struct CellEqual {
 class Game
 {
 public:
-	Game() :
-		m_board(std::make_unique<Board>()),
-		m_redPlayer(std::make_unique<Player>("default", Team::red)),
-		m_blackPlayer(std::make_unique<Player>("deafult", Team::black)),
-		m_currentPlayer(m_redPlayer.get())
-	{}
+	Game();
 	~Game() = default;
 	//GETTERS
 	Board& getBoard() const;
@@ -50,7 +47,7 @@ public:
 	bool checkDrawCondition();
 	bool switchToRedPlayer();
 	bool switchToBlackPlayer();
-	void initializationGame();
+	void initializationGame(uint8_t line, uint8_t column);
 	bool checkWinCondition(Player& player);
 	bool dfsTraversal(Player& player, const Cell& startCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, const int dX[], const int dY[]);
 	bool reachedEnd(const Cell& cell) const;
