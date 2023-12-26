@@ -39,6 +39,18 @@ bool Game::checkWinCondition(Player& player) {
     return false;
 }
 
+bool Game::reachedEnd(const Cell& cell) const {
+    return cell.getLine() == m_board.get()->getLine() - 1 ||
+        cell.getColumn() == m_board.get()->getColumn() - 1;
+}
+
+bool Game::checkDrawCondition() {
+    return m_redPlayer.get()->getNumberOfPillars() <= 0 &&
+        m_redPlayer.get()->getNumberOfBridges() <= 0 &&
+        m_blackPlayer.get()->getNumberOfPillars() <= 0 &&
+        m_blackPlayer.get()->getNumberOfBridges() <= 0;
+}
+
 bool Game::dfsTraversal(Player& player, const Cell& startCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, const int dX[], const int dY[]) {
     std::stack<Cell> stackDfs;
     stackDfs.push(startCell);
