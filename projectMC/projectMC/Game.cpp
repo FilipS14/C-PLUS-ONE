@@ -57,3 +57,21 @@ bool Game::dfsTraversal(Player& player, const Cell& startCell, std::unordered_se
     }
     return false;
 }
+
+void Game::processNeighborCell(Player& player, const Cell& currentCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, int dX, int dY, std::stack<Cell>& stackDfs) const {
+    auto newX = currentCell.getLine() + dX;
+    auto newY = currentCell.getColumn() + dY;
+
+    auto isValidCell = [this](const int& x, const int& y) {
+        return x >= 0 && x < m_board->getLine() && y >= 0 && y < m_board->getColumn();
+        };
+
+    if (isValidCell(newX, newY)) {
+        const Cell& neighborCell = m_board.get()->getMatrix().at(newX).at(newY);
+
+        if (visitedCells.find(neighborCell) == visitedCells.end()) {
+            handleBridge(player, currentCell, neighborCell, visitedCells, stackDfs);
+        }
+    }
+}
+
