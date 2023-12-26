@@ -101,3 +101,27 @@ bool Game::switchToBlackPlayer() {
     m_currentPlayer = m_blackPlayer.get();
     return true;
 }
+
+void Game::placePillar(Cell& cell, Player& player) {
+    if (!m_board->isValidPillarMove(cell, player)) {
+        return;
+    }
+
+    cell.setOcupied(true);
+
+    QColor color = (player.getTeam() == Team::red) ? Qt::red : Qt::black;
+
+    Pillar newPillar{ cell.getCoordinates(), color };
+    m_board.get()->addPillar(newPillar);
+
+    player.updateNumberOfPillars(1);
+    player.setMovePillar(true);
+
+    if (checkDrawCondition())
+    {
+        QMessageBox::information(nullptr, "Game Over", "The game ended in a draw!");
+    }
+    if (checkWinCondition(getCurrentPlayer())) {
+        QMessageBox::information(nullptr, "Game Over", "WIN!");
+    }
+}
