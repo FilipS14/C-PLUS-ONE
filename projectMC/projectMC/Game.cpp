@@ -75,3 +75,11 @@ void Game::processNeighborCell(Player& player, const Cell& currentCell, std::uno
     }
 }
 
+void Game::handleBridge(Player& player, const Cell& currentCell, const Cell& neighborCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, std::stack<Cell>& stackDfs) const {
+    auto bridgeIt1 = m_board.get()->getBridges().find({ currentCell.getCoordinates(), neighborCell.getCoordinates() });
+    auto bridgeIt2 = m_board.get()->getBridges().find({ neighborCell.getCoordinates(), currentCell.getCoordinates() });
+    if (bridgeIt1 != m_board.get()->getBridges().end() || bridgeIt2 != m_board.get()->getBridges().end()) {
+        stackDfs.push(neighborCell);
+        visitedCells.insert(neighborCell);
+    }
+}
