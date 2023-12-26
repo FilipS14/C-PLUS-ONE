@@ -50,6 +50,12 @@ public:
 	bool checkDrawCondition();
 	bool switchToRedPlayer();
 	bool switchToBlackPlayer();
+	void initializationGame();
+	bool checkWinCondition(Player& player);
+	bool dfsTraversal(Player& player, const Cell& startCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, const int dX[], const int dY[]);
+	bool reachedEnd(const Cell& cell) const;
+	void processNeighborCell(Player& player, const Cell& currentCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, int dX, int dY, std::stack<Cell>& stackDfs) const;
+	void handleBridge(Player& player, const Cell& currentCell, const Cell& neighborCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, std::stack<Cell>& stackDfs) const;
 
 
 private:
