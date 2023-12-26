@@ -38,3 +38,22 @@ bool Game::checkWinCondition(Player& player) {
     }
     return false;
 }
+
+bool Game::dfsTraversal(Player& player, const Cell& startCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, const int dX[], const int dY[]) {
+    std::stack<Cell> stackDfs;
+    stackDfs.push(startCell);
+
+    while (!stackDfs.empty()) {
+        Cell currentCell = stackDfs.top();
+        stackDfs.pop();
+
+        if (reachedEnd(currentCell)) {
+            return true;
+        }
+
+        for (size_t i = 0; i < 8; i++) {
+            processNeighborCell(player, currentCell, visitedCells, dX[i], dY[i], stackDfs);
+        }
+    }
+    return false;
+}
