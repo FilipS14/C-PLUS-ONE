@@ -4,6 +4,28 @@
 #include <memory>
 #include <stack>
 
+namespace std {
+	template <>
+	struct hash<QPoint> {
+		std::size_t operator()(const QPoint& point) const {
+			return std::hash<int>()(point.x()) ^ (std::hash<int>()(point.y()) << 1);
+		}
+	};
+}
+
+struct CellHash {
+	std::size_t operator()(const Cell& c) const {
+		return std::hash<QPoint>()(c.getCoordinates());
+	}
+};
+
+struct CellEqual {
+	bool operator()(const Cell& c1, const Cell& c2) const {
+		return c1.getCoordinates() == c2.getCoordinates();
+	}
+};
+
+
 class Game
 {
 public:
@@ -28,6 +50,7 @@ public:
 	bool checkDrawCondition();
 	bool switchToRedPlayer();
 	bool switchToBlackPlayer();
+
 
 private:
 	std::unique_ptr<Board> m_board;
