@@ -125,3 +125,23 @@ void Game::placePillar(Cell& cell, Player& player) {
         QMessageBox::information(nullptr, "Game Over", "WIN!");
     }
 }
+
+void Game::placeBridge(const Cell& cellStart, const Cell& cellEnd, Player& player) {
+    if (!m_board->isValidBridgeMove(cellStart, cellEnd, player)) {
+        return;
+    }
+
+    QColor color = (player.getTeam() == Team::red) ? Qt::red : Qt::black;
+
+    Bridge newBridge{ cellStart.getCoordinates(), cellEnd.getCoordinates(), color };
+    m_board->addBridge(newBridge);
+    player.updateNumberOfBridges(1);
+
+    if (checkDrawCondition())
+    {
+        QMessageBox::information(nullptr, "Game Over", "The game ended in a draw!");
+    }
+    if (checkWinCondition(getCurrentPlayer())) {
+        QMessageBox::information(nullptr, "Game Over", "WIN!");
+    }
+}
