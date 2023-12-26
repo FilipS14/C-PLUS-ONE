@@ -92,3 +92,12 @@ bool Game::switchToRedPlayer() {
     m_currentPlayer = m_redPlayer.get();
     return true;
 }
+
+bool Game::switchToBlackPlayer() {
+    if (!m_currentPlayer->getMovePillar()) {
+        return false;
+    }
+    m_currentPlayer->setMovePillar(false);
+    m_currentPlayer = m_blackPlayer.get();
+    return true;
+}
