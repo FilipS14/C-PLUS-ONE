@@ -14,6 +14,20 @@ public:
 		m_currentPlayer(m_redPlayer.get())
 	{}
 	~Game() = default;
+	//GETTERS
+	Board& getBoard() const;
+	Player& getRedPlayer() const;
+	Player& getBlackPlayer() const;
+	Player& getCurrentPlayer() const;
+
+	//PLACEMENT OF PILLARS AND BRIDGES
+	void placePillar(Cell& cell, Player& player);
+	void placeBridge(const Cell& cellStart, const Cell& cellEnd, Player& player);
+
+	//GAME HANDLER
+	bool checkDrawCondition();
+	bool switchToRedPlayer();
+	bool switchToBlackPlayer();
 
 private:
 	std::unique_ptr<Board> m_board;
