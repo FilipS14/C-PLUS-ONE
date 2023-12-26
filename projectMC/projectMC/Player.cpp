@@ -35,9 +35,6 @@ bool Player::getMovePillar() const
 	return m_movePillar;
 }
 
-void Player::setName(std::string name) {
-	m_name = name;
-}
 
 //SETTERS
 void Player::setName(std::string name) {
