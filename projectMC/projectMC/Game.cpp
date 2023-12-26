@@ -83,3 +83,12 @@ void Game::handleBridge(Player& player, const Cell& currentCell, const Cell& nei
         visitedCells.insert(neighborCell);
     }
 }
+
+bool Game::switchToRedPlayer() {
+    if (!m_currentPlayer->getMovePillar()) {
+        return false;
+    }
+    m_currentPlayer->setMovePillar(false);
+    m_currentPlayer = m_redPlayer.get();
+    return true;
+}
