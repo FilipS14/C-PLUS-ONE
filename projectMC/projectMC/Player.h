@@ -38,4 +38,6 @@ public:
 	//PLAYER HANDLING
 	void updateNumberOfPillars(uint8_t number);
 	void updateNumberOfBridges(uint8_t number);
+
+	void displayInfo();
 };
