@@ -138,3 +138,20 @@ void Cell::setColumn(const uint8_t& column)
 	m_column = column;
 }
 
+
+// Metode joc
+void Cell::clearCell()
+{
+	m_ocupied = false; 
+	m_isMined = false; 
+	m_isBulldozered = false; 
+	m_line = 0; 
+	m_column = 0; 
+	m_coordinates = QPoint(); 
+}
+
+bool Cell::isEmpty() const
+{
+	return !m_ocupied && !m_isMined;
+}
+
