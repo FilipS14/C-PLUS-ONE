@@ -234,3 +234,20 @@ void BoardWidget::createSwitchButtons(QWidget* parent) {
 	m_switchButtonBlack.setVisible(false);
 }
 
+void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
+	m_numberOfPillarsForRedPlayer.setText("Red Pillars:" + QString::number(m_game.getRedPlayer().getNumberOfPillars()));
+	m_numberOfPillarsForRedPlayer.setGeometry(370, 25, 120, 30);
+	m_numberOfPillarsForRedPlayer.setParent(parent);
+
+	m_numberOfBridgesForRedPlayer.setText("Red Bridges:" + QString::number(m_game.getRedPlayer().getNumberOfBridges()));
+	m_numberOfBridgesForRedPlayer.setGeometry(370, 60, 120, 30);
+	m_numberOfBridgesForRedPlayer.setParent(parent);
+
+	m_numberOfPillarsForBlackPlayer.setText("Black Pillars:" + QString::number(m_game.getBlackPlayer().getNumberOfPillars()));
+	m_numberOfPillarsForBlackPlayer.setGeometry(360, 680, 120, 30);
+	m_numberOfPillarsForBlackPlayer.setParent(parent);
+
+	m_numberOfBridgesForBlackPlayer.setText("Black Bridges:" + QString::number(m_game.getBlackPlayer().getNumberOfBridges()));
+	m_numberOfBridgesForBlackPlayer.setGeometry(360, 710, 120, 30);
+	m_numberOfBridgesForBlackPlayer.setParent(parent);
+}
