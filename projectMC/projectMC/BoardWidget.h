@@ -1,13 +1,16 @@
 #pragma once
-#ifndef BOARDWIDGET_H
-#define BOARDWIDGET_H
-
 #include <QMainWindow>
+#include <QMouseEvent>
 #include <QWidget>
-#include <QGridLayout>
 #include <QPushButton>
-#include <QFrame>
 #include <qpainter.h>
+#include <QPoint>
+#include "Bridge.h"
+#include "Pillar.h"
+#include "Game.h"
+#include <unordered_map>
+#include <cmath>
+#include <QLabel>
 
 class BoardWidget : public QMainWindow
 {
@@ -15,35 +18,49 @@ class BoardWidget : public QMainWindow
 public:
 	BoardWidget(QWidget* parent = nullptr);
 	~BoardWidget() = default;
-	bool getIsBlack() const;
-	void setIsBlack(bool isBlack);
-	void onCellClicked();
 
 private:
 	void initializeUI();
+	void updatePlayerStats();
 	QWidget* createMainWidget();
 	void addBackButton(QWidget* widget);
-	QVBoxLayout* createMainLayout(QWidget* mainWidget);
-	QFrame* createBoardFrame(QWidget* mainWidget);
 	void setupBoardCells();
 	void setupBoardCell(size_t row, size_t col);
-	void addWidgetsToLayout(QVBoxLayout* mainLayout, QFrame* boardFrame);
-	bool isCornerCell(size_t row, size_t col) const;
-	void setCellStyle(QPushButton* cellButton) const;
+	void drawBoard();
+	void drawLettersFromBoard();
+	void drawPillars();
+	void drawBirdges();
+	void drawCells();
+	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
+private:
+	Game game;
+	Cell m_selectedCell;
+	Cell m_selectCellForDelete;
+	QPushButton m_backButton;
+	QPushButton switchButtonRed;
+	QPushButton switchButtonBlack;
 
-	QPushButton* m_backButton;
-	QGridLayout* m_boardLayout;
-	QVector<QVector<QPushButton*>>m_boardCells;
-	bool m_isBlack;
-
+	QLabel m_numberOfPillarsForRedPlayer;
+	QLabel m_numberOfBridgesForRedPlayer;
+	QLabel m_numberOfPillarsForBlackPlayer;
+	QLabel m_numberOfBridgesForBlackPlayer;
 protected:
 	void paintEvent(QPaintEvent* event) override;
+	void mousePressEvent(QMouseEvent* event)override;
+private:
+	void handleLeftButtonClick(Cell& clickedCell);
+	void handleRightButtonClick(const Cell& clickedCell);
+	void handleMiddleButtonClick(const Cell& clickedCell);
+	int64_t calculateDistance(const QPoint& point1, const QPoint& point2);
+	void processClickEvent(Cell& clickedCell, Qt::MouseButton button);
 
 signals:
 	void backToMenuSignal();
 
 public slots:
 	void backToMenu();
-};
 
-#endif
+private slots:
+	void switchToRedPlayer();
+	void switchToBlackPlayer();
+};
