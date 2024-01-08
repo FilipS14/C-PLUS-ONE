@@ -138,3 +138,41 @@ void Cell::setColumn(const uint8_t& column)
 	m_column = column;
 }
 
+
+// Metode joc
+void Cell::clearCell()
+{
+	m_ocupied = false; 
+	m_isMined = false; 
+	m_isBulldozered = false; 
+	m_line = 0; 
+	m_column = 0; 
+	m_coordinates = QPoint(); 
+}
+
+std::vector<QPoint> Cell::getNeighborCoordinates() const
+{
+	std::vector<QPoint> neighbors;
+
+	for (int dx = -1; dx <= 1; ++dx) 
+	{
+		for (int dy = -1; dy <= 1; ++dy)
+		{
+			if (dx == 0 && dy == 0) 
+			{
+				continue;
+			}
+
+			QPoint neighbor = m_coordinates + QPoint(dx, dy);
+
+			neighbors.push_back(neighbor);
+		}
+	}
+	return neighbors;
+}
+
+bool Cell::isEmpty() const
+{
+	return !m_ocupied && !m_isMined;
+}
+

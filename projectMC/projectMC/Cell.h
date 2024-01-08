@@ -18,6 +18,7 @@ public:
 	bool getOcupier() const;
 	bool getIsMined() const;
 	bool getIsBulldozered() const;
+	bool isEmpty() const;
 	QPoint getCoordinates() const;
 	uint8_t getLine() const;
 	uint8_t getColumn() const;
@@ -29,6 +30,10 @@ public:
 	void setCoordinates(const QPoint& coordinates);
 	void setLine(const uint8_t& line);
 	void setColumn(const uint8_t& column);
+
+	//Game methods
+	void clearCell();
+	std::vector<QPoint> getNeighborCoordinates() const;
 
 private:
 	uint8_t m_line;
