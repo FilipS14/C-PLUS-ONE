@@ -50,3 +50,26 @@ void BoardWidget::mousePressEvent(QMouseEvent* event) {
 		}
 	}
 }
+
+//Draw
+bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)
+{
+	return (row == line - 1 && col == column - 1) ||
+		(row == 0 && col == 0) ||
+		(row == line - 1 && col == 0) ||
+		(row == 0 && col == column - 1);
+}
+
+void BoardWidget::drawBoard()
+{
+	QPainter painter(this);
+	painter.setPen(QPen(Qt::black, 2));
+	painter.drawRect(100, 100, 550, 550);
+	painter.fillRect(100, 100, 550, 550, "#deb887");
+	painter.setPen(QPen(Qt::red, 2));
+	painter.drawLine(140, 134, 610, 134);//prima linie rosie
+	painter.drawLine(140, 617, 610, 617);//a doua line rosie
+	painter.setPen(QPen(Qt::black, 2));
+	painter.drawLine(133, 142, 133, 608);//prima linie negra
+	painter.drawLine(617, 142, 617, 608);// a doua linie neagra
+}
