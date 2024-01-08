@@ -91,3 +91,16 @@ void BoardWidget::setupBoardCells()
 		}
 	}
 }
+
+void BoardWidget::setupBoardCell(size_t row, size_t col) {
+	const uint32_t cellSize = 15;
+	const uint32_t cellSpacing = 7;
+
+	uint32_t  x = 112 + col * (cellSize + cellSpacing);
+	uint32_t y = 112 + row * (cellSize + cellSpacing);
+
+	QPoint point;
+	point.setX(x + cellSize / 2);
+	point.setY(y + cellSize / 2);
+	game.getBoard().addCell(row, col, point);
+}
