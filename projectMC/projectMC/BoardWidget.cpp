@@ -66,6 +66,20 @@ void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
 	}
 }
 
+void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
+	if (!m_selectCellForDelete.getCoordinates().isNull()) {
+		m_game.getBoard().removeBridge(clickedCell, m_selectCellForDelete);
+		m_selectCellForDelete = Cell();
+	}
+	else {
+		m_selectCellForDelete = clickedCell;
+	}
+}
+
+int64_t BoardWidget::calculateDistance(const QPoint& point1, const QPoint& point2) {
+	return qSqrt(qPow(point1.x() - point2.x(), 2) + qPow(point1.y() - point2.y(), 2));
+}
+
 //Draw
 bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)
 {
