@@ -73,3 +73,21 @@ void BoardWidget::drawBoard()
 	painter.drawLine(133, 142, 133, 608);//prima linie negra
 	painter.drawLine(617, 142, 617, 608);// a doua linie neagra
 }
+
+void BoardWidget::setupBoardCells()
+{
+	constexpr uint8_t numRows{ 24 };
+	constexpr uint8_t numCols{ 24 };
+
+	auto rowRange = std::views::iota(size_t{ 0 }, numRows);
+	auto colRange = std::views::iota(size_t{ 0 }, numCols);
+
+	for (const auto& row : rowRange) {
+		for (const auto& col : colRange)
+		{
+			if (!isCorner(row, col, numRows, numCols)) {
+				setupBoardCell(row, col);
+			}
+		}
+	}
+}
