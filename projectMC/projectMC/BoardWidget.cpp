@@ -104,3 +104,17 @@ void BoardWidget::setupBoardCell(size_t row, size_t col) {
 	point.setY(y + cellSize / 2);
 	game.getBoard().addCell(row, col, point);
 }
+
+void BoardWidget::drawLettersFromBoard()
+{
+	QPainter painter(this);
+	const uint8_t number = 24;
+	for (uint8_t num = 1; num <= number; num++) {
+		QString letter = QChar('A' + num - 1);
+		painter.drawText(94 + num * 22, 100, 13, 15, Qt::AlignCenter, letter);
+		painter.drawText(94 + num * 22, 633, 13, 15, Qt::AlignCenter, letter);
+
+		painter.drawText(102, 94 + num * 22, 12, 12, Qt::AlignCenter, QString::number(num));
+		painter.drawText(635, 94 + num * 22, 12, 12, Qt::AlignCenter, QString::number(num));
+	}
+}
