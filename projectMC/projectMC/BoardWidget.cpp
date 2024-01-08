@@ -38,7 +38,7 @@ void BoardWidget::mousePressEvent(QMouseEvent* event) {
 	int32_t mouseX = event->x();
 	int32_t mouseY = event->y();
 
-	for (auto& line : game.getBoard().getMatrix()) {
+	for (auto& line : m_game.getBoard().getMatrix()) {
 		for (auto& cellCenter : line) {
 			uint32_t distance = calculateDistance(cellCenter.getCoordinates(), QPoint(mouseX, mouseY));
 
@@ -102,7 +102,7 @@ void BoardWidget::setupBoardCell(size_t row, size_t col) {
 	QPoint point;
 	point.setX(x + cellSize / 2);
 	point.setY(y + cellSize / 2);
-	game.getBoard().addCell(row, col, point);
+	m_game.getBoard().addCell(row, col, point);
 }
 
 void BoardWidget::drawLettersFromBoard()
@@ -122,7 +122,7 @@ void BoardWidget::drawLettersFromBoard()
 void BoardWidget::drawPillars()
 {
 	QPainter painter(this);
-	auto& pillarsMap = game.getBoard().getPillars();
+	auto& pillarsMap = m_game.getBoard().getPillars();
 
 	std::ranges::for_each(pillarsMap, [&painter](const auto& pair) {
 		const Pillar& pillar = pair.second;
@@ -139,7 +139,7 @@ void BoardWidget::drawBirdges()
 	uint8_t radius = cellSize / 4;
 	QPainter painter(this);
 
-	auto& bridgesMap = game.getBoard().getBridges();
+	auto& bridgesMap = m_game.getBoard().getBridges();
 	std::ranges::for_each(bridgesMap, [&painter, radius](const auto& bridgePair) {
 		const Bridge& bridge = bridgePair.second;
 		painter.setPen(QPen(bridge.getColor(), 2));
@@ -155,11 +155,37 @@ void BoardWidget::drawCells()
 	const uint8_t cellRadius = cellSize / 2;
 	QPainter painter(this);
 	painter.setPen(Qt::black);
-	for (const auto& line : game.getBoard().getMatrix())
+	for (const auto& line : m_game.getBoard().getMatrix())
 	{
 		std::ranges::for_each(line, [&painter, cellSize](const Cell& element) {
 			if (element.getCoordinates() != QPoint())
 				painter.drawEllipse(element.getCoordinates().x(), element.getCoordinates().y(), cellSize / 2, cellSize / 2);
 			});
 	}
+}
+
+//swtich player
+void BoardWidget::switchToRedPlayer() {
+
+	if (m_game.switchToRedPlayer())
+	{
+		m_switchButtonBlack->setVisible(false);
+		m_switchButtonRed->setVisible(true);
+		updatePlayerStats();
+	}
+	else
+		QMessageBox::information(nullptr, "Info", "Place a pillar before switching.");
+	update();
+}
+
+void BoardWidget::switchToBlackPlayer() {
+	if (m_game.switchToBlackPlayer())
+	{
+		m_switchButtonRed->setVisible(false);
+		m_switchButtonBlack->setVisible(true);
+		updatePlayerStats();
+	}
+	else
+		QMessageBox::information(nullptr, "Info", "Place a pillar before switching.");
+	update();
 }
