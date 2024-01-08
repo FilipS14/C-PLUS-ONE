@@ -80,6 +80,19 @@ int64_t BoardWidget::calculateDistance(const QPoint& point1, const QPoint& point
 	return qSqrt(qPow(point1.x() - point2.x(), 2) + qPow(point1.y() - point2.y(), 2));
 }
 
+void BoardWidget::processClickEvent(Cell& clickedCell, Qt::MouseButton button) {
+	if (button == Qt::LeftButton) {
+		handleLeftButtonClick(clickedCell);
+	}
+	else if (button == Qt::RightButton) {
+		handleRightButtonClick(clickedCell);
+	}
+	else if (button == Qt::MiddleButton) {
+		handleMiddleButtonClick(clickedCell);
+	}
+}
+
+
 //Draw
 bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)
 {
