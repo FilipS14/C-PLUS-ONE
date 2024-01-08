@@ -169,8 +169,8 @@ void BoardWidget::switchToRedPlayer() {
 
 	if (m_game.switchToRedPlayer())
 	{
-		m_switchButtonBlack->setVisible(false);
-		m_switchButtonRed->setVisible(true);
+		m_switchButtonBlack.setVisible(false);
+		m_switchButtonRed.setVisible(true);
 		updatePlayerStats();
 	}
 	else
@@ -181,8 +181,8 @@ void BoardWidget::switchToRedPlayer() {
 void BoardWidget::switchToBlackPlayer() {
 	if (m_game.switchToBlackPlayer())
 	{
-		m_switchButtonRed->setVisible(false);
-		m_switchButtonBlack->setVisible(true);
+		m_switchButtonRed.setVisible(false);
+		m_switchButtonBlack.setVisible(true);
 		updatePlayerStats();
 	}
 	else
@@ -199,6 +199,10 @@ BoardWidget::BoardWidget(QWidget* parent) :
 	setupBoardCells();
 }
 
+QWidget* BoardWidget::createMainWidget() {
+	return new QWidget(this);
+}
+
 void BoardWidget::updatePlayerStats() {
 	m_numberOfPillarsForRedPlayer.setText("Red Pillars: " + QString::number(m_game.getRedPlayer().getNumberOfPillars()));
 	m_numberOfBridgesForRedPlayer.setText("Red Bridges: " + QString::number(m_game.getRedPlayer().getNumberOfBridges()));
@@ -206,3 +210,27 @@ void BoardWidget::updatePlayerStats() {
 	m_numberOfPillarsForBlackPlayer.setText("Black Pillars: " + QString::number(m_game.getBlackPlayer().getNumberOfPillars()));
 	m_numberOfBridgesForBlackPlayer.setText("Black Bridges: " + QString::number(m_game.getBlackPlayer().getNumberOfBridges()));
 }
+
+void BoardWidget::initializeUI() {
+	setWindowTitle("Twixt Game");
+	setFixedSize(750, 750);
+
+	QWidget* mainWidget = createMainWidget();
+	addBackButton(mainWidget);
+	setCentralWidget(mainWidget);
+
+	createSwitchButtons(mainWidget);
+	createPlayerLabels(mainWidget);
+	createPlayerInfoLabels(mainWidget);
+}
+
+void BoardWidget::createSwitchButtons(QWidget* parent) {
+	m_switchButtonRed.setGeometry(450, 10, 80, 80);
+	connect(&m_switchButtonRed, &QPushButton::clicked, this, &BoardWidget::switchToBlackPlayer);
+	m_switchButtonRed.setVisible(true);
+
+	m_switchButtonBlack.setGeometry(450, 660, 80, 80);
+	connect(&m_switchButtonBlack, &QPushButton::clicked, this, &BoardWidget::switchToRedPlayer);
+	m_switchButtonBlack.setVisible(false);
+}
+

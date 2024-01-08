@@ -10,6 +10,7 @@
 #include "Game.h"
 #include <unordered_map>
 #include <cmath>
+#include <ranges>
 #include <QLabel>
 
 class BoardWidget : public QMainWindow
@@ -32,13 +33,18 @@ private:
 	void drawBirdges();
 	void drawCells();
 	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
+
+	void createSwitchButtons(QWidget* parent);
+	void createPlayerLabels(QWidget* parent);
+	void createPlayerInfoLabels(QWidget* parent);
+
 private:
-	Game game;
+	Game m_game;
 	Cell m_selectedCell;
 	Cell m_selectCellForDelete;
 	QPushButton m_backButton;
-	QPushButton switchButtonRed;
-	QPushButton switchButtonBlack;
+	QPushButton m_switchButtonRed;
+	QPushButton m_switchButtonBlack;
 
 	QLabel m_numberOfPillarsForRedPlayer;
 	QLabel m_numberOfBridgesForRedPlayer;
