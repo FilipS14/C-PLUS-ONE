@@ -132,3 +132,19 @@ void BoardWidget::drawPillars()
 		painter.drawRect(pillar.getCoordinates().x(), pillar.getCoordinates().y(), squareSize, squareSize);
 		});
 }
+
+void BoardWidget::drawBirdges()
+{
+	const uint8_t cellSize = 15;
+	uint8_t radius = cellSize / 4;
+	QPainter painter(this);
+
+	auto& bridgesMap = game.getBoard().getBridges();
+	std::ranges::for_each(bridgesMap, [&painter, radius](const auto& bridgePair) {
+		const Bridge& bridge = bridgePair.second;
+		painter.setPen(QPen(bridge.getColor(), 2));
+		painter.drawLine(
+			bridge.getCoordinatesStart().x() + radius, bridge.getCoordinatesStart().y() + radius,
+			bridge.getCoordinatesEnd().x() + radius, bridge.getCoordinatesEnd().y() + radius);
+		});
+}
