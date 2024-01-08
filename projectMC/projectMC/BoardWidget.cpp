@@ -51,6 +51,21 @@ void BoardWidget::mousePressEvent(QMouseEvent* event) {
 	}
 }
 
+void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
+	if (!m_game.getCurrentPlayer().getMovePillar())
+		m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
+}
+
+void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
+	if (!m_selectedCell.getCoordinates().isNull()) {
+		m_game.placeBridge(clickedCell, m_selectedCell, m_game.getCurrentPlayer());
+		m_selectedCell = Cell();
+	}
+	else {
+		m_selectedCell = clickedCell;
+	}
+}
+
 //Draw
 bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)
 {
