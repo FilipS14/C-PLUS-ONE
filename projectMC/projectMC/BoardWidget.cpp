@@ -118,3 +118,17 @@ void BoardWidget::drawLettersFromBoard()
 		painter.drawText(635, 94 + num * 22, 12, 12, Qt::AlignCenter, QString::number(num));
 	}
 }
+
+void BoardWidget::drawPillars()
+{
+	QPainter painter(this);
+	auto& pillarsMap = game.getBoard().getPillars();
+
+	std::ranges::for_each(pillarsMap, [&painter](const auto& pair) {
+		const Pillar& pillar = pair.second;
+		const uint8_t squareSize = 8;
+		painter.setPen(pillar.getColor());
+		painter.setBrush(pillar.getColor());
+		painter.drawRect(pillar.getCoordinates().x(), pillar.getCoordinates().y(), squareSize, squareSize);
+		});
+}
