@@ -92,6 +92,23 @@ void BoardWidget::processClickEvent(Cell& clickedCell, Qt::MouseButton button) {
 	}
 }
 
+void BoardWidget::mousePressEvent(QMouseEvent* event) {
+	constexpr uint32_t cellSize{ 15 };
+	int32_t mouseX = event->x();
+	int32_t mouseY = event->y();
+
+	for (auto& line : m_game.getBoard().getMatrix()) {
+		for (auto& cellCenter : line) {
+			uint32_t distance = calculateDistance(cellCenter.getCoordinates(), QPoint(mouseX, mouseY));
+
+			if (distance <= cellSize / 2) {
+				processClickEvent(cellCenter, event->button());
+				update();
+				return;
+			}
+		}
+	}
+}
 
 //Draw
 bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)
