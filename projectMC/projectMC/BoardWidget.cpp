@@ -148,3 +148,18 @@ void BoardWidget::drawBirdges()
 			bridge.getCoordinatesEnd().x() + radius, bridge.getCoordinatesEnd().y() + radius);
 		});
 }
+
+void BoardWidget::drawCells()
+{
+	const uint8_t cellSize = 15;
+	const uint8_t cellRadius = cellSize / 2;
+	QPainter painter(this);
+	painter.setPen(Qt::black);
+	for (const auto& line : game.getBoard().getMatrix())
+	{
+		std::ranges::for_each(line, [&painter, cellSize](const Cell& element) {
+			if (element.getCoordinates() != QPoint())
+				painter.drawEllipse(element.getCoordinates().x(), element.getCoordinates().y(), cellSize / 2, cellSize / 2);
+			});
+	}
+}
