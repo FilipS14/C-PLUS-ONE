@@ -164,7 +164,7 @@ void BoardWidget::drawCells()
 	}
 }
 
-//swtich player
+//Swtich player
 void BoardWidget::switchToRedPlayer() {
 
 	if (m_game.switchToRedPlayer())
@@ -188,4 +188,21 @@ void BoardWidget::switchToBlackPlayer() {
 	else
 		QMessageBox::information(nullptr, "Info", "Place a pillar before switching.");
 	update();
+}
+
+//Game initialization
+BoardWidget::BoardWidget(QWidget* parent) :
+	QMainWindow{ parent }
+{
+	initializeUI();
+	m_game.initializationGame(24,24);
+	setupBoardCells();
+}
+
+void BoardWidget::updatePlayerStats() {
+	m_numberOfPillarsForRedPlayer.setText("Red Pillars: " + QString::number(m_game.getRedPlayer().getNumberOfPillars()));
+	m_numberOfBridgesForRedPlayer.setText("Red Bridges: " + QString::number(m_game.getRedPlayer().getNumberOfBridges()));
+
+	m_numberOfPillarsForBlackPlayer.setText("Black Pillars: " + QString::number(m_game.getBlackPlayer().getNumberOfPillars()));
+	m_numberOfBridgesForBlackPlayer.setText("Black Bridges: " + QString::number(m_game.getBlackPlayer().getNumberOfBridges()));
 }
