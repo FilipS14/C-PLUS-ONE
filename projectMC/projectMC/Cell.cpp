@@ -266,35 +266,42 @@ void Cell::placeBulldozerist(std::vector<Cell>& cells)
 
 void Cell::destroyPillar(std::vector<Cell>& board)
 {
-	if (isBulldozeristHere())
+	if (isBulldozeristHere()) 
 	{
-		std::vector<Cell*> pillars;
+		std::vector<std::unique_ptr<Cell>> piloniVecini;
 
-		
-		for (const auto& neighborCoord : getNeighborCoordinates()) 
+		const auto& vecini = getNeighborCoordinates();
+
+		for (const auto& coordonataVecin : vecini) 
 		{
-			const int index = neighborCoord.x() * getLine() + neighborCoord.y();
-			if (index >= 0 && index < board.size()) 
+			const uint8_t index = coordonataVecin.x() * getLine() + coordonataVecin.y(); 
+
+			if (index >= 0 && index < board.size())
 			{
-				Cell& neighborCell = board[index];
-				if (neighborCell.getIsMined() && !neighborCell.getIsBulldozered()) 
+				Cell& neighbor_cell = board[index];
+				if (neighbor_cell.getIsMined() && !neighbor_cell.getIsBulldozered()) 
 				{
-					pillars.push_back(&neighborCell);
+					piloniVecini.push_back(std::make_unique<Cell>(neighbor_cell));
 				}
 			}
 		}
 
-		if (!pillars.empty())
+		if (!piloniVecini.empty()) 
 		{
 			std::random_device rd;
 			std::mt19937 gen(rd());
-			std::uniform_int_distribution<size_t> dis(0, pillars.size() - 1);
+			std::uniform_int_distribution<size_t> distributieIndex(0, piloniVecini.size() - 1);
 
-			size_t randomIndex = dis(gen);
+			size_t indexAleator = distributieIndex(gen);
 
-			pillars[randomIndex]->clearCell();
-			setCoordinates(pillars[randomIndex]->getCoordinates());
-			pillars[randomIndex]->setBulldozered(true);
+			auto& destroiedPillow = piloniVecini[indexAleator];
+
+			if (destroiedPillow) 
+			{
+				destroiedPillow->clearCell(); 
+				setCoordinates(destroiedPillow->getCoordinates()); 
+				destroiedPillow->setBulldozered(true); 
+			}
 		}
 	}
 }
