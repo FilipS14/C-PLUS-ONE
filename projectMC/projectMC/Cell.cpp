@@ -234,7 +234,7 @@ void Cell::bulldozerTurn(std::vector<Cell>& board)
 	}
 }
 
-bool Cell::isBulldozeristHere()
+bool Cell::isBulldozeristHere() const 
 {
 	return m_ocupied && !m_isMined && !m_isBulldozered;
 }

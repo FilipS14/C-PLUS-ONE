@@ -37,8 +37,9 @@ public:
 	void clearCell();
 	std::vector<QPoint> getNeighborCoordinates() const noexcept;
 	void bulldozerTurn(std::vector<Cell>& board);
-	bool isBulldozeristHere();
+	bool isBulldozeristHere() const;
 	void placeBulldozerist(std::vector<Cell>& cells);
+	void destroyPillar(std::vector<Cell>& board);
 
 private:
 	uint8_t m_line;
