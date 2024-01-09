@@ -264,6 +264,41 @@ void Cell::placeBulldozerist(std::vector<Cell>& cells)
 	}
 }
 
+void Cell::destroyPillar(std::vector<Cell>& board)
+{
+	if (isBulldozeristHere())
+	{
+		std::vector<Cell*> pillars;
+
+		
+		for (const auto& neighborCoord : getNeighborCoordinates()) 
+		{
+			const int index = neighborCoord.x() * getLine() + neighborCoord.y();
+			if (index >= 0 && index < board.size()) 
+			{
+				Cell& neighborCell = board[index];
+				if (neighborCell.getIsMined() && !neighborCell.getIsBulldozered()) 
+				{
+					pillars.push_back(&neighborCell);
+				}
+			}
+		}
+
+		if (!pillars.empty())
+		{
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_int_distribution<size_t> dis(0, pillars.size() - 1);
+
+			size_t randomIndex = dis(gen);
+
+			pillars[randomIndex]->clearCell();
+			setCoordinates(pillars[randomIndex]->getCoordinates());
+			pillars[randomIndex]->setBulldozered(true);
+		}
+	}
+}
+
 bool Cell::isEmpty() const
 {
 	return !m_ocupied && !m_isMined;
