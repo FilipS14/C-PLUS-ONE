@@ -16,6 +16,13 @@ void Instruction::addBackButton(QWidget* widget)
 	connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuIntruction()));
 }
 
+void Instruction::paintEvent(QPaintEvent* event)
+{
+	QPainter painter(this);
+	QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/signIntructions.png");
+	painter.drawPixmap(20, 40, 700, 700, backgroundPixmap);
+}
+
 void Instruction::goBackToMenuIntruction() {
 	emit goBackToMenuSignalInstruction();
 }

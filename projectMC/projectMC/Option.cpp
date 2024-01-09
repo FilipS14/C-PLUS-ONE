@@ -38,7 +38,7 @@ void Option::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
     QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/woodSign.png");
-    painter.drawPixmap(20, 100, 700, 700, backgroundPixmap);
+    painter.drawPixmap(20, 100, 700, 710, backgroundPixmap);
 }
 
 void Option::setupUI()

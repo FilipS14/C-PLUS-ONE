@@ -2,18 +2,17 @@
 #include <QTableWidgetItem>
 
 LeaderBoard::LeaderBoard(QWidget* parent) : QWidget(parent) {
-    // Assuming leaderboardTable is a member variable of LeaderBoard class
+   
     leaderboardTable = new QTableWidget(this);
-    leaderboardTable->setColumnCount(4); // Assuming you have 4 columns
-
+    leaderboardTable->setColumnCount(4);
+    addBackButton(this);
     QStringList headers;
     headers << "ID" << "Username" << "Wins" << "Losses";
     leaderboardTable->setHorizontalHeaderLabels(headers);
 
-    loadLeaderboard(); // Load data when the object is created
+    loadLeaderboard();
 
-    // You might want to adjust the size and position based on your layout
-    leaderboardTable->setGeometry(10, 10, 400, 200);
+    leaderboardTable->setGeometry(165, 320, 410, 240);
 }
 
 void LeaderBoard::loadLeaderboard() {
@@ -34,4 +33,22 @@ void LeaderBoard::loadLeaderboard() {
 
         ++row;
     }
+}
+
+void LeaderBoard::addBackButton(QWidget* widget)
+{
+    goBackButton = new QPushButton(widget);
+    goBackButton->setGeometry(10, 10, 40, 40);
+    connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuLeaderBoard()));
+}
+
+void LeaderBoard::paintEvent(QPaintEvent* event)
+{
+    QPainter painter(this);
+    QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/woodSign.png");
+    painter.drawPixmap(20, 100, 700, 700, backgroundPixmap);
+}
+
+void LeaderBoard::goBackToMenuLeaderBoard() {
+    emit goBackToMenuSignalLeaderBoard();
 }

@@ -4,6 +4,10 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QPaintEvent>
+#include <QPainter>
+
+
 
 class Instruction : public QMainWindow
 {
@@ -19,6 +23,9 @@ signals:
 
 public slots:
 	void goBackToMenuIntruction();
+
+protected:
+	void paintEvent(QPaintEvent* event) override;
 
 private:
 	QPushButton *goBackButton;
