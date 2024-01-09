@@ -1,5 +1,5 @@
 #pragma once
-#include "Player.h"
+#include "../backend/Player.h"
 #include "Board.h"
 #include <QMessageBox>
 #include <functional>

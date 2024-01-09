@@ -2,7 +2,7 @@
 #include "Cell.h"
 #include "Pillar.h"
 #include "Bridge.h"
-#include "Player.h"
+#include "../backend/Player.h"
 #include <QPoint>
 #include <QColor>
 #include <iostream>

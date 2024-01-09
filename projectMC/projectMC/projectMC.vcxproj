@@ -118,7 +118,6 @@
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="Pillar.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="projectMC.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -135,10 +134,14 @@
     <ClInclude Include="DataBaseManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Pillar.h" />
-    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\wood.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\backend\backend.vcxproj">
+      <Project>{a7c8c1bd-6ce3-47ff-b5f3-e98a14cbf2d3}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

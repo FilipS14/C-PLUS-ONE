@@ -75,6 +75,6 @@ void Player::displayInfo()
 {
 	std::cout << "Player name: " << m_name << std::endl;
 	std::cout << "Team: " << static_cast<int>(m_team) << std::endl;
-	std::cout << "Number Of Pillars left:" << m_numberOfPillars << std::endl; 
-	std::cout << "Number of Bridges left:" << m_numbersOfBridges << std::endl;  
+	std::cout << "Number Of Pillars left:" << m_numberOfPillars << std::endl;
+	std::cout << "Number of Bridges left:" << m_numbersOfBridges << std::endl;
 }
