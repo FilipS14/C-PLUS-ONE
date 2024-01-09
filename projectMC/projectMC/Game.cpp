@@ -1,10 +1,10 @@
 #include "Game.h"
 
 Game::Game() :
-m_board(std::make_unique<Board>()),
-m_redPlayer(std::make_unique<Player>("default", Team::red)),
-m_blackPlayer(std::make_unique<Player>("deafult", Team::black)),
-m_currentPlayer(m_redPlayer.get())
+    m_board(std::make_unique<Board>()),
+    m_redPlayer(std::make_unique<Player>("default", Team::red)),
+    m_blackPlayer(std::make_unique<Player>("deafult", Team::black)),
+    m_currentPlayer(m_redPlayer.get())
 {}
 
 //GETTERS
@@ -28,7 +28,7 @@ Player& Game::getCurrentPlayer() const {
 }
 
 //GAME HANDLER
-void Game::initializationGame(uint8_t line , uint8_t column) {
+void Game::initializationGame(uint8_t line, uint8_t column) {
     //trbuie sa ma uit aici
     m_currentPlayer = m_redPlayer.get();
     m_board.get()->resizeBoard(line, column);
@@ -89,7 +89,7 @@ void Game::processNeighborCell(Player& player, const Cell& currentCell, std::uno
 
     auto isValidCell = [this](const int& x, const int& y) {
         return x >= 0 && x < m_board->getLine() && y >= 0 && y < m_board->getColumn();
-        };
+    };
 
     if (isValidCell(newX, newY)) {
         const Cell& neighborCell = m_board.get()->getMatrix().at(newX).at(newY);
@@ -141,14 +141,6 @@ void Game::placePillar(Cell& cell, Player& player) {
 
     player.updateNumberOfPillars(1);
     player.setMovePillar(true);
-
-    if (checkDrawCondition())
-    {
-        QMessageBox::information(nullptr, "Game Over", "The game ended in a draw!");
-    }
-    if (checkWinCondition(getCurrentPlayer())) {
-        QMessageBox::information(nullptr, "Game Over", "WIN!");
-    }
 }
 
 void Game::placeBridge(const Cell& cellStart, const Cell& cellEnd, Player& player) {
@@ -162,11 +154,4 @@ void Game::placeBridge(const Cell& cellStart, const Cell& cellEnd, Player& playe
     m_board->addBridge(newBridge);
     player.updateNumberOfBridges(1);
 
-    if (checkDrawCondition())
-    {
-        QMessageBox::information(nullptr, "Game Over", "The game ended in a draw!");
-    }
-    if (checkWinCondition(getCurrentPlayer())) {
-        QMessageBox::information(nullptr, "Game Over", "WIN!");
-    }
 }

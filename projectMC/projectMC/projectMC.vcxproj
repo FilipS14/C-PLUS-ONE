@@ -106,10 +106,7 @@
     <QtRcc Include="projectMC.qrc" />
     <QtUic Include="projectMC.ui" />
     <QtMoc Include="projectMC.h" />
-    <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardWidget.cpp" />
-    <ClCompile Include="Bridge.cpp" />
-    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="DataBaseManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Instruction.cpp" />
@@ -117,23 +114,18 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Option.cpp" />
-    <ClCompile Include="Pillar.cpp" />
     <ClCompile Include="projectMC.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h" />
+    <ClInclude Include="Game.h" />
     <QtMoc Include="BoardWidget.h" />
-    <ClInclude Include="Bridge.h" />
-    <ClInclude Include="Cell.h" />
     <QtMoc Include="MainMenu.h" />
     <QtMoc Include="MainWindow.h" />
     <QtMoc Include="Instruction.h" />
     <QtMoc Include="Option.h" />
     <QtMoc Include="LeaderBoard.h" />
     <ClInclude Include="DataBaseManager.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Pillar.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\wood.jpg" />

@@ -1,6 +1,6 @@
 #pragma once
 #include "../backend/Player.h"
-#include "Board.h"
+#include "../backend/Board.h"
 #include <QMessageBox>
 #include <functional>
 #include <memory>

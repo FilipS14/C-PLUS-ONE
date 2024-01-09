@@ -5,8 +5,9 @@
 #include <QPushButton>
 #include <qpainter.h>
 #include <QPoint>
-#include "Bridge.h"
-#include "Pillar.h"
+#include <QMessageBox>
+#include "../backend/Bridge.h"
+#include "../backend/Pillar.h"
 #include "Game.h"
 #include <unordered_map>
 #include <cmath>

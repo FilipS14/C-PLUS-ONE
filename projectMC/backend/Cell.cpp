@@ -1,5 +1,4 @@
 #include"Cell.h"
-#include "Board.h"
 
 Cell::Cell(bool ocupied, QPoint coordinates, uint8_t line, uint8_t column, bool isMined, bool isBulldozered) : //Constructor
 	m_ocupied{ ocupied },
@@ -143,23 +142,23 @@ void Cell::setColumn(const uint8_t& column)
 // Metode joc
 void Cell::clearCell()
 {
-	m_ocupied = false; 
-	m_isMined = false; 
-	m_isBulldozered = false; 
-	m_line = 0; 
-	m_column = 0; 
-	m_coordinates = QPoint(); 
+	m_ocupied = false;
+	m_isMined = false;
+	m_isBulldozered = false;
+	m_line = 0;
+	m_column = 0;
+	m_coordinates = QPoint();
 }
 
 std::vector<QPoint> Cell::getNeighborCoordinates() const noexcept
 {
 	std::vector<QPoint> neighbors;
 
-	for (uint8_t dx = -1; dx <= 1; ++dx) 
+	for (uint8_t dx = -1; dx <= 1; ++dx)
 	{
 		for (uint8_t dy = -1; dy <= 1; ++dy)
 		{
-			if (dx == 0 && dy == 0) 
+			if (dx == 0 && dy == 0)
 			{
 				continue;
 			}
@@ -172,7 +171,7 @@ std::vector<QPoint> Cell::getNeighborCoordinates() const noexcept
 	return neighbors;
 }
 
-void Cell::bulldozerTurn(std::vector<Cell>& board) 
+void Cell::bulldozerTurn(std::vector<Cell>& board)
 {
 	if (isBulldozeristHere()) {
 		std::random_device rd;
@@ -188,14 +187,14 @@ void Cell::bulldozerTurn(std::vector<Cell>& board)
 				const int index = neighborCoord.x() * getLine() + neighborCoord.y();
 				if (index >= 0 && index < board.size()) {
 					Cell& neighborCell = board[index];
-					if (neighborCell.getIsMined() && !neighborCell.getIsBulldozered()) 
+					if (neighborCell.getIsMined() && !neighborCell.getIsBulldozered())
 					{
 						pillars.push_back(std::make_unique<Cell>(neighborCell));
 					}
 				}
 			}
 
-			if (!pillars.empty()) 
+			if (!pillars.empty())
 			{
 				std::shuffle(pillars.begin(), pillars.end(), gen);
 
@@ -206,17 +205,17 @@ void Cell::bulldozerTurn(std::vector<Cell>& board)
 			}
 		}
 
-		else 
+		else
 		{
 			std::vector<QPoint> emptyCells;
 
 			for (const auto& neighborCoord : getNeighborCoordinates())
 			{
 				const int index = neighborCoord.x() * getLine() + neighborCoord.y();
-				if (index >= 0 && index < board.size()) 
+				if (index >= 0 && index < board.size())
 				{
 					Cell& neighborCell = board[index];
-					if (!neighborCell.getOcupier() && !neighborCell.getIsMined()) 
+					if (!neighborCell.getOcupier() && !neighborCell.getIsMined())
 					{
 						emptyCells.push_back(neighborCell.getCoordinates());
 					}
@@ -234,7 +233,7 @@ void Cell::bulldozerTurn(std::vector<Cell>& board)
 	}
 }
 
-bool Cell::isBulldozeristHere() const 
+bool Cell::isBulldozeristHere() const
 {
 	return m_ocupied && !m_isMined && !m_isBulldozered;
 }
@@ -243,7 +242,7 @@ void Cell::placeBulldozerist(std::vector<Cell>& cells)
 {
 	std::vector<size_t> emptyCellIndices;
 
-	for (size_t i = 0; i < cells.size(); ++i) 
+	for (size_t i = 0; i < cells.size(); ++i)
 	{
 		if (!cells[i].getOcupier() && !cells[i].getIsMined())
 		{
@@ -251,7 +250,7 @@ void Cell::placeBulldozerist(std::vector<Cell>& cells)
 		}
 	}
 
-	if (!emptyCellIndices.empty()) 
+	if (!emptyCellIndices.empty())
 	{
 		std::random_device rd;
 		std::mt19937 gen(rd());
@@ -266,27 +265,27 @@ void Cell::placeBulldozerist(std::vector<Cell>& cells)
 
 void Cell::destroyPillar(std::vector<Cell>& board)
 {
-	if (isBulldozeristHere()) 
+	if (isBulldozeristHere())
 	{
 		std::vector<std::unique_ptr<Cell>> piloniVecini;
 
 		const auto& vecini = getNeighborCoordinates();
 
-		for (const auto& coordonataVecin : vecini) 
+		for (const auto& coordonataVecin : vecini)
 		{
-			const uint8_t index = coordonataVecin.x() * getLine() + coordonataVecin.y(); 
+			const uint8_t index = coordonataVecin.x() * getLine() + coordonataVecin.y();
 
 			if (index >= 0 && index < board.size())
 			{
 				Cell& neighbor_cell = board[index];
-				if (neighbor_cell.getIsMined() && !neighbor_cell.getIsBulldozered()) 
+				if (neighbor_cell.getIsMined() && !neighbor_cell.getIsBulldozered())
 				{
 					piloniVecini.push_back(std::make_unique<Cell>(neighbor_cell));
 				}
 			}
 		}
 
-		if (!piloniVecini.empty()) 
+		if (!piloniVecini.empty())
 		{
 			std::random_device rd;
 			std::mt19937 gen(rd());
@@ -296,11 +295,11 @@ void Cell::destroyPillar(std::vector<Cell>& board)
 
 			auto& destroiedPillow = piloniVecini[indexAleator];
 
-			if (destroiedPillow) 
+			if (destroiedPillow)
 			{
-				destroiedPillow->clearCell(); 
-				setCoordinates(destroiedPillow->getCoordinates()); 
-				destroiedPillow->setBulldozered(true); 
+				destroiedPillow->clearCell();
+				setCoordinates(destroiedPillow->getCoordinates());
+				destroiedPillow->setBulldozered(true);
 			}
 		}
 	}
