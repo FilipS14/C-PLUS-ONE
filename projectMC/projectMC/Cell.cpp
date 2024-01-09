@@ -1,4 +1,5 @@
 #include"Cell.h"
+#include "Board.h"
 
 Cell::Cell(bool ocupied, QPoint coordinates, uint8_t line, uint8_t column, bool isMined, bool isBulldozered) : //Constructor
 	m_ocupied{ ocupied },
@@ -169,6 +170,75 @@ std::vector<QPoint> Cell::getNeighborCoordinates() const noexcept
 		}
 	}
 	return neighbors;
+}
+
+void Cell::bulldozerTurn(std::vector<Cell>& board)
+{
+	if (isBulldozeristHere()) 
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<> dis(0, 1);
+		int result = dis(gen);
+
+		if (result == 0)
+		{
+			std::vector<Cell*> pillars;
+
+			for (const auto& neighborCoord : getNeighborCoordinates()) 
+			{
+				const int index = neighborCoord.x() * getLine() + neighborCoord.y();
+				if (index >= 0 && index < board.size()) {
+					Cell& neighborCell = board[index];
+					if (neighborCell.getIsMined() && !neighborCell.getIsBulldozered()) {
+						pillars.push_back(&neighborCell);
+					}
+				}
+			}
+
+			if (!pillars.empty()) {
+
+				std::shuffle(pillars.begin(), pillars.end(), gen);
+
+				Cell* pillarToDestroy = pillars.front();
+				pillarToDestroy->clearCell();
+				setCoordinates(pillarToDestroy->getCoordinates());
+				pillarToDestroy->setBulldozered(true);
+			}
+		}
+		else {
+			std::vector<QPoint> emptyCells;
+
+			for (const auto& neighborCoord : getNeighborCoordinates()) 
+			{
+				const int index = neighborCoord.x() * getLine() + neighborCoord.y();
+				if (index >= 0 && index < board.size()) 
+				
+				{
+					Cell& neighborCell = board[index];
+					if (!neighborCell.getOcupier() && !neighborCell.getIsMined())
+					{
+						emptyCells.push_back(neighborCell.getCoordinates());
+					}
+				}
+			}
+
+			if (!emptyCells.empty()) 
+			{
+				std::shuffle(emptyCells.begin(), emptyCells.end(), gen);
+
+				QPoint newCoordinates = emptyCells.front();
+				setCoordinates(newCoordinates);
+			}
+		}
+	}
+}
+
+
+
+bool Cell::isBulldozeristHere()
+{
+	return m_ocupied && !m_isMined && !m_isBulldozered;
 }
 
 bool Cell::isEmpty() const
