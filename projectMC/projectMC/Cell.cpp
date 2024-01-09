@@ -150,7 +150,7 @@ void Cell::clearCell()
 	m_coordinates = QPoint(); 
 }
 
-std::vector<QPoint> Cell::getNeighborCoordinates() const
+std::vector<QPoint> Cell::getNeighborCoordinates() const noexcept
 {
 	std::vector<QPoint> neighbors;
 

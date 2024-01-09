@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <vector>
 #include <QPoint>
+
 class Cell
 {
 public:
@@ -33,7 +34,10 @@ public:
 
 	//Game methods
 	void clearCell();
-	std::vector<QPoint> getNeighborCoordinates() const;
+	std::vector<QPoint> getNeighborCoordinates() const noexcept;
+	void bulldozerTurn(std::vector<Cell>& board);
+	bool isBulldozeristHere();
+	static void placeBulldozerist(std::vector<std::vector<Cell>>& board);
 
 private:
 	uint8_t m_line;
