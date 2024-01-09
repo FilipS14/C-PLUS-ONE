@@ -25,13 +25,13 @@ void Option::goBackToMenuOptions() {
 }
 
 Option::Option(QWidget* parent) :
-	QWidget { parent }
+    QWidget{ parent }
 {
-	setupUI();
-	applyStyles();
-	positionWidgets();
+    setupUI();
+    applyStyles();
+    positionWidgets();
     addBackButton(this);
-	setFixedSize(750, 750);
+    setFixedSize(750, 750);
 }
 
 void Option::paintEvent(QPaintEvent* event)
@@ -58,6 +58,10 @@ void Option::setupUI()
     labelNamePlayerBlack = new QLabel("Name black player:", this);
     labelSetVolume = new QLabel("Volume:", this);
 
+    saveButtonNameRedPlayer = new QPushButton("Save", this);
+    saveButtonNameBlackPlayer = new QPushButton("Save", this);
+    connect(saveButtonNameRedPlayer, SIGNAL(clicked()), this, SLOT(saveNameRedPlayerSlot()));
+    connect(saveButtonNameBlackPlayer, SIGNAL(clicked()), this, SLOT(saveNameBlackPlayerSlot()));
 }
 
 void Option::applyStyles()
@@ -98,7 +102,7 @@ void Option::applyStyles()
         "  image: url(:/images/downArrow.jpg);"
         "}");
 
-    const QString style =  
+    const QString style =
         "QLineEdit {"
         "  border: 4px solid #795548;"
         "  background-color: #FFF3E0;"
@@ -128,20 +132,28 @@ void Option::positionWidgets()
     int yPos = 320;
     int xPos = 360;
 
-    comboBoxBoardSize->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
-    labelBoardSize->setGeometry(xPos - 180, yPos , widgetWidth, widgetHeight);//123
+    comboBoxBoardSize->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    labelBoardSize->setGeometry(xPos - 180, yPos, widgetWidth, widgetHeight);//123
     yPos += widgetHeight + padding;
 
-    labelNamePlayerRed->setGeometry(xPos - 180, yPos , widgetWidth, widgetHeight);//123
-    lineEditPlayer1->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
+    labelNamePlayerRed->setGeometry(xPos - 180, yPos, widgetWidth, widgetHeight);//123
+    lineEditPlayer1->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    saveButtonNameRedPlayer->setGeometry(xPos + widgetWidth + 10, yPos, 50, widgetHeight);
     yPos += widgetHeight + padding;
 
-    labelNamePlayerBlack->setGeometry(xPos - 180, yPos , widgetWidth, widgetHeight);//123
-    lineEditPlayer2->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
+    labelNamePlayerBlack->setGeometry(xPos - 180, yPos, widgetWidth, widgetHeight);//123
+    lineEditPlayer2->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    saveButtonNameBlackPlayer->setGeometry(xPos + widgetWidth + 10, yPos, 50, widgetHeight);
     yPos += widgetHeight + padding;
 
     labelSetVolume->setGeometry(xPos - 180, yPos, widgetWidth, widgetHeight);//123
-    volumeSlider->setGeometry(xPos + 20, yPos, widgetWidth, widgetHeight);
-
+    volumeSlider->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
 }
 
+void Option::saveNameBlackPlayerSlot() {
+    QString playerName = lineEditPlayer2->text();
+}
+
+void Option::saveNameRedPlayerSlot() {
+    QString playerName = lineEditPlayer1->text();
+}

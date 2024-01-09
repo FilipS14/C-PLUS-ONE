@@ -22,6 +22,9 @@ signals:
 
 public slots:
     void goBackToMenuOptions();
+private slots:
+    void saveNameRedPlayerSlot();
+    void saveNameBlackPlayerSlot();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -43,5 +46,7 @@ private:
     QLabel* labelNamePlayerBlack;
     QLabel* labelSetVolume;
     QPushButton* goBackButton;
+    QPushButton* saveButtonNameRedPlayer;
+    QPushButton* saveButtonNameBlackPlayer;
 };
 #endif
