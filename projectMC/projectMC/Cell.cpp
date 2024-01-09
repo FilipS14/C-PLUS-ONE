@@ -155,9 +155,9 @@ std::vector<QPoint> Cell::getNeighborCoordinates() const noexcept
 {
 	std::vector<QPoint> neighbors;
 
-	for (int dx = -1; dx <= 1; ++dx) 
+	for (uint8_t dx = -1; dx <= 1; ++dx) 
 	{
-		for (int dy = -1; dy <= 1; ++dy)
+		for (uint8_t dy = -1; dy <= 1; ++dy)
 		{
 			if (dx == 0 && dy == 0) 
 			{
@@ -172,58 +172,58 @@ std::vector<QPoint> Cell::getNeighborCoordinates() const noexcept
 	return neighbors;
 }
 
-void Cell::bulldozerTurn(std::vector<Cell>& board)
+void Cell::bulldozerTurn(std::vector<Cell>& board) 
 {
-	if (isBulldozeristHere()) 
-	{
+	if (isBulldozeristHere()) {
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<> dis(0, 1);
 		int result = dis(gen);
 
-		if (result == 0)
-		{
-			std::vector<Cell*> pillars;
+		if (result == 0) {
+			std::vector<std::unique_ptr<Cell>> pillars;
 
-			for (const auto& neighborCoord : getNeighborCoordinates()) 
+			for (const auto& neighborCoord : getNeighborCoordinates())
 			{
 				const int index = neighborCoord.x() * getLine() + neighborCoord.y();
 				if (index >= 0 && index < board.size()) {
 					Cell& neighborCell = board[index];
-					if (neighborCell.getIsMined() && !neighborCell.getIsBulldozered()) {
-						pillars.push_back(&neighborCell);
+					if (neighborCell.getIsMined() && !neighborCell.getIsBulldozered()) 
+					{
+						pillars.push_back(std::make_unique<Cell>(neighborCell));
 					}
 				}
 			}
 
-			if (!pillars.empty()) {
-
+			if (!pillars.empty()) 
+			{
 				std::shuffle(pillars.begin(), pillars.end(), gen);
 
-				Cell* pillarToDestroy = pillars.front();
+				std::unique_ptr<Cell>& pillarToDestroy = pillars.front();
 				pillarToDestroy->clearCell();
 				setCoordinates(pillarToDestroy->getCoordinates());
 				pillarToDestroy->setBulldozered(true);
 			}
 		}
-		else {
+
+		else 
+		{
 			std::vector<QPoint> emptyCells;
 
-			for (const auto& neighborCoord : getNeighborCoordinates()) 
+			for (const auto& neighborCoord : getNeighborCoordinates())
 			{
 				const int index = neighborCoord.x() * getLine() + neighborCoord.y();
 				if (index >= 0 && index < board.size()) 
-				
 				{
 					Cell& neighborCell = board[index];
-					if (!neighborCell.getOcupier() && !neighborCell.getIsMined())
+					if (!neighborCell.getOcupier() && !neighborCell.getIsMined()) 
 					{
 						emptyCells.push_back(neighborCell.getCoordinates());
 					}
 				}
 			}
 
-			if (!emptyCells.empty()) 
+			if (!emptyCells.empty())
 			{
 				std::shuffle(emptyCells.begin(), emptyCells.end(), gen);
 
