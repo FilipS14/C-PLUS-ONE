@@ -234,11 +234,34 @@ void Cell::bulldozerTurn(std::vector<Cell>& board)
 	}
 }
 
-
-
 bool Cell::isBulldozeristHere()
 {
 	return m_ocupied && !m_isMined && !m_isBulldozered;
+}
+
+void Cell::placeBulldozerist(std::vector<Cell>& cells)
+{
+	std::vector<size_t> emptyCellIndices;
+
+	for (size_t i = 0; i < cells.size(); ++i) 
+	{
+		if (!cells[i].getOcupier() && !cells[i].getIsMined())
+		{
+			emptyCellIndices.push_back(i);
+		}
+	}
+
+	if (!emptyCellIndices.empty()) 
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<size_t> dis(0, emptyCellIndices.size() - 1);
+
+		size_t randomIndex = dis(gen);
+
+
+		cells[emptyCellIndices[randomIndex]].setOcupied(true);
+	}
 }
 
 bool Cell::isEmpty() const
