@@ -1,4 +1,4 @@
-#include "DataBaseManager.h"
+﻿#include "DataBaseManager.h"
 #include <QSqlError> 
 
 DataBaseManager::DataBaseManager() {
@@ -29,4 +29,15 @@ void DataBaseManager::updatePlayerStats(const QString& playerName, int wins, int
     query.bindValue(1, wins);
     query.bindValue(2, losses);
     query.exec();
+}
+
+void DataBaseManager::resetDatabase() {
+    QSqlQuery query;
+    query.exec("DROP TABLE IF EXISTS player_stats");
+
+    if (query.lastError().isValid()) {
+        qDebug() << "Eroare la ștergerea tabelului din baza de date:" << query.lastError().text();
+    }
+
+    createTable();
 }
