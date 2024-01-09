@@ -32,19 +32,22 @@ private:
 	void drawPillars();
 	void drawBirdges();
 	void drawCells();
+	void drawBoxForPlayer();
 	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
 
 	void createSwitchButtons(QWidget* parent);
 	void createPlayerLabels(QWidget* parent);
 	void createPlayerInfoLabels(QWidget* parent);
-
+	QString createBackButtonStyle();
+	QString createSwitchButtonStyle();
 private:
 	Game m_game;
 	Cell m_selectedCell;
 	Cell m_selectCellForDelete;
-	QPushButton m_backButton;
-	QPushButton m_switchButtonRed;
-	QPushButton m_switchButtonBlack;
+
+	QPushButton* m_backButton;
+	QPushButton* m_switchButtonRed;
+	QPushButton* m_switchButtonBlack;
 
 	QLabel m_numberOfPillarsForRedPlayer;
 	QLabel m_numberOfBridgesForRedPlayer;

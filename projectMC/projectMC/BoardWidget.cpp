@@ -5,8 +5,8 @@ void BoardWidget::backToMenu() {
 	emit backToMenuSignal();
 }
 
-void BoardWidget::addBackButton(QWidget* widget) {
-	QString buttonStyle = "QPushButton {"
+QString BoardWidget::createBackButtonStyle() {
+	return "QPushButton {"
 		"background-color: #D2691E;"
 		"background-image: url(/Users/Filip/Desktop/facultate/backToMenu.jpg);"
 		"border: 2px solid #000000;"
@@ -18,10 +18,27 @@ void BoardWidget::addBackButton(QWidget* widget) {
 		"QPushButton:hover {"
 		"background-color: #DEB887;"
 		"}";
-	m_backButton.setStyleSheet(buttonStyle);
-	m_backButton.setGeometry(10, 10, 30, 30);
-	
-	connect(&m_backButton, &QPushButton::clicked, this, &BoardWidget::backToMenu);
+}
+
+QString BoardWidget::createSwitchButtonStyle()
+{
+	return "QPushButton {"
+		"background-color: #D2691E;"
+		"border: 3px solid #000000;"
+		"color: #ffffff;"
+		"font: Bold;"
+		"}"
+		"QPushButton:hover {"
+		"background-color: #DEB887;"
+		"}";
+}
+
+void BoardWidget::addBackButton(QWidget* widget) {
+	m_backButton = new QPushButton(widget);
+	m_backButton->setStyleSheet(createBackButtonStyle());
+	m_backButton->setGeometry(10, 10, 30, 30);
+	connect(m_backButton, &QPushButton::clicked, this, &BoardWidget::backToMenu);
+
 }
 
 //Game handle
@@ -31,24 +48,7 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	drawLettersFromBoard();
 	drawPillars();
 	drawBirdges();
-}
-
-void BoardWidget::mousePressEvent(QMouseEvent* event) {
-	constexpr uint32_t cellSize{ 15 };
-	int32_t mouseX = event->x();
-	int32_t mouseY = event->y();
-
-	for (auto& line : m_game.getBoard().getMatrix()) {
-		for (auto& cellCenter : line) {
-			uint32_t distance = calculateDistance(cellCenter.getCoordinates(), QPoint(mouseX, mouseY));
-
-			if (distance <= cellSize / 2) {
-				processClickEvent(cellCenter, event->button());
-				update();
-				return;
-			}
-		}
-	}
+	drawBoxForPlayer();
 }
 
 void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
@@ -111,6 +111,24 @@ void BoardWidget::mousePressEvent(QMouseEvent* event) {
 }
 
 //Draw
+void BoardWidget::drawBoxForPlayer() {
+	
+	QPainter painter(this);
+	//red plyer box
+	painter.setPen(QPen(Qt::red, 3));
+	painter.fillRect(260, 3, 190, 85, "#deb887");
+	painter.drawRect(260, 3, 190, 85);
+	QPixmap redPlayerImage("/Users/Filip/Desktop/facultate/REDplayer.jpeg");
+	painter.drawPixmap(265, 11, redPlayerImage);
+	
+	//black player box
+	painter.setPen(QPen(Qt::black, 3));
+	painter.fillRect(260, 657, 190, 85, "#deb887");
+	painter.drawRect(260, 657, 190, 85);
+	QPixmap blackPlayerImage("/Users/Filip/Desktop/facultate/BLACKplayer.jpg");
+	painter.drawPixmap(265, 664, blackPlayerImage);
+}
+
 bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)
 {
 	return (row == line - 1 && col == column - 1) ||
@@ -228,8 +246,8 @@ void BoardWidget::switchToRedPlayer() {
 
 	if (m_game.switchToRedPlayer())
 	{
-		m_switchButtonBlack.setVisible(false);
-		m_switchButtonRed.setVisible(true);
+		m_switchButtonBlack->setVisible(false);
+		m_switchButtonRed->setVisible(true);
 		updatePlayerStats();
 	}
 	else
@@ -240,8 +258,8 @@ void BoardWidget::switchToRedPlayer() {
 void BoardWidget::switchToBlackPlayer() {
 	if (m_game.switchToBlackPlayer())
 	{
-		m_switchButtonRed.setVisible(false);
-		m_switchButtonBlack.setVisible(true);
+		m_switchButtonRed->setVisible(false);
+		m_switchButtonBlack->setVisible(true);
 		updatePlayerStats();
 	}
 	else
@@ -277,36 +295,53 @@ void BoardWidget::initializeUI() {
 	QWidget* mainWidget = createMainWidget();
 	addBackButton(mainWidget);
 	setCentralWidget(mainWidget);
-
 	createSwitchButtons(mainWidget);
 	createPlayerLabels(mainWidget);
 	createPlayerInfoLabels(mainWidget);
 }
 
-void BoardWidget::createSwitchButtons(QWidget* parent) {
-	m_switchButtonRed.setGeometry(450, 10, 80, 80);
-	connect(&m_switchButtonRed, &QPushButton::clicked, this, &BoardWidget::switchToBlackPlayer);
-	m_switchButtonRed.setVisible(true);
+void BoardWidget::createPlayerLabels(QWidget* parent) {
+	QLabel redPlayerLabel("Red Player", parent);
+	redPlayerLabel.setGeometry(300, 25, 120, 30);
 
-	m_switchButtonBlack.setGeometry(450, 660, 80, 80);
-	connect(&m_switchButtonBlack, &QPushButton::clicked, this, &BoardWidget::switchToRedPlayer);
-	m_switchButtonBlack.setVisible(false);
+	QLabel blackPlayerLabel("Black Player", parent);
+	blackPlayerLabel.setGeometry(280, 680, 120, 30);
+}
+
+void BoardWidget::createSwitchButtons(QWidget* parent) {
+	m_switchButtonRed = new QPushButton("SWITCH TURN", parent);
+	m_switchButtonRed->setGeometry(460, 3, 90, 85);
+	m_switchButtonRed->setStyleSheet(createSwitchButtonStyle());
+	connect(m_switchButtonRed, &QPushButton::clicked, this, &BoardWidget::switchToBlackPlayer);
+	m_switchButtonRed->setVisible(true);
+
+	m_switchButtonBlack = new QPushButton("SWITCH TURN", parent);
+	m_switchButtonBlack->setGeometry(460, 656, 90, 85);
+	m_switchButtonBlack->setStyleSheet(createSwitchButtonStyle());
+	connect(m_switchButtonBlack, &QPushButton::clicked, this, &BoardWidget::switchToRedPlayer);
+	m_switchButtonBlack->setVisible(false);
 }
 
 void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
-	m_numberOfPillarsForRedPlayer.setText("Red Pillars:" + QString::number(m_game.getRedPlayer().getNumberOfPillars()));
-	m_numberOfPillarsForRedPlayer.setGeometry(370, 25, 120, 30);
+	QFont font;
+	font.setWeight(QFont::Bold);
+	m_numberOfPillarsForRedPlayer.setText("Red Pillars: " + QString::number(m_game.getRedPlayer().getNumberOfPillars()));
+	m_numberOfPillarsForRedPlayer.setGeometry(355, 15, 120, 30);
+	m_numberOfPillarsForRedPlayer.setFont(font);
 	m_numberOfPillarsForRedPlayer.setParent(parent);
 
-	m_numberOfBridgesForRedPlayer.setText("Red Bridges:" + QString::number(m_game.getRedPlayer().getNumberOfBridges()));
-	m_numberOfBridgesForRedPlayer.setGeometry(370, 60, 120, 30);
+	m_numberOfBridgesForRedPlayer.setText("Red Bridges: " + QString::number(m_game.getRedPlayer().getNumberOfBridges()));
+	m_numberOfBridgesForRedPlayer.setGeometry(355, 40, 120, 30);
+	m_numberOfBridgesForRedPlayer.setFont(font);
 	m_numberOfBridgesForRedPlayer.setParent(parent);
 
 	m_numberOfPillarsForBlackPlayer.setText("Black Pillars:" + QString::number(m_game.getBlackPlayer().getNumberOfPillars()));
-	m_numberOfPillarsForBlackPlayer.setGeometry(360, 680, 120, 30);
+	m_numberOfPillarsForBlackPlayer.setGeometry(355, 670, 120, 30);
+	m_numberOfPillarsForBlackPlayer.setFont(font);
 	m_numberOfPillarsForBlackPlayer.setParent(parent);
 
 	m_numberOfBridgesForBlackPlayer.setText("Black Bridges:" + QString::number(m_game.getBlackPlayer().getNumberOfBridges()));
-	m_numberOfBridgesForBlackPlayer.setGeometry(360, 710, 120, 30);
+	m_numberOfBridgesForBlackPlayer.setGeometry(355, 695, 120, 30);
+	m_numberOfBridgesForBlackPlayer.setFont(font);
 	m_numberOfBridgesForBlackPlayer.setParent(parent);
 }

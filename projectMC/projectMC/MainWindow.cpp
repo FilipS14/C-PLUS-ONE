@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	boardWidget->hide();
 	pageInstructions->hide();
 	pageOptions->hide();
-	setFixedSize(750, 750);
+	setFixedSize(750, 760);
 }
 
 MainWindow::~MainWindow() {
