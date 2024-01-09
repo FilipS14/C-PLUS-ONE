@@ -4,8 +4,17 @@ Instruction::Instruction(QWidget* parent) :
 	QMainWindow{parent} {
 	setWindowTitle("Twixt Game");
 	QWidget* mainWidget = new QWidget(this);
+	QLabel* label1 = new QLabel("Twixt is a strategy game where two players strive\n to connect opposite sides of the board. Players\n    take turns placing a peg in an empty space\n   and creating bridges between adjacent pegs.", mainWidget);
+	label1->setGeometry(195, 282, 360, 120);
+
+	QLabel* label2 = new QLabel("Victory goes to the player who successfully\n  forms the first complete bridge spanning\n   from one end of the board to the other.", mainWidget);
+	label2->setGeometry(190, 440, 360, 120);
+
+	QLabel* label3 = new QLabel("      With left click you can add a peg \n    With right click you can add bridges \nWith middle click you can remove bridges", mainWidget);
+	label3->setGeometry(200, 595, 360, 120);
+
 	addBackButton(mainWidget);
-	QVBoxLayout* mainLayout = new QVBoxLayout(mainWidget);
+
 	setCentralWidget(mainWidget);
 }
 
