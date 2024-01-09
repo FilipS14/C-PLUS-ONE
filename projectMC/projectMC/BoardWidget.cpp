@@ -52,14 +52,18 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 }
 
 void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
-	if (!m_game.getCurrentPlayer().getMovePillar())
+	if (!m_game.getCurrentPlayer().getMovePillar()) {
 		m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
+		updatePlayerStats();
+	}
+		
 }
 
 void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
 	if (!m_selectedCell.getCoordinates().isNull()) {
 		m_game.placeBridge(clickedCell, m_selectedCell, m_game.getCurrentPlayer());
 		m_selectedCell = Cell();
+		updatePlayerStats();
 	}
 	else {
 		m_selectedCell = clickedCell;
@@ -70,6 +74,7 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 	if (!m_selectCellForDelete.getCoordinates().isNull()) {
 		m_game.getBoard().removeBridge(clickedCell, m_selectCellForDelete);
 		m_selectCellForDelete = Cell();
+		updatePlayerStats();
 	}
 	else {
 		m_selectCellForDelete = clickedCell;
@@ -248,7 +253,6 @@ void BoardWidget::switchToRedPlayer() {
 	{
 		m_switchButtonBlack->setVisible(false);
 		m_switchButtonRed->setVisible(true);
-		updatePlayerStats();
 	}
 	else
 		QMessageBox::information(nullptr, "Info", "Place a pillar before switching.");
@@ -260,7 +264,6 @@ void BoardWidget::switchToBlackPlayer() {
 	{
 		m_switchButtonRed->setVisible(false);
 		m_switchButtonBlack->setVisible(true);
-		updatePlayerStats();
 	}
 	else
 		QMessageBox::information(nullptr, "Info", "Place a pillar before switching.");
@@ -336,12 +339,12 @@ void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
 	m_numberOfBridgesForRedPlayer.setParent(parent);
 
 	m_numberOfPillarsForBlackPlayer.setText("Black Pillars:" + QString::number(m_game.getBlackPlayer().getNumberOfPillars()));
-	m_numberOfPillarsForBlackPlayer.setGeometry(355, 670, 120, 30);
+	m_numberOfPillarsForBlackPlayer.setGeometry(354, 670, 120, 30);
 	m_numberOfPillarsForBlackPlayer.setFont(font);
 	m_numberOfPillarsForBlackPlayer.setParent(parent);
 
 	m_numberOfBridgesForBlackPlayer.setText("Black Bridges:" + QString::number(m_game.getBlackPlayer().getNumberOfBridges()));
-	m_numberOfBridgesForBlackPlayer.setGeometry(355, 695, 120, 30);
+	m_numberOfBridgesForBlackPlayer.setGeometry(354, 695, 120, 30);
 	m_numberOfBridgesForBlackPlayer.setFont(font);
 	m_numberOfBridgesForBlackPlayer.setParent(parent);
 }
