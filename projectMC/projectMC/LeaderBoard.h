@@ -1,14 +1,18 @@
 #pragma once
-#include <QMainWindow>
 #include <QWidget>
+#include <QTableWidget>
 #include <QVBoxLayout>
+#include "DataBaseManager.h"
 
-class LeaderBoard : public QMainWindow
-{
-	Q_OBJECT
+class LeaderBoard : public QWidget {
+    Q_OBJECT
 public:
-	LeaderBoard(QWidget* parent = nullptr);
-	~LeaderBoard() = default;
-private:
+    LeaderBoard(QWidget* parent = nullptr);
 
+private:
+    QTableWidget* leaderboardTable;
+    DataBaseManager databaseManager;
+
+    void loadLeaderboard();
 };
+

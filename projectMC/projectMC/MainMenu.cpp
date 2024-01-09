@@ -62,6 +62,7 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     connect(startButton, SIGNAL(clicked()), this, SLOT(startGame()));
     connect(optionsButton, SIGNAL(clicked()), this, SLOT(showOptions()));
     connect(instructionsButton, SIGNAL(clicked()), this, SLOT(showInstructions()));
+    connect(leaderboardButton, SIGNAL(clicked()), this, SLOT(showLeaderboard()));
 
     mainLayout->setAlignment(Qt::AlignHCenter);
     mainWidget->setLayout(mainLayout);
@@ -78,4 +79,8 @@ void MainMenu::showInstructions() {
 
 void MainMenu::showOptions() {
     emit showOptionSignal();
+}
+
+void MainMenu::showLeaderboard() {
+    emit showLeaderboardSignal();
 }

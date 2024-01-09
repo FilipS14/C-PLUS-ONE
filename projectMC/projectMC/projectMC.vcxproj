@@ -37,12 +37,12 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;multimedia;multimediawidgets;sql</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.7.0_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;multimedia;multimediawidgets;sql</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -110,6 +110,7 @@
     <ClCompile Include="BoardWidget.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="DataBaseManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Instruction.cpp" />
     <ClCompile Include="LeaderBoard.cpp" />
@@ -131,6 +132,7 @@
     <QtMoc Include="Instruction.h" />
     <QtMoc Include="Option.h" />
     <QtMoc Include="LeaderBoard.h" />
+    <ClInclude Include="DataBaseManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Pillar.h" />
     <ClInclude Include="Player.h" />

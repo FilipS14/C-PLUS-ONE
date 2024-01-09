@@ -13,11 +13,13 @@ signals:
     void startGameSignal();
     void showInstructionsSignal();
     void showOptionSignal();
+    void showLeaderboardSignal();
 
 public slots:
     void startGame();
     void showInstructions();
     void showOptions();
+    void showLeaderboard();
 
 private:
     QPushButton* startButton;

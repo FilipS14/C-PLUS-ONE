@@ -19,6 +19,7 @@ public:
 public slots:
     void startGame();
     void showInstructions();
+    void showLeaderBoard();
     void showOptions();
     void backToMenu();
     void backToMenuIntruction();
@@ -30,6 +31,7 @@ private:
     BoardWidget* boardWidget;
     Instruction* pageInstructions;
     Option* pageOptions;
+    LeaderBoard* pageLeaderBoard;
 };
 
 #endif
