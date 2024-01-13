@@ -3,11 +3,12 @@
 MainWindow::MainWindow(QWidget* parent) :
 	QMainWindow{ parent } {
 	setWindowTitle("Twixt Game");
+	std::shared_ptr<Game> sharedGame = std::make_shared<Game>();
 	mainLayout = new QVBoxLayout;
 	mainMenu = new MainMenu(this);
-	boardWidget = new BoardWidget(this);
+	boardWidget = new BoardWidget(this, sharedGame);
 	pageInstructions = new Instruction(this);
-	pageOptions = new Option(this);
+	pageOptions = new Option(this, sharedGame);
 	pageLeaderBoard = new LeaderBoard(this);
 
 	QString backgroundStyle = "MainWindow {"
@@ -39,7 +40,6 @@ MainWindow::MainWindow(QWidget* parent) :
 	connect(pageInstructions, SIGNAL(goBackToMenuSignalInstruction()), this, SLOT(backToMenuIntruction()));
 	connect(pageOptions, SIGNAL(goBackToMenuSignalOptions()), this, SLOT(backToMenuOption()));
 	connect(pageLeaderBoard, SIGNAL(goBackToMenuSignalLeaderBoard()), this, SLOT(backToMenuLeaderBoard()));
-	
 
 	mainMenu->show();
 	boardWidget->hide();

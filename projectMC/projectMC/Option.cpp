@@ -24,8 +24,9 @@ void Option::goBackToMenuOptions() {
     emit goBackToMenuSignalOptions();
 }
 
-Option::Option(QWidget* parent) :
-    QWidget{ parent }
+Option::Option(QWidget* parent, std::shared_ptr<Game> game) :
+    QWidget{ parent },
+    m_game{ game }
 {
     setupUI();
     applyStyles();
@@ -60,8 +61,8 @@ void Option::setupUI()
 
     saveButtonNameRedPlayer = new QPushButton("Save", this);
     saveButtonNameBlackPlayer = new QPushButton("Save", this);
-    connect(saveButtonNameRedPlayer, SIGNAL(clicked()), this, SLOT(saveNameRedPlayerSlot()));
-    connect(saveButtonNameBlackPlayer, SIGNAL(clicked()), this, SLOT(saveNameBlackPlayerSlot()));
+    connect(saveButtonNameRedPlayer, &QPushButton::clicked, this, &Option::saveNameRedPlayerSlot);
+    connect(saveButtonNameBlackPlayer, &QPushButton::clicked, this, &Option::saveNameBlackPlayerSlot);
 }
 
 void Option::applyStyles()
@@ -150,10 +151,14 @@ void Option::positionWidgets()
     volumeSlider->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
 }
 
-void Option::saveNameBlackPlayerSlot() {
-    QString playerName = lineEditPlayer2->text();
+void Option::saveNameRedPlayerSlot()
+{
+    std::string redPlayerName = lineEditPlayer1->text().toStdString();
+    m_game.get()->getRedPlayer().setName(redPlayerName);
 }
 
-void Option::saveNameRedPlayerSlot() {
-    QString playerName = lineEditPlayer1->text();
+void Option::saveNameBlackPlayerSlot()
+{
+    std::string blackPlayerName = lineEditPlayer2->text().toStdString();
+    m_game.get()->getBlackPlayer().setName(blackPlayerName);
 }
