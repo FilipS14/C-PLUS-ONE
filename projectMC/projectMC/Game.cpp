@@ -27,6 +27,13 @@ Player& Game::getCurrentPlayer() const {
     return *m_currentPlayer;
 }
 
+bool Game::redTurn() {
+    if (m_currentPlayer == m_redPlayer.get()) {
+        return true;
+    }
+    return false;
+}
+
 //GAME HANDLER
 void Game::initializationGame(uint8_t line, uint8_t column) {
     //trbuie sa ma uit aici
@@ -154,4 +161,10 @@ void Game::placeBridge(const Cell& cellStart, const Cell& cellEnd, Player& playe
     m_board->addBridge(newBridge);
     player.updateNumberOfBridges(1);
 
+}
+
+void Game::mineSwitchTurn(Cell& cell, Player& player) {
+    cell.setOcupied(true);
+    player.updateNumberOfPillars(1);
+    player.setMovePillar(true);
 }
