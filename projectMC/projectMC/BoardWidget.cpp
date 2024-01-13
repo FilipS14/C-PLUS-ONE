@@ -46,6 +46,7 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	drawBoard();
 	drawCells();
 	drawLettersFromBoard();
+	drawMines();
 	drawPillars();
 	drawBirdges();
 	drawBoxForPlayer();
@@ -53,10 +54,23 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 
 void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 	if (!m_game.getCurrentPlayer().getMovePillar()) {
-		m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
+		if (!m_game.getBoard().isValidPillarMove(clickedCell, m_game.getCurrentPlayer())) {
+		}
+		else if (m_game.getBoard().getMatrix()[clickedCell.getLine()][clickedCell.getColumn()].getIsMined()) {
+			if (m_game.redTurn()) {
+				m_game.mineSwitchTurn(clickedCell, m_game.getCurrentPlayer());
+				switchToBlackPlayer();
+			}
+			else {
+				m_game.mineSwitchTurn(clickedCell, m_game.getCurrentPlayer());
+				switchToRedPlayer();
+			}
+		}
+		else {
+			m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
+		}
 		updatePlayerStats();
 	}
-		
 }
 
 void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
