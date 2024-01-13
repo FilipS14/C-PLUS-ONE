@@ -377,3 +377,19 @@ Cell Board::getCellAtCoordinates(const QPoint& coordinates) const
 	}
 	return m_board[0][0];
 }
+
+void Board::iterateThroughBridgesAndBulldoze(QPoint pillarCoord)
+{
+	auto shouldRemoveBridge = [pillarCoord](const std::pair<TwoPoint, Bridge>& bridgeEntry) {
+		return bridgeEntry.first.point1 == pillarCoord || bridgeEntry.first.point2 == pillarCoord;
+	};
+
+	for (auto it = m_bridges.begin(); it != m_bridges.end(); ) {
+		if (shouldRemoveBridge(*it)) {
+			it = m_bridges.erase(it);
+		}
+		else {
+			++it;
+		}
+	}
+}
