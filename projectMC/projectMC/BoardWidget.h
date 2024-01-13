@@ -35,6 +35,7 @@ private:
 	void drawCells();
 	void drawBoxForPlayer();
 	void drawMines();
+	void drawBuldozerist();
 	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
 
 	void createSwitchButtons(QWidget* parent);

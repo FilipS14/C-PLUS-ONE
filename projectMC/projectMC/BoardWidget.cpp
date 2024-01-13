@@ -49,6 +49,7 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	drawMines();
 	drawPillars();
 	drawBirdges();
+	drawBuldozerist();
 	drawBoxForPlayer();
 }
 
@@ -70,6 +71,7 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 			m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
 		}
 		updatePlayerStats();
+		m_game.getBoard().generateBuldozerist();
 	}
 }
 
@@ -292,6 +294,8 @@ BoardWidget::BoardWidget(QWidget* parent) :
 	initializeUI();
 	setupBoardCells();
 	m_game.getBoard().generateMines();
+	m_game.getBoard().generateBuldozerist();
+	m_game.getBoard().generateBuldozerist();
 }
 
 QWidget* BoardWidget::createMainWidget() {
@@ -378,4 +382,14 @@ void BoardWidget::drawMines() {
 			}
 		}
 	}
+}
+
+void BoardWidget::drawBuldozerist() {
+	QPainter painter(this);
+	const uint8_t cellSize = 8;
+
+	painter.setPen(QPen(Qt::yellow));
+	painter.setBrush(QBrush(Qt::yellow));
+	const Cell& cell = m_game.getBoard().getMatrix()[m_game.getBoard().getCurrentBuldozerLine()][m_game.getBoard().getCurrentBuldozerColumn()];
+	painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
 }
