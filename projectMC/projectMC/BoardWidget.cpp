@@ -274,9 +274,10 @@ void BoardWidget::switchToBlackPlayer() {
 BoardWidget::BoardWidget(QWidget* parent) :
 	QMainWindow{ parent }
 {
+	m_game.initializationGame(24, 24);
 	initializeUI();
-	m_game.initializationGame(24,24);
 	setupBoardCells();
+	m_game.getBoard().generateMines();
 }
 
 QWidget* BoardWidget::createMainWidget() {

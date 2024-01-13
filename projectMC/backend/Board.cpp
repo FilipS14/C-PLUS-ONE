@@ -327,3 +327,11 @@ int Board::generateRandomNumber(uint8_t minValue, uint8_t maxValue) const {
 
 	return dis(gen);
 }
+
+void Board::generateMines() {
+	for (size_t i = 0; i < 8; i++) {
+		uint8_t randomLine = generateRandomNumber(1, m_line - 2);
+		uint8_t randomColumn = generateRandomNumber(1, m_column - 2);
+		m_board[randomLine][randomColumn].setMined(true);
+	}
+}

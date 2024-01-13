@@ -95,6 +95,7 @@ public:
 
 	//MINES
 	__declspec(dllexport) int generateRandomNumber(uint8_t minValue, uint8_t maxValue) const;
+	__declspec(dllexport) void generateMines();
 
 private:
 	uint8_t m_line, m_column;
