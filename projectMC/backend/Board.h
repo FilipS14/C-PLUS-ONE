@@ -12,6 +12,7 @@
 #include <unordered_set>
 #include <memory>
 #include <array>
+#include <random>
 
 struct TwoPoint {
 	QPoint point1;
@@ -91,6 +92,9 @@ public:
 	//CHECKS PILLARS
 	__declspec(dllexport) bool checkPillarsOverlap(const Cell& Cell);
 	__declspec(dllexport) bool checkOpponentBase(const Cell& Cell, const Player& Player);
+
+	//MINES
+	__declspec(dllexport) int generateRandomNumber(uint8_t minValue, uint8_t maxValue) const;
 
 private:
 	uint8_t m_line, m_column;

@@ -319,3 +319,11 @@ void Board::removeBridge(const Cell& startCell, const Cell& endCell)
 		m_bridges.erase(bridgeIt);
 	}
 }
+
+int Board::generateRandomNumber(uint8_t minValue, uint8_t maxValue) const {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<unsigned int> dis(minValue, maxValue);
+
+	return dis(gen);
+}
