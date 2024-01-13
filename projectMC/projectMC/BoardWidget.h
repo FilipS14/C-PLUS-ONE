@@ -27,6 +27,7 @@ private:
 	void updatePlayerStats();
 	QWidget* createMainWidget();
 	void addBackButton(QWidget* widget);
+	void checkEnd();
 	void setupBoardCells();
 	void setupBoardCell(size_t row, size_t col);
 	void drawBoard();

@@ -125,10 +125,12 @@ void Game::gameReset()
             m_board->getMatrix()[line][column].clearCell();
         }
     }
-    m_redPlayer.get()->setNumberOfPillars(50);
-    m_redPlayer.get()->setNumberOfBridges(50);
-    m_blackPlayer.get()->setNumberOfPillars(50);
-    m_blackPlayer.get()->setNumberOfBridges(50);
+    const uint8_t pieces { 50 };
+    m_redPlayer.get()->setNumberOfPillars(pieces);
+    m_redPlayer.get()->setNumberOfBridges(pieces);
+    m_blackPlayer.get()->setNumberOfPillars(pieces);
+    m_blackPlayer.get()->setNumberOfBridges(pieces);
+    m_board->generateMines();
 }
 
 bool Game::switchToRedPlayer() {

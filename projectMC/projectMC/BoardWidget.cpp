@@ -83,13 +83,14 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 		else {
 			m_firstPlace++;
 			m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
-			m_game->getBoard().generateBuldozerist();
+			//m_game->getBoard().generateBuldozerist();
 		}
 		if (m_firstPlace == 2) {
 			m_switchPlayerForFirstRound->deleteLater();
 		}
 		updatePlayerStats();
 	}
+	checkEnd();
 }
 
 void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
@@ -108,9 +109,35 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 		m_game->getBoard().removeBridge(clickedCell, m_selectCellForDelete);
 		m_selectCellForDelete = Cell();
 		updatePlayerStats();
+		checkEnd();
 	}
 	else {
 		m_selectCellForDelete = clickedCell;
+	}
+}
+
+void BoardWidget::checkEnd()
+{
+	if (m_game->checkWinCondition(m_game->getCurrentPlayer()))
+	{
+		QString playerName = QString::fromStdString(m_game->getCurrentPlayer().getName());
+		QMessageBox::information(nullptr, "Congratulations!", playerName + " wins the game!");
+		m_game->gameReset();
+		if (m_game->redTurn())
+		{
+			switchToRedPlayer();
+		}
+		updatePlayerStats();
+	}
+	else if (m_game->checkDrawCondition())
+	{
+		QMessageBox::information(nullptr, "Too bad!", "It's a draw!");
+		m_game->gameReset();
+		if (m_game->redTurn())
+		{
+			switchToRedPlayer();
+		}
+		updatePlayerStats();
 	}
 }
 
