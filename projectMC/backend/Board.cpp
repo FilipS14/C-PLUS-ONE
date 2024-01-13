@@ -365,3 +365,15 @@ void Board::moveBuldozer(uint8_t b_line, uint8_t b_column) {
 	m_board[m_currentBuldozeristLine][m_currentBuldozeristColumn].setOcupied(true);
 	m_board[m_currentBuldozeristLine][m_currentBuldozeristColumn].setBulldozered(true);
 }
+
+Cell Board::getCellAtCoordinates(const QPoint& coordinates) const
+{
+	for (size_t row = 0; row < m_board.size(); row++) {
+		for (size_t column = 0; column < m_board.size(); column++) {
+			if (m_board[row][column].getCoordinates() == coordinates) {
+				return m_board[row][column];
+			}
+		}
+	}
+	return m_board[0][0];
+}
