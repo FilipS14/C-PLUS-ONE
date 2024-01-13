@@ -5,6 +5,9 @@ Board::Board(uint8_t line, uint8_t column) : //Constructor
 	m_line{ line },
 	m_column{ column } {
 	m_board.resize(line, std::vector<Cell>(column));
+
+	m_currentBuldozeristLine = 0;
+	m_currentBuldozeristColumn = 0;
 }
 
 Board::Board(Board&& other) noexcept : //Move Constructor
@@ -116,6 +119,15 @@ std::vector<Cell> Board::getBlackBase() const
 
 	return firstColumn;
 }
+
+uint8_t Board::getCurrentBuldozerLine() const {
+	return m_currentBuldozeristLine;
+}
+
+uint8_t Board::getCurrentBuldozerColumn() const {
+	return m_currentBuldozeristColumn;
+}
+
 
 //SETTERS
 void Board::setLine(uint8_t line) {

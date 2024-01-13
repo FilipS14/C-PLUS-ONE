@@ -59,6 +59,8 @@ public:
 	__declspec(dllexport) std::unordered_map<TwoPoint, Bridge, TwoPointHash>& getBridges();
 	__declspec(dllexport) std::vector<Cell> getRedBase() const;
 	__declspec(dllexport) std::vector<Cell> getBlackBase() const;
+	__declspec(dllexport) uint8_t getCurrentBuldozerLine() const;
+	__declspec(dllexport) uint8_t getCurrentBuldozerColumn() const;
 
 	//SETTERS
 	__declspec(dllexport) void setLine(uint8_t line);
@@ -102,6 +104,7 @@ public:
 
 
 private:
+	uint8_t m_currentBuldozeristLine, m_currentBuldozeristColumn;
 	uint8_t m_line, m_column;
 	std::vector<std::vector<Cell>>m_board;
 	std::unordered_map<QPoint, Pillar, PillarHash> m_pillars;
