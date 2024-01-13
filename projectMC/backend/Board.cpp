@@ -393,3 +393,36 @@ void Board::iterateThroughBridgesAndBulldoze(QPoint pillarCoord)
 		}
 	}
 }
+
+void Board::generateBuldozerist() {
+	uint8_t coin;
+	if (m_pillars.empty()) {
+		coin = 0;
+	}
+	else {
+		coin = generateRandomNumber(0, 10);
+	}
+
+	if (coin >= 8) {
+		Pillar randomPillar = getRandomPillar(m_pillars);
+		QPoint pillarCoordinates = randomPillar.getCoordinates();
+		Cell cellAtPillar = getCellAtCoordinates(pillarCoordinates);
+		moveBuldozer(cellAtPillar.getLine(), cellAtPillar.getColumn());
+		iterateThroughBridgesAndBulldoze(randomPillar.getCoordinates());
+		auto iter = std::find_if(m_pillars.begin(), m_pillars.end(),
+			[&randomPillar](const auto& pair) { return pair.second == randomPillar; });
+		if (iter != m_pillars.end())
+			m_pillars.erase(iter);
+	}
+	else {
+		uint8_t randomLine = generateRandomNumber(1, m_line - 2);
+		uint8_t randomColumn = generateRandomNumber(1, m_column - 2);
+		while (m_board[randomLine][randomColumn].getOcupier())
+		{
+			randomLine = generateRandomNumber(1, m_line - 2);
+			randomColumn = generateRandomNumber(1, m_column - 2);
+		}
+		moveBuldozer(randomLine, randomColumn);
+	}
+
+}

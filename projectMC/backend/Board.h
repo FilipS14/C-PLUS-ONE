@@ -104,6 +104,7 @@ public:
 	__declspec(dllexport) void moveBuldozer(uint8_t b_line, uint8_t b_column);
 	__declspec(dllexport) Cell getCellAtCoordinates(const QPoint& coordinates) const;
 	__declspec(dllexport) void iterateThroughBridgesAndBulldoze(QPoint pillarCoord);
+	__declspec(dllexport) void generateBuldozerist();
 
 
 private:
