@@ -97,6 +97,10 @@ public:
 	__declspec(dllexport) int generateRandomNumber(uint8_t minValue, uint8_t maxValue) const;
 	__declspec(dllexport) void generateMines();
 
+	//BULDOZERIST
+	__declspec(dllexport) Pillar getRandomPillar(const std::unordered_map<QPoint, Pillar, PillarHash>& pillarsMap);
+
+
 private:
 	uint8_t m_line, m_column;
 	std::vector<std::vector<Cell>>m_board;

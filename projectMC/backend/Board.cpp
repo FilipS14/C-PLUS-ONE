@@ -335,3 +335,12 @@ void Board::generateMines() {
 		m_board[randomLine][randomColumn].setMined(true);
 	}
 }
+
+Pillar Board::getRandomPillar(const std::unordered_map<QPoint, Pillar, PillarHash>& pillarsMap) {
+	std::vector<std::pair<QPoint, Pillar>> pillarsVector(pillarsMap.begin(), pillarsMap.end());
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(0, pillarsVector.size() - 1);
+	int randomIndex = dis(gen);
+	return pillarsVector[randomIndex].second;
+}
