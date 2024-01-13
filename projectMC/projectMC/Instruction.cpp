@@ -34,7 +34,7 @@ void Instruction::addBackButton(QWidget* widget)
 void Instruction::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
-	QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/signIntructions.png");
+	QPixmap backgroundPixmap("../Textures/signIntructions.png");
 	painter.drawPixmap(20, 40, 700, 700, backgroundPixmap);
 }
 

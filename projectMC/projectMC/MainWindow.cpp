@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent) :
 	pageLeaderBoard = new LeaderBoard(this);
 
 	QString backgroundStyle = "MainWindow {"
-		"background-image: url(/Users/Filip/Desktop/facultate/anul2/sem1/mc/backgroundWood.jpg);"
+		"background-image: url(../Textures/backgroundWood.jpg);"
 		"background-repeat: no-repeat;"
 		"background-position: center;"
 		" margin: 0;"

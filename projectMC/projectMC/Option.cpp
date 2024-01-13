@@ -4,7 +4,7 @@ void Option::addBackButton(QWidget* widget)
 {
     QString buttonStyle = "QPushButton {"
         "background-color: #D2691E;"
-        "background-image: url(/Users/Filip/Desktop/facultate/backToMenu.jpg);"
+        "background-image: url(../Textures/backToMenu.jpg);"
         "border: 2px solid #000000;"
         "color: #ffffff;"
         "font: Bold;"
@@ -38,7 +38,7 @@ Option::Option(QWidget* parent, std::shared_ptr<Game> game) :
 void Option::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
-    QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/woodSign.png");
+    QPixmap backgroundPixmap("../Textures/woodSign.png");
     painter.drawPixmap(20, 100, 700, 710, backgroundPixmap);
 }
 

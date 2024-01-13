@@ -8,7 +8,7 @@ void BoardWidget::backToMenu() {
 QString BoardWidget::createBackButtonStyle() {
 	return "QPushButton {"
 		"background-color: #D2691E;"
-		"background-image: url(/Users/Filip/Desktop/facultate/backToMenu.jpg);"
+		"background-image: url(../Textures/backToMenu.jpg);"
 		"border: 2px solid #000000;"
 		"color: #ffffff;"
 		"font: Bold;"
@@ -156,14 +156,14 @@ void BoardWidget::drawBoxForPlayer() {
 	painter.setPen(QPen(Qt::red, 3));
 	painter.fillRect(260, 3, 190, 85, "#deb887");
 	painter.drawRect(260, 3, 190, 85);
-	QPixmap redPlayerImage("/Users/Filip/Desktop/facultate/REDplayer.jpeg");
+	QPixmap redPlayerImage("../Textures/REDplayer.jpeg");
 	painter.drawPixmap(265, 11, redPlayerImage);
 
 	//black player box
 	painter.setPen(QPen(Qt::black, 3));
 	painter.fillRect(260, 657, 190, 85, "#deb887");
 	painter.drawRect(260, 657, 190, 85);
-	QPixmap blackPlayerImage("/Users/Filip/Desktop/facultate/BLACKplayer.jpg");
+	QPixmap blackPlayerImage("../Textures/BLACKplayer.jpg");
 	painter.drawPixmap(265, 664, blackPlayerImage);
 }
 
@@ -287,9 +287,8 @@ void BoardWidget::drawMines() {
 		for (size_t col = 0; col < m_game->getBoard().getColumn(); ++col) {
 			const Cell& cell = m_game->getBoard().getMatrix()[row][col];
 			if (cell.getIsMined() && cell.getOcupier()) {
-				painter.setPen(QPen(Qt::blue));
-				painter.setBrush(QBrush(Qt::blue));
-				painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
+				QPixmap mineImage("../Textures/mine.png");
+				painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, mineImage);
 			}
 		}
 	}
@@ -298,12 +297,9 @@ void BoardWidget::drawMines() {
 void BoardWidget::drawBuldozerist() {
 	QPainter painter(this);
 	constexpr uint8_t cellSize = 8;
-
-	painter.setPen(QPen(Qt::yellow));
-	painter.setBrush(QBrush(Qt::yellow));
-	const Cell& cell = m_game->getBoard().getMatrix()[m_game->getBoard().getCurrentBuldozerLine()][m_game->getBoard().getCurrentBuldozerColumn()];
-	QPixmap blackPlayerImage("/Users/Filip/Desktop/facultate/buldozerist.png");
-	painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, blackPlayerImage);
+	const Cell& cell = m_game->getBoard().getMatrix().at(m_game->getBoard().getCurrentBuldozerLine()).at(m_game->getBoard().getCurrentBuldozerColumn());
+	QPixmap buldozeristImage("../Textures/buldozerist.png");
+	painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, buldozeristImage);
 }
 
 //Swtich player

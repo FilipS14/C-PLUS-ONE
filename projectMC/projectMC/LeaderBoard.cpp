@@ -45,7 +45,7 @@ void LeaderBoard::addBackButton(QWidget* widget)
 void LeaderBoard::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
-    QPixmap backgroundPixmap("/Users/Filip/Desktop/facultate/anul2/woodSign.png");
+    QPixmap backgroundPixmap("../Textures/woodSign.png");
     painter.drawPixmap(20, 100, 700, 700, backgroundPixmap);
 }
 

@@ -15,7 +15,7 @@ MainMenu::MainMenu(QWidget* parent) : QMainWindow(parent) {
     mainLayout->setContentsMargins(0, 300, 0, 0);
 
     QLabel* logoLabel = new QLabel(mainWidget);
-    QPixmap logoPixMap("/Users/Filip/Desktop/facultate/LogoTwixt.png");
+    QPixmap logoPixMap("../Textures/LogoTwixt.png");
     logoLabel->setPixmap(logoPixMap.scaledToWidth(200));
 
     logoLabel->setGeometry(265, 70, 200, 200);
