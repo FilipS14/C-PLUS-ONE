@@ -356,3 +356,12 @@ Pillar Board::getRandomPillar(const std::unordered_map<QPoint, Pillar, PillarHas
 	int randomIndex = dis(gen);
 	return pillarsVector[randomIndex].second;
 }
+
+void Board::moveBuldozer(uint8_t b_line, uint8_t b_column) {
+	m_board[m_currentBuldozeristLine][m_currentBuldozeristColumn].setOcupied(false);
+	m_board[m_currentBuldozeristLine][m_currentBuldozeristColumn].setBulldozered(false);
+	m_currentBuldozeristLine = b_line;
+	m_currentBuldozeristColumn = b_column;
+	m_board[m_currentBuldozeristLine][m_currentBuldozeristColumn].setOcupied(true);
+	m_board[m_currentBuldozeristLine][m_currentBuldozeristColumn].setBulldozered(true);
+}
