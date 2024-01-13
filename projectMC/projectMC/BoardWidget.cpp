@@ -56,7 +56,7 @@ void BoardWidget::drawNamePlayer() {
 	QPainter painter(this);
 	painter.setPen(Qt::black);
 	QFont font = painter.font();
-	font.setBold(true);//sa imi spui cand esti gata gata???
+	font.setBold(true);
 	painter.setFont(font);
 	painter.drawText(355, 30, "Name: " + QString::fromStdString(m_game->getRedPlayer().getName()));
 	painter.drawText(353, 685, "Name: " + QString::fromStdString(m_game->getBlackPlayer().getName()));
@@ -67,7 +67,7 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 		m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
 		updatePlayerStats();
 	}
-		
+
 }
 
 void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
@@ -128,7 +128,7 @@ void BoardWidget::mousePressEvent(QMouseEvent* event) {
 
 //Draw
 void BoardWidget::drawBoxForPlayer() {
-	
+
 	QPainter painter(this);
 	//red plyer box
 	painter.setPen(QPen(Qt::red, 3));
@@ -136,7 +136,7 @@ void BoardWidget::drawBoxForPlayer() {
 	painter.drawRect(260, 3, 190, 85);
 	QPixmap redPlayerImage("/Users/Filip/Desktop/facultate/REDplayer.jpeg");
 	painter.drawPixmap(265, 11, redPlayerImage);
-	
+
 	//black player box
 	painter.setPen(QPen(Qt::black, 3));
 	painter.fillRect(260, 657, 190, 85, "#deb887");
@@ -284,7 +284,7 @@ void BoardWidget::switchToBlackPlayer() {
 //Game initialization
 BoardWidget::BoardWidget(QWidget* parent, std::shared_ptr<Game> game) :
 	QMainWindow{ parent },
-	m_game{game}
+	m_game{ game }
 {
 	initializeUI();
 	m_game->initializationGame(24, 24);
@@ -311,7 +311,7 @@ void BoardWidget::initializeUI() {
 	addBackButton(mainWidget);
 	setCentralWidget(mainWidget);
 	createSwitchButtons(mainWidget);
-	createPlayerInfoLabels(mainWidget);	
+	createPlayerInfoLabels(mainWidget);
 }
 
 void BoardWidget::createSwitchButtons(QWidget* parent) {

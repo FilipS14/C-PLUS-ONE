@@ -9,20 +9,22 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPainter>
+#include "Game.h"
 
 class Option : public QWidget
 {
     Q_OBJECT
 
 public:
-    Option(QWidget* parent = nullptr);
+    Option(QWidget* parent = nullptr, std::shared_ptr<Game> game = nullptr);
     ~Option() = default;
+
 signals:
     void goBackToMenuSignalOptions();
-
+    void saveNameRedPlayerSignal(const QString& redPlayerName);
+    void saveNameBlackPlayerSignal(const QString& blackPlayerName);
 public slots:
     void goBackToMenuOptions();
-private slots:
     void saveNameRedPlayerSlot();
     void saveNameBlackPlayerSlot();
 
@@ -35,6 +37,7 @@ private:
     void positionWidgets();
     void addBackButton(QWidget*);
 private:
+    std::shared_ptr<Game> m_game;
     QSlider* volumeSlider;
     QComboBox* comboBoxBoardSize;
     QLineEdit* lineEditPlayer1;

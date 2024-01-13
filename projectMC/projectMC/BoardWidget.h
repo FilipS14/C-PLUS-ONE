@@ -13,12 +13,13 @@
 #include <cmath>
 #include <ranges>
 #include <QLabel>
+#include "Option.h"
 
 class BoardWidget : public QMainWindow
 {
 	Q_OBJECT
 public:
-	BoardWidget(QWidget* parent = nullptr);
+	BoardWidget(QWidget* parent = nullptr, std::shared_ptr<Game> game = nullptr);
 	~BoardWidget() = default;
 
 private:
@@ -34,17 +35,16 @@ private:
 	void drawBirdges();
 	void drawCells();
 	void drawBoxForPlayer();
-	void drawMines();
-	void drawBuldozerist();
+	void drawNamePlayer();
 	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
 
 	void createSwitchButtons(QWidget* parent);
-	void createPlayerLabels(QWidget* parent);
 	void createPlayerInfoLabels(QWidget* parent);
 	QString createBackButtonStyle();
 	QString createSwitchButtonStyle();
+
 private:
-	Game m_game;
+	std::shared_ptr<Game> m_game;
 	Cell m_selectedCell;
 	Cell m_selectCellForDelete;
 
@@ -56,6 +56,8 @@ private:
 	QLabel m_numberOfBridgesForRedPlayer;
 	QLabel m_numberOfPillarsForBlackPlayer;
 	QLabel m_numberOfBridgesForBlackPlayer;
+	QLabel* m_nameRedPlayerLabel;
+	QLabel* m_nameBlackPlayerLabel;
 protected:
 	void paintEvent(QPaintEvent* event) override;
 	void mousePressEvent(QMouseEvent* event)override;
@@ -75,4 +77,5 @@ public slots:
 private slots:
 	void switchToRedPlayer();
 	void switchToBlackPlayer();
+
 };
