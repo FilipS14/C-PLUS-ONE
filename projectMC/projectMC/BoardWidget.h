@@ -39,13 +39,13 @@ private:
 	void drawBoxForPlayer();
 	void drawNamePlayer();
 	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
-
+	void switchTeam();
 	void createSwitchButtons(QWidget* parent);
 	void createPlayerInfoLabels(QWidget* parent);
 	QString createBackButtonStyle();
 	QString createSwitchButtonStyle();
-
 private:
+	short m_firstPlace{ 0 };
 	std::shared_ptr<Game> m_game;
 	Cell m_selectedCell;
 	Cell m_selectCellForDelete;
@@ -53,6 +53,7 @@ private:
 	QPushButton* m_backButton;
 	QPushButton* m_switchButtonRed;
 	QPushButton* m_switchButtonBlack;
+	QPushButton* m_switchPlayerForFirstRound;
 
 	QLabel m_numberOfPillarsForRedPlayer;
 	QLabel m_numberOfBridgesForRedPlayer;

@@ -69,7 +69,9 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 		if (!m_game->getBoard().isValidPillarMove(clickedCell, m_game->getCurrentPlayer())) {
 		}
 		else if (m_game->getBoard().getMatrix()[clickedCell.getLine()][clickedCell.getColumn()].getIsMined()) {
+			m_firstPlace++;
 			if (m_game->redTurn()) {
+				
 				m_game->mineSwitchTurn(clickedCell, m_game->getCurrentPlayer());
 				switchToBlackPlayer();
 			}
@@ -79,8 +81,12 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 			}
 		}
 		else {
+			m_firstPlace++;
 			m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
 			m_game->getBoard().generateBuldozerist();
+		}
+		if (m_firstPlace == 2) {
+			m_switchPlayerForFirstRound->deleteLater();
 		}
 		updatePlayerStats();
 	}
@@ -281,8 +287,9 @@ void BoardWidget::drawMines() {
 		for (size_t col = 0; col < m_game->getBoard().getColumn(); ++col) {
 			const Cell& cell = m_game->getBoard().getMatrix()[row][col];
 			if (cell.getIsMined() && cell.getOcupier()) {
-				QPixmap mineImage("../Textures/mine.png");
-				painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, mineImage);
+				painter.setPen(QPen(Qt::blue));
+				painter.setBrush(QBrush(Qt::blue));
+				painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
 			}
 		}
 	}
@@ -291,9 +298,12 @@ void BoardWidget::drawMines() {
 void BoardWidget::drawBuldozerist() {
 	QPainter painter(this);
 	constexpr uint8_t cellSize = 8;
-	const Cell& cell = m_game->getBoard().getMatrix().at(m_game->getBoard().getCurrentBuldozerLine()).at(m_game->getBoard().getCurrentBuldozerColumn());
-	QPixmap buldozeristImage("../Textures/buldozerist.png");
-	painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, buldozeristImage);
+
+	painter.setPen(QPen(Qt::yellow));
+	painter.setBrush(QBrush(Qt::yellow));
+	const Cell& cell = m_game->getBoard().getMatrix()[m_game->getBoard().getCurrentBuldozerLine()][m_game->getBoard().getCurrentBuldozerColumn()];
+	QPixmap blackPlayerImage("/Users/Filip/Desktop/facultate/buldozerist.png");
+	painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, blackPlayerImage);
 }
 
 //Swtich player
@@ -313,6 +323,8 @@ void BoardWidget::switchToBlackPlayer() {
 	if (m_game->switchToBlackPlayer())
 	{
 		m_switchButtonRed->setVisible(false);
+		if (m_firstPlace == 1)
+			m_switchPlayerForFirstRound->setVisible(true);
 		m_switchButtonBlack->setVisible(true);
 	}
 	else
@@ -329,7 +341,6 @@ BoardWidget::BoardWidget(QWidget* parent, std::shared_ptr<Game> game) :
 	initializeUI();
 	setupBoardCells();
 	m_game->getBoard().generateMines();
-	m_game->getBoard().generateBuldozerist();
 	m_game->getBoard().generateBuldozerist();
 }
 
@@ -368,6 +379,12 @@ void BoardWidget::createSwitchButtons(QWidget* parent) {
 	m_switchButtonBlack->setStyleSheet(createSwitchButtonStyle());
 	connect(m_switchButtonBlack, &QPushButton::clicked, this, &BoardWidget::switchToRedPlayer);
 	m_switchButtonBlack->setVisible(false);
+
+	m_switchPlayerForFirstRound = new QPushButton("SWITCH TEAM", parent);
+	m_switchPlayerForFirstRound->setGeometry(160, 656, 90, 85);
+	m_switchPlayerForFirstRound->setStyleSheet(createSwitchButtonStyle());
+	connect(m_switchPlayerForFirstRound, &QPushButton::clicked, this, &BoardWidget::switchTeam);
+	m_switchPlayerForFirstRound->setVisible(false);
 }
 
 void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
@@ -392,4 +409,16 @@ void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
 	m_numberOfBridgesForBlackPlayer.setGeometry(354, 705, 120, 30);
 	m_numberOfBridgesForBlackPlayer.setFont(font);
 	m_numberOfBridgesForBlackPlayer.setParent(parent);
+}
+
+void BoardWidget::switchTeam()
+{
+	if (m_firstPlace == 1) {
+		std::string temp{ m_game.get()->getBlackPlayer().getName() };
+		m_game.get()->getBlackPlayer().setName(m_game.get()->getRedPlayer().getName());
+		m_game.get()->getRedPlayer().setName(temp);
+		m_switchPlayerForFirstRound->setVisible(false);
+		update();
+	}
+
 }
