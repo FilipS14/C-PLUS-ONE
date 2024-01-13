@@ -46,8 +46,10 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	drawBoard();
 	drawCells();
 	drawLettersFromBoard();
+	drawMines();
 	drawPillars();
 	drawBirdges();
+	drawBuldozerist();
 	drawBoxForPlayer();
 	drawNamePlayer();
 }
@@ -64,10 +66,24 @@ void BoardWidget::drawNamePlayer() {
 
 void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 	if (!m_game->getCurrentPlayer().getMovePillar()) {
-		m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
+		if (!m_game->getBoard().isValidPillarMove(clickedCell, m_game->getCurrentPlayer())) {
+		}
+		else if (m_game->getBoard().getMatrix()[clickedCell.getLine()][clickedCell.getColumn()].getIsMined()) {
+			if (m_game->redTurn()) {
+				m_game->mineSwitchTurn(clickedCell, m_game->getCurrentPlayer());
+				switchToBlackPlayer();
+			}
+			else {
+				m_game->mineSwitchTurn(clickedCell, m_game->getCurrentPlayer());
+				switchToRedPlayer();
+			}
+		}
+		else {
+			m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
+		}
 		updatePlayerStats();
+		m_game->getBoard().generateBuldozerist();
 	}
-
 }
 
 void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
@@ -286,9 +302,12 @@ BoardWidget::BoardWidget(QWidget* parent, std::shared_ptr<Game> game) :
 	QMainWindow{ parent },
 	m_game{ game }
 {
-	initializeUI();
 	m_game->initializationGame(24, 24);
+	initializeUI();
 	setupBoardCells();
+	m_game->getBoard().generateMines();
+	m_game->getBoard().generateBuldozerist();
+	m_game->getBoard().generateBuldozerist();
 }
 
 QWidget* BoardWidget::createMainWidget() {
@@ -350,4 +369,30 @@ void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
 	m_numberOfBridgesForBlackPlayer.setGeometry(354, 705, 120, 30);
 	m_numberOfBridgesForBlackPlayer.setFont(font);
 	m_numberOfBridgesForBlackPlayer.setParent(parent);
+}
+
+void BoardWidget::drawMines() {
+	QPainter painter(this);
+	const uint8_t cellSize = 8;
+
+	for (size_t row = 0; row < m_game->getBoard().getLine(); ++row) {
+		for (size_t col = 0; col < m_game->getBoard().getColumn(); ++col) {
+			const Cell& cell = m_game->getBoard().getMatrix()[row][col];
+			if (cell.getIsMined() && cell.getOcupier()) {
+				painter.setPen(QPen(Qt::blue));
+				painter.setBrush(QBrush(Qt::blue));
+				painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
+			}
+		}
+	}
+}
+
+void BoardWidget::drawBuldozerist() {
+	QPainter painter(this);
+	const uint8_t cellSize = 8;
+
+	painter.setPen(QPen(Qt::yellow));
+	painter.setBrush(QBrush(Qt::yellow));
+	const Cell& cell = m_game->getBoard().getMatrix()[m_game->getBoard().getCurrentBuldozerLine()][m_game->getBoard().getCurrentBuldozerColumn()];
+	painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
 }

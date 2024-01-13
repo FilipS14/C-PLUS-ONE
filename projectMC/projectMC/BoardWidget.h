@@ -31,9 +31,11 @@ private:
 	void setupBoardCell(size_t row, size_t col);
 	void drawBoard();
 	void drawLettersFromBoard();
+	void drawMines();
 	void drawPillars();
 	void drawBirdges();
 	void drawCells();
+	void drawBuldozerist();
 	void drawBoxForPlayer();
 	void drawNamePlayer();
 	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
