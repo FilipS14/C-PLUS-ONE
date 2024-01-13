@@ -80,9 +80,9 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 		}
 		else {
 			m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
+			m_game->getBoard().generateBuldozerist();
 		}
 		updatePlayerStats();
-		m_game->getBoard().generateBuldozerist();
 	}
 }
 
@@ -273,6 +273,29 @@ void BoardWidget::drawCells()
 	}
 }
 
+void BoardWidget::drawMines() {
+	QPainter painter(this);
+	const uint8_t cellSize = 8;
+
+	for (size_t row = 0; row < m_game->getBoard().getLine(); ++row) {
+		for (size_t col = 0; col < m_game->getBoard().getColumn(); ++col) {
+			const Cell& cell = m_game->getBoard().getMatrix()[row][col];
+			if (cell.getIsMined() && cell.getOcupier()) {
+				QPixmap mineImage("../Textures/mine.png");
+				painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, mineImage);
+			}
+		}
+	}
+}
+
+void BoardWidget::drawBuldozerist() {
+	QPainter painter(this);
+	constexpr uint8_t cellSize = 8;
+	const Cell& cell = m_game->getBoard().getMatrix().at(m_game->getBoard().getCurrentBuldozerLine()).at(m_game->getBoard().getCurrentBuldozerColumn());
+	QPixmap buldozeristImage("../Textures/buldozerist.png");
+	painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, buldozeristImage);
+}
+
 //Swtich player
 void BoardWidget::switchToRedPlayer() {
 
@@ -369,30 +392,4 @@ void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
 	m_numberOfBridgesForBlackPlayer.setGeometry(354, 705, 120, 30);
 	m_numberOfBridgesForBlackPlayer.setFont(font);
 	m_numberOfBridgesForBlackPlayer.setParent(parent);
-}
-
-void BoardWidget::drawMines() {
-	QPainter painter(this);
-	const uint8_t cellSize = 8;
-
-	for (size_t row = 0; row < m_game->getBoard().getLine(); ++row) {
-		for (size_t col = 0; col < m_game->getBoard().getColumn(); ++col) {
-			const Cell& cell = m_game->getBoard().getMatrix()[row][col];
-			if (cell.getIsMined() && cell.getOcupier()) {
-				painter.setPen(QPen(Qt::blue));
-				painter.setBrush(QBrush(Qt::blue));
-				painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
-			}
-		}
-	}
-}
-
-void BoardWidget::drawBuldozerist() {
-	QPainter painter(this);
-	const uint8_t cellSize = 8;
-
-	painter.setPen(QPen(Qt::yellow));
-	painter.setBrush(QBrush(Qt::yellow));
-	const Cell& cell = m_game->getBoard().getMatrix()[m_game->getBoard().getCurrentBuldozerLine()][m_game->getBoard().getCurrentBuldozerColumn()];
-	painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
 }
