@@ -145,9 +145,6 @@ void Cell::clearCell()
 	m_ocupied = false;
 	m_isMined = false;
 	m_isBulldozered = false;
-	m_line = 0;
-	m_column = 0;
-	m_coordinates = QPoint();
 }
 
 std::vector<QPoint> Cell::getNeighborCoordinates() const noexcept

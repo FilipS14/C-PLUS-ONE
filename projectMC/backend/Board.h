@@ -75,6 +75,8 @@ public:
 	__declspec(dllexport) void addPillar(const Pillar& pillar);
 	__declspec(dllexport) void addBridge(const Bridge& bridge);
 	__declspec(dllexport) void removeBridge(const Cell& startCell, const Cell& endCell);
+	__declspec(dllexport) void resetPillar();
+	__declspec(dllexport) void resetBridge();
 
 	//CHECKS CALLED
 	__declspec(dllexport) bool isValidPillarMove(const Cell& cell, const Player& player);

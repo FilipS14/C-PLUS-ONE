@@ -116,6 +116,21 @@ void Game::handleBridge(Player& player, const Cell& currentCell, const Cell& nei
     }
 }
 
+void Game::gameReset()
+{
+    m_board->resetBridge();
+    m_board->resetPillar();
+    for (size_t line = 0; line < m_board->getLine(); ++line) {
+        for (size_t column = 0; column < m_board->getColumn(); ++column) {
+            m_board->getMatrix()[line][column].clearCell();
+        }
+    }
+    m_redPlayer.get()->setNumberOfPillars(50);
+    m_redPlayer.get()->setNumberOfBridges(50);
+    m_blackPlayer.get()->setNumberOfPillars(50);
+    m_blackPlayer.get()->setNumberOfBridges(50);
+}
+
 bool Game::switchToRedPlayer() {
     if (!m_currentPlayer->getMovePillar()) {
         return false;

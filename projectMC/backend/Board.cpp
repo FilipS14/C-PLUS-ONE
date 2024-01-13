@@ -332,6 +332,16 @@ void Board::removeBridge(const Cell& startCell, const Cell& endCell)
 	}
 }
 
+void Board::resetPillar()
+{
+	m_pillars.clear();
+}
+
+void Board::resetBridge()
+{
+	m_bridges.clear();
+}
+
 int Board::generateRandomNumber(uint8_t minValue, uint8_t maxValue) const {
 	std::random_device rd;
 	std::mt19937 gen(rd());
