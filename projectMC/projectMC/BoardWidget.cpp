@@ -349,3 +349,19 @@ void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
 	m_numberOfBridgesForBlackPlayer.setFont(font);
 	m_numberOfBridgesForBlackPlayer.setParent(parent);
 }
+
+void BoardWidget::drawMines() {
+	QPainter painter(this);
+	const uint8_t cellSize = 8;
+
+	for (size_t row = 0; row < m_game.getBoard().getLine(); ++row) {
+		for (size_t col = 0; col < m_game.getBoard().getColumn(); ++col) {
+			const Cell& cell = m_game.getBoard().getMatrix()[row][col];
+			if (cell.getIsMined() && cell.getOcupier()) {
+				painter.setPen(QPen(Qt::blue));
+				painter.setBrush(QBrush(Qt::blue));
+				painter.drawRect(cell.getCoordinates().x(), cell.getCoordinates().y(), cellSize, cellSize);
+			}
+		}
+	}
+}
