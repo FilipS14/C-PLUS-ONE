@@ -1,4 +1,5 @@
 ﻿#include "BoardWidget.h";
+#include <qobject.h>
 
 //Button
 void BoardWidget::backToMenu() {
@@ -41,6 +42,15 @@ void BoardWidget::addBackButton(QWidget* widget) {
 
 }
 
+void BoardWidget::addRestartGameButton(QWidget* widget)
+{
+	m_restartGame = new QPushButton(widget);
+	m_restartGame->setStyleSheet(createBackButtonStyle());
+	m_restartGame->setGeometry(50, 10, 30, 30);
+
+	//trebuie sa ii fac conexiunea.
+}
+
 //Game handle
 void BoardWidget::paintEvent(QPaintEvent* event) {
 	drawBoard();
@@ -60,33 +70,37 @@ void BoardWidget::drawNamePlayer() {
 	QFont font = painter.font();
 	font.setBold(true);
 	painter.setFont(font);
-	painter.drawText(355, 30, "Name: " + QString::fromStdString(m_game->getRedPlayer().getName()));
-	painter.drawText(353, 685, "Name: " + QString::fromStdString(m_game->getBlackPlayer().getName()));
+	painter.drawText(355, 30, "Name: " + QString::fromStdString(m_game.getRedPlayer().getName()));
+	painter.drawText(353, 685, "Name: " + QString::fromStdString(m_game.getBlackPlayer().getName()));
 }
 
 void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
-	if (!m_game->getCurrentPlayer().getMovePillar()) {
-		if (!m_game->getBoard().isValidPillarMove(clickedCell, m_game->getCurrentPlayer())) {
+	if (!m_game.getCurrentPlayer().getMovePillar()) {
+		if (!m_game.getBoard().isValidPillarMove(clickedCell, m_game.getCurrentPlayer())) {
 		}
-		else if (m_game->getBoard().getMatrix()[clickedCell.getLine()][clickedCell.getColumn()].getIsMined()) {
+		else if (m_game.getBoard().getMatrix()[clickedCell.getLine()][clickedCell.getColumn()].getIsMined()) {
 			m_firstPlace++;
-			if (m_game->redTurn()) {
+			if (m_game.redTurn()) {
 				
-				m_game->mineSwitchTurn(clickedCell, m_game->getCurrentPlayer());
+				m_game.mineSwitchTurn(clickedCell, m_game.getCurrentPlayer());
 				switchToBlackPlayer();
 			}
 			else {
-				m_game->mineSwitchTurn(clickedCell, m_game->getCurrentPlayer());
+				m_game.mineSwitchTurn(clickedCell, m_game.getCurrentPlayer());
 				switchToRedPlayer();
 			}
 		}
 		else {
 			m_firstPlace++;
-			m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
+
+			m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
 			if (m_firstPlace % 2 == 0)
 			{
-				m_game->getBoard().saveData("savefile.txt");
+				m_game.getBoard().saveData("savefile.txt");
 			}
+
+			m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
+
 			//m_game->getBoard().generateBuldozerist();
 		}
 		if (m_firstPlace == 2) {
@@ -99,7 +113,7 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 
 void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
 	if (!m_selectedCell.getCoordinates().isNull()) {
-		m_game->placeBridge(clickedCell, m_selectedCell, m_game->getCurrentPlayer());
+		m_game.placeBridge(clickedCell, m_selectedCell, m_game.getCurrentPlayer());
 		m_selectedCell = Cell();
 		updatePlayerStats();
 	}
@@ -110,7 +124,7 @@ void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
 
 void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 	if (!m_selectCellForDelete.getCoordinates().isNull()) {
-		m_game->getBoard().removeBridge(clickedCell, m_selectCellForDelete);
+		m_game.getBoard().removeBridge(clickedCell, m_selectCellForDelete);
 		m_selectCellForDelete = Cell();
 		updatePlayerStats();
 		checkEnd();
@@ -122,23 +136,23 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 
 void BoardWidget::checkEnd()
 {
-	if (m_game->checkWinCondition(m_game->getCurrentPlayer()))
+	if (m_game.checkWinCondition(m_game.getCurrentPlayer()))
 	{
-		QString playerName = QString::fromStdString(m_game->getCurrentPlayer().getName());
-		m_game->getDataBase().updatePlayerStats(QString::fromStdString(m_game->getCurrentPlayer().getName()), m_game->getDataBase().getWins(playerName) + 1, 0);
+		QString playerName = QString::fromStdString(m_game.getCurrentPlayer().getName());
+		m_game.getDataBase().updatePlayerStats(QString::fromStdString(m_game.getCurrentPlayer().getName()), m_game.getDataBase().getWins(playerName) + 1, 0);
 		QMessageBox::information(nullptr, "Congratulations!", playerName + " wins the game!");
-		m_game->gameReset();
-		if (m_game->redTurn())
+		m_game.gameReset();
+		if (m_game.redTurn())
 		{
 			switchToRedPlayer();
 		}
 		updatePlayerStats();
 	}
-	else if (m_game->checkDrawCondition())
+	else if (m_game.checkDrawCondition())
 	{
 		QMessageBox::information(nullptr, "Too bad!", "It's a draw!");
-		m_game->gameReset();
-		if (m_game->redTurn())
+		m_game.gameReset();
+		if (m_game.redTurn())
 		{
 			switchToRedPlayer();
 		}
@@ -167,7 +181,7 @@ void BoardWidget::mousePressEvent(QMouseEvent* event) {
 	int32_t mouseX = event->x();
 	int32_t mouseY = event->y();
 
-	for (auto& line : m_game->getBoard().getMatrix()) {
+	for (auto& line : m_game.getBoard().getMatrix()) {
 		for (auto& cellCenter : line) {
 			uint32_t distance = calculateDistance(cellCenter.getCoordinates(), QPoint(mouseX, mouseY));
 
@@ -249,7 +263,7 @@ void BoardWidget::setupBoardCell(size_t row, size_t col) {
 	QPoint point;
 	point.setX(x + cellSize / 2);
 	point.setY(y + cellSize / 2);
-	m_game->getBoard().addCell(row, col, point);
+	m_game.getBoard().addCell(row, col, point);
 }
 
 void BoardWidget::drawLettersFromBoard()
@@ -269,7 +283,7 @@ void BoardWidget::drawLettersFromBoard()
 void BoardWidget::drawPillars()
 {
 	QPainter painter(this);
-	auto& pillarsMap = m_game->getBoard().getPillars();
+	auto& pillarsMap = m_game.getBoard().getPillars();
 
 	std::ranges::for_each(pillarsMap, [&painter](const auto& pair) {
 		const Pillar& pillar = pair.second;
@@ -286,7 +300,7 @@ void BoardWidget::drawBirdges()
 	uint8_t radius = cellSize / 4;
 	QPainter painter(this);
 
-	auto& bridgesMap = m_game->getBoard().getBridges();
+	auto& bridgesMap = m_game.getBoard().getBridges();
 	std::ranges::for_each(bridgesMap, [&painter, radius](const auto& bridgePair) {
 		const Bridge& bridge = bridgePair.second;
 		painter.setPen(QPen(bridge.getColor(), 2));
@@ -302,7 +316,7 @@ void BoardWidget::drawCells()
 	const uint8_t cellRadius = cellSize / 2;
 	QPainter painter(this);
 	painter.setPen(Qt::black);
-	for (const auto& line : m_game->getBoard().getMatrix())
+	for (const auto& line : m_game.getBoard().getMatrix())
 	{
 		std::ranges::for_each(line, [&painter, cellSize](const Cell& element) {
 			if (element.getCoordinates() != QPoint())
@@ -315,9 +329,9 @@ void BoardWidget::drawMines() {
 	QPainter painter(this);
 	const uint8_t cellSize = 8;
 
-	for (size_t row = 0; row < m_game->getBoard().getLine(); ++row) {
-		for (size_t col = 0; col < m_game->getBoard().getColumn(); ++col) {
-			const Cell& cell = m_game->getBoard().getMatrix()[row][col];
+	for (size_t row = 0; row < m_game.getBoard().getLine(); ++row) {
+		for (size_t col = 0; col < m_game.getBoard().getColumn(); ++col) {
+			const Cell& cell = m_game.getBoard().getMatrix()[row][col];
 			if (cell.getIsMined() && cell.getOcupier()) {
 				QPixmap mineImage("../Textures/mine.png");
 				painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, mineImage);
@@ -329,7 +343,7 @@ void BoardWidget::drawMines() {
 void BoardWidget::drawBuldozerist() {
 	QPainter painter(this);
 	constexpr uint8_t cellSize = 8;
-	const Cell& cell = m_game->getBoard().getMatrix().at(m_game->getBoard().getCurrentBuldozerLine()).at(m_game->getBoard().getCurrentBuldozerColumn());
+	const Cell& cell = m_game.getBoard().getMatrix().at(m_game.getBoard().getCurrentBuldozerLine()).at(m_game.getBoard().getCurrentBuldozerColumn());
 	QPixmap buldozeristImage("../Textures/buldozerist.png");
 	painter.drawPixmap(cell.getCoordinates().x() - 7, cell.getCoordinates().y() - 7, buldozeristImage);
 }
@@ -337,7 +351,7 @@ void BoardWidget::drawBuldozerist() {
 //Swtich player
 void BoardWidget::switchToRedPlayer() {
 
-	if (m_game->switchToRedPlayer())
+	if (m_game.switchToRedPlayer())
 	{
 		m_switchButtonBlack->setVisible(false);
 		m_switchButtonRed->setVisible(true);
@@ -348,7 +362,7 @@ void BoardWidget::switchToRedPlayer() {
 }
 
 void BoardWidget::switchToBlackPlayer() {
-	if (m_game->switchToBlackPlayer())
+	if (m_game.switchToBlackPlayer())
 	{
 		m_switchButtonRed->setVisible(false);
 		if (m_firstPlace == 1)
@@ -361,16 +375,15 @@ void BoardWidget::switchToBlackPlayer() {
 }
 
 //Game initialization
-BoardWidget::BoardWidget(QWidget* parent, std::shared_ptr<Game> game) :
-	QMainWindow{ parent },
-	m_game{ game }
+BoardWidget::BoardWidget(QWidget* parent) :
+	QMainWindow{ parent }
 {
-	m_game->initializationGame(24, 24);
+	m_game.initializationGame(24, 24);
 	initializeUI();
 	setupBoardCells();
-	m_game->loadData("savefile.txt");
+	m_game.loadData("savefile.txt");
 	updatePlayerStats();
-	if (m_game->getBoard().getPillars().size() > 0) {
+	if (m_game.getBoard().getPillars().size() > 0) {
 		switchToBlackPlayer();
 		switchToRedPlayer();
 	}
@@ -384,11 +397,11 @@ QWidget* BoardWidget::createMainWidget() {
 }
 
 void BoardWidget::updatePlayerStats() {
-	m_numberOfPillarsForRedPlayer.setText("Red Pillars: " + QString::number(m_game->getRedPlayer().getNumberOfPillars()));
-	m_numberOfBridgesForRedPlayer.setText("Red Bridges: " + QString::number(m_game->getRedPlayer().getNumberOfBridges()));
+	m_numberOfPillarsForRedPlayer.setText("Red Pillars: " + QString::number(m_game.getRedPlayer().getNumberOfPillars()));
+	m_numberOfBridgesForRedPlayer.setText("Red Bridges: " + QString::number(m_game.getRedPlayer().getNumberOfBridges()));
 
-	m_numberOfPillarsForBlackPlayer.setText("Black Pillars: " + QString::number(m_game->getBlackPlayer().getNumberOfPillars()));
-	m_numberOfBridgesForBlackPlayer.setText("Black Bridges: " + QString::number(m_game->getBlackPlayer().getNumberOfBridges()));
+	m_numberOfPillarsForBlackPlayer.setText("Black Pillars: " + QString::number(m_game.getBlackPlayer().getNumberOfPillars()));
+	m_numberOfBridgesForBlackPlayer.setText("Black Bridges: " + QString::number(m_game.getBlackPlayer().getNumberOfBridges()));
 }
 
 void BoardWidget::initializeUI() {
@@ -397,6 +410,7 @@ void BoardWidget::initializeUI() {
 
 	QWidget* mainWidget = createMainWidget();
 	addBackButton(mainWidget);
+	addRestartGameButton(mainWidget);
 	setCentralWidget(mainWidget);
 	createSwitchButtons(mainWidget);
 	createPlayerInfoLabels(mainWidget);
@@ -425,22 +439,22 @@ void BoardWidget::createSwitchButtons(QWidget* parent) {
 void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
 	QFont font;
 	font.setWeight(QFont::Bold);
-	m_numberOfPillarsForRedPlayer.setText("Red Pillars: " + QString::number(m_game->getRedPlayer().getNumberOfPillars()));
+	m_numberOfPillarsForRedPlayer.setText("Red Pillars: " + QString::number(m_game.getRedPlayer().getNumberOfPillars()));
 	m_numberOfPillarsForRedPlayer.setGeometry(355, 30, 120, 30);
 	m_numberOfPillarsForRedPlayer.setFont(font);
 	m_numberOfPillarsForRedPlayer.setParent(parent);
 
-	m_numberOfBridgesForRedPlayer.setText("Red Bridges: " + QString::number(m_game->getRedPlayer().getNumberOfBridges()));
+	m_numberOfBridgesForRedPlayer.setText("Red Bridges: " + QString::number(m_game.getRedPlayer().getNumberOfBridges()));
 	m_numberOfBridgesForRedPlayer.setGeometry(355, 50, 120, 30);
 	m_numberOfBridgesForRedPlayer.setFont(font);
 	m_numberOfBridgesForRedPlayer.setParent(parent);
 
-	m_numberOfPillarsForBlackPlayer.setText("Black Pillars:" + QString::number(m_game->getBlackPlayer().getNumberOfPillars()));
+	m_numberOfPillarsForBlackPlayer.setText("Black Pillars:" + QString::number(m_game.getBlackPlayer().getNumberOfPillars()));
 	m_numberOfPillarsForBlackPlayer.setGeometry(354, 685, 120, 30);
 	m_numberOfPillarsForBlackPlayer.setFont(font);
 	m_numberOfPillarsForBlackPlayer.setParent(parent);
 
-	m_numberOfBridgesForBlackPlayer.setText("Black Bridges:" + QString::number(m_game->getBlackPlayer().getNumberOfBridges()));
+	m_numberOfBridgesForBlackPlayer.setText("Black Bridges:" + QString::number(m_game.getBlackPlayer().getNumberOfBridges()));
 	m_numberOfBridgesForBlackPlayer.setGeometry(354, 705, 120, 30);
 	m_numberOfBridgesForBlackPlayer.setFont(font);
 	m_numberOfBridgesForBlackPlayer.setParent(parent);
@@ -449,9 +463,9 @@ void BoardWidget::createPlayerInfoLabels(QWidget* parent) {
 void BoardWidget::switchTeam()
 {
 	if (m_firstPlace == 1) {
-		std::string temp{ m_game.get()->getBlackPlayer().getName() };
-		m_game.get()->getBlackPlayer().setName(m_game.get()->getRedPlayer().getName());
-		m_game.get()->getRedPlayer().setName(temp);
+		std::string temp{ m_game.getBlackPlayer().getName() };
+		m_game.getBlackPlayer().setName(m_game.getRedPlayer().getName());
+		m_game.getRedPlayer().setName(temp);
 		m_switchPlayerForFirstRound->setVisible(false);
 		update();
 	}

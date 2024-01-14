@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow {
 
 public:
     MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() = default;
 
 public slots:
     void startGame();
@@ -28,11 +28,11 @@ public slots:
 
 private:
     QVBoxLayout* mainLayout;
-    MainMenu* mainMenu;
-    BoardWidget* boardWidget;
-    Instruction* pageInstructions;
-    Option* pageOptions;
-    LeaderBoard* pageLeaderBoard;
+    std::unique_ptr<MainMenu> m_mainMenu;
+    std::unique_ptr <BoardWidget> m_boardWidget;
+    std::unique_ptr <Instruction> m_pageInstructions;
+    std::unique_ptr <Option> m_pageOptions;
+    std::unique_ptr <LeaderBoard> m_pageLeaderBoard;
 };
 
 #endif

@@ -19,7 +19,7 @@ class BoardWidget : public QMainWindow
 {
 	Q_OBJECT
 public:
-	BoardWidget(QWidget* parent = nullptr, std::shared_ptr<Game> game = nullptr);
+	BoardWidget(QWidget* parent = nullptr);
 	~BoardWidget() = default;
 
 private:
@@ -27,6 +27,7 @@ private:
 	void updatePlayerStats();
 	QWidget* createMainWidget();
 	void addBackButton(QWidget* widget);
+	void addRestartGameButton(QWidget* widget);
 	void checkEnd();
 	void setupBoardCells();
 	void setupBoardCell(size_t row, size_t col);
@@ -48,7 +49,7 @@ private:
 
 private:
 	short m_firstPlace{ 0 };
-	std::shared_ptr<Game> m_game;
+	Game m_game;
 	Cell m_selectedCell;
 	Cell m_selectCellForDelete;
 
@@ -56,6 +57,7 @@ private:
 	QPushButton* m_switchButtonRed;
 	QPushButton* m_switchButtonBlack;
 	QPushButton* m_switchPlayerForFirstRound;
+	QPushButton* m_restartGame;
 
 	QLabel m_numberOfPillarsForRedPlayer;
 	QLabel m_numberOfBridgesForRedPlayer;

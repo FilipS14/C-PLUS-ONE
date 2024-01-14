@@ -24,9 +24,8 @@ void Option::goBackToMenuOptions() {
     emit goBackToMenuSignalOptions();
 }
 
-Option::Option(QWidget* parent, std::shared_ptr<Game> game) :
-    QWidget{ parent },
-    m_game{ game }
+Option::Option(QWidget* parent) :
+    QWidget{ parent }
 {
     setupUI();
     applyStyles();
@@ -154,7 +153,7 @@ void Option::positionWidgets()
 void Option::saveNameRedPlayerSlot()
 {
     std::string redPlayerName = lineEditPlayer1->text().toStdString(); 
-    m_game.get()->getRedPlayer().setName(redPlayerName);
+    
     //o functie care verifica numele cu regex
     if (!m_dataBase.playerExists(lineEditPlayer1->text())) {
         m_dataBase.addPlayer(lineEditPlayer1->text());
@@ -167,7 +166,7 @@ void Option::saveNameRedPlayerSlot()
 void Option::saveNameBlackPlayerSlot()
 {
     std::string blackPlayerName = lineEditPlayer2->text().toStdString();
-    m_game.get()->getBlackPlayer().setName(blackPlayerName);
+    
      //o functie care verifica numele cu regex
     if (!m_dataBase.playerExists(lineEditPlayer2->text())) {
         m_dataBase.addPlayer(lineEditPlayer2->text());

@@ -16,7 +16,7 @@ class Option : public QWidget
 {
     Q_OBJECT
 public:
-    Option(QWidget* parent, std::shared_ptr<Game> game);
+    Option(QWidget* parent);
     ~Option() = default;
 
 signals:
@@ -41,7 +41,6 @@ private:
     void addBackButton(QWidget*);
 private:
     DataBaseManager m_dataBase;
-    std::shared_ptr<Game> m_game;
     QSlider* volumeSlider;
     QComboBox* comboBoxBoardSize;
     QLineEdit* lineEditPlayer1;

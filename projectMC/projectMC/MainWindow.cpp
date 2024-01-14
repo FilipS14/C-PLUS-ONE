@@ -1,16 +1,15 @@
 #include "MainWindow.h"
 
 MainWindow::MainWindow(QWidget* parent) :
-	QMainWindow{ parent } {
+	QMainWindow{ parent } ,
+	m_mainMenu{ std::make_unique<MainMenu>(this) },
+	m_boardWidget{ std::make_unique<BoardWidget>(this) },
+	m_pageInstructions{ std::make_unique<Instruction>(this) },
+	m_pageOptions{ std::make_unique<Option>(this) },
+	m_pageLeaderBoard{ std::make_unique<LeaderBoard>(this) }
+{
 	setWindowTitle("Twixt Game");
-	std::shared_ptr<Game> sharedGame = std::make_shared<Game>();
 	mainLayout = new QVBoxLayout;
-	mainMenu = new MainMenu(this);
-	boardWidget = new BoardWidget(this, sharedGame);
-	pageInstructions = new Instruction(this);
-	pageOptions = new Option(this, sharedGame);
-	pageLeaderBoard = new LeaderBoard(this);
-
 	QString backgroundStyle = "MainWindow {"
 		"background-image: url(../Textures/backgroundWood.jpg);"
 		"background-repeat: no-repeat;"
@@ -20,82 +19,74 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	this->setStyleSheet(backgroundStyle);
 
-	mainLayout->addWidget(mainMenu);
-	mainLayout->addWidget(boardWidget);
-	mainLayout->addWidget(pageInstructions);
-	mainLayout->addWidget(pageOptions);
-	mainLayout->addWidget(pageLeaderBoard);
+	mainLayout->addWidget(m_mainMenu.get());
+	mainLayout->addWidget(m_boardWidget.get());
+	mainLayout->addWidget(m_pageInstructions.get());
+	mainLayout->addWidget(m_pageOptions.get());
+	mainLayout->addWidget(m_pageLeaderBoard.get());
 
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setLayout(mainLayout);
 	setCentralWidget(centralWidget);
 
-	connect(mainMenu, SIGNAL(startGameSignal()), this, SLOT(startGame()));
-	connect(mainMenu, SIGNAL(showInstructionsSignal()), this, SLOT(showInstructions()));
-	connect(mainMenu, SIGNAL(showOptionSignal()), this, SLOT(showOptions()));
-	connect(mainMenu, SIGNAL(showLeaderboardSignal()), this, SLOT(showLeaderBoard()));
+	connect(m_mainMenu.get(), SIGNAL(startGameSignal()), this, SLOT(startGame()));
+	connect(m_mainMenu.get(), SIGNAL(showInstructionsSignal()), this, SLOT(showInstructions()));
+	connect(m_mainMenu.get(), SIGNAL(showOptionSignal()), this, SLOT(showOptions()));
+	connect(m_mainMenu.get(), SIGNAL(showLeaderboardSignal()), this, SLOT(showLeaderBoard()));
 
 
-	connect(boardWidget, SIGNAL(backToMenuSignal()), this, SLOT(backToMenu()));
-	connect(pageInstructions, SIGNAL(goBackToMenuSignalInstruction()), this, SLOT(backToMenuIntruction()));
-	connect(pageOptions, SIGNAL(goBackToMenuSignalOptions()), this, SLOT(backToMenuOption()));
-	connect(pageLeaderBoard, SIGNAL(goBackToMenuSignalLeaderBoard()), this, SLOT(backToMenuLeaderBoard()));
-	connect(pageOptions, SIGNAL(playerSaved(const QString&)), pageLeaderBoard, SLOT(isPlayerSaved(const QString&)));
+	connect(m_boardWidget.get(), SIGNAL(backToMenuSignal()), this, SLOT(backToMenu()));
+	connect(m_pageInstructions.get(), SIGNAL(goBackToMenuSignalInstruction()), this, SLOT(backToMenuIntruction()));
+	connect(m_pageOptions.get(), SIGNAL(goBackToMenuSignalOptions()), this, SLOT(backToMenuOption()));
+	connect(m_pageLeaderBoard.get(), SIGNAL(goBackToMenuSignalLeaderBoard()), this, SLOT(backToMenuLeaderBoard()));
+	connect(m_pageOptions.get(), SIGNAL(playerSaved(const QString&)), m_pageLeaderBoard.get(), SLOT(isPlayerSaved(const QString&)));
 
-	mainMenu->show();
-	boardWidget->close();
-	pageInstructions->close();
-	pageOptions->close();
-	pageLeaderBoard->close();
+	m_mainMenu->show();
+	m_boardWidget->close();
+	m_pageInstructions->close();
+	m_pageOptions->close();
+	m_pageLeaderBoard->close();
 	setFixedSize(750, 760);
 }
 
-MainWindow::~MainWindow() {
-	delete mainMenu;
-	delete boardWidget;
-	delete pageInstructions;
-	delete pageOptions;
-	delete pageLeaderBoard;
-}
-
 void MainWindow::startGame() {
-	mainMenu->close();
-	boardWidget->show();
+	m_mainMenu->close();
+	m_boardWidget->show();
 }
 
 void MainWindow::backToMenu() {
-	boardWidget->close();
-	mainMenu->show();
+	m_boardWidget->close();
+	m_mainMenu->show();
 }
 
 void MainWindow::backToMenuIntruction() {
-	pageInstructions->close();
-	mainMenu->show();
+	m_pageInstructions->close();
+	m_mainMenu->show();
 }
 
 void MainWindow::backToMenuOption()
 {
-	pageOptions->close();
-	mainMenu->show();
+	m_pageOptions->close();
+	m_mainMenu->show();
 }
 
 void MainWindow::backToMenuLeaderBoard()
 {
-	pageLeaderBoard->close();
-	mainMenu->show();
+	m_pageLeaderBoard->close();
+	m_mainMenu.get()->show();
 }
 
 void MainWindow::showInstructions() {
-	mainMenu->close();
-	pageInstructions->show();
+	m_mainMenu->close();
+	m_pageInstructions->show();
 }
 
 void MainWindow::showLeaderBoard() {
-	mainMenu->close();
-	pageLeaderBoard->show();
+	m_mainMenu->close();
+	m_pageLeaderBoard->show();
 }
 
 void MainWindow::showOptions() {
-	mainMenu->close();
-	pageOptions->show();
+	m_mainMenu->close();
+	m_pageOptions->show();
 }
