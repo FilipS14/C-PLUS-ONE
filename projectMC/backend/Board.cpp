@@ -230,6 +230,13 @@ bool Board::areCellsPillars(const Cell& startCell, const Cell& endCell)
 	return true;
 }
 
+bool Board::arePillar(const Cell& selectedCell) {
+	auto pillar = m_pillars.find(selectedCell.getCoordinates());
+	if (pillar == m_pillars.end())
+		return false;
+	return true;
+}
+
 bool Board::arePillarsSameColor(const Cell& startCell, const Cell& endCell)
 {
 	auto startPillar = m_pillars.find(startCell.getCoordinates());

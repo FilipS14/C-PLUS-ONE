@@ -93,7 +93,7 @@ public:
 	__declspec(dllexport) bool checkBridgesIntersection(const Cell& startCell, const Cell& endCell);
 	__declspec(dllexport) bool doSegmentsIntersect(const QPoint& start1, const QPoint& end1, const QPoint& start2, const QPoint& end2);
 	__declspec(dllexport) int orientation(const QPoint& p, const QPoint& q, const QPoint& r);
-
+	__declspec(dllexport) bool arePillar(const Cell& selectedCell);
 
 	//CHECKS PILLARS
 	__declspec(dllexport) bool checkPillarsOverlap(const Cell& Cell);

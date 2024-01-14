@@ -126,7 +126,9 @@ void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
 		updatePlayerStats();
 	}
 	else {
-		if (m_game.getBoard().areCellPlayerColor(clickedCell, m_game.getCurrentPlayer())) {
+		if (m_game.getBoard().arePillar(clickedCell) &&
+			m_game.getBoard().areCellPlayerColor(clickedCell, m_game.getCurrentPlayer()))
+		{
 			m_selectedCell = clickedCell;
 		}
 	}
@@ -141,7 +143,8 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 		checkEnd();
 	}
 	else {
-		if (m_game.getBoard().areCellPlayerColor(clickedCell, m_game.getCurrentPlayer())) {
+		if (m_game.getBoard().arePillar(clickedCell) &&
+			m_game.getBoard().areCellPlayerColor(clickedCell, m_game.getCurrentPlayer())){
 			m_selectCellForDelete = clickedCell;
 		}
 	}
@@ -381,6 +384,8 @@ void BoardWidget::switchToRedPlayer() {
 	{
 		m_switchButtonBlack->setVisible(false);
 		m_switchButtonRed->setVisible(true);
+		m_selectedCell = Cell();
+		m_selectCellForDelete = Cell();
 	}
 	else
 		QMessageBox::information(nullptr, "Info", "Place a pillar before switching.");
@@ -393,6 +398,8 @@ void BoardWidget::switchToBlackPlayer() {
 		m_switchButtonRed->setVisible(false);
 		if (m_firstPlace == 1)
 			m_switchPlayerForFirstRound->setVisible(true);
+		m_selectedCell = Cell();
+		m_selectCellForDelete = Cell();
 		m_switchButtonBlack->setVisible(true);
 	}
 	else
