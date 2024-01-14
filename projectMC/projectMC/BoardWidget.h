@@ -28,6 +28,7 @@ private:
 	QWidget* createMainWidget();
 	void addBackButton(QWidget* widget);
 	void addRestartGameButton(QWidget* widget);
+	void checkWinnersAndLosers(QString& winName, QString& loseName);
 	void checkEnd();
 	void setupBoardCells();
 	void setupBoardCell(size_t row, size_t col);
@@ -46,6 +47,7 @@ private:
 	void createSwitchButtons(QWidget* parent);
 	void createPlayerInfoLabels(QWidget* parent);
 	QString createBackButtonStyle();
+	QString createRestartButtonStyle();
 	QString createSwitchButtonStyle();
 private:
 	short m_firstPlace{ 0 };

@@ -136,6 +136,7 @@ void Game::gameReset()
     m_blackPlayer.get()->setNumberOfPillars(pieces);
     m_blackPlayer.get()->setNumberOfBridges(pieces);
     m_board->generateMines();
+    m_board->saveData("savefile.txt");
 }
 
 bool Game::switchToRedPlayer() {

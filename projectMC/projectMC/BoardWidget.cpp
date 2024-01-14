@@ -20,6 +20,21 @@ QString BoardWidget::createBackButtonStyle() {
 		"}";
 }
 
+QString BoardWidget::createRestartButtonStyle() {
+	return "QPushButton {"
+		"background-color: #D2691E;"
+		"background-image: url(../Textures/restart.png);"
+		"border: 2px solid #000000;"
+		"color: #ffffff;"
+		"font: Bold;"
+		"font-size: 40px;"
+		"padding: 10px 20px;"
+		"}"
+		"QPushButton:hover {"
+		"background-color: #DEB887;"
+		"}";
+}
+
 QString BoardWidget::createSwitchButtonStyle()
 {
 	return "QPushButton {"
@@ -53,7 +68,7 @@ void BoardWidget::addBackButton(QWidget* widget) {
 void BoardWidget::addRestartGameButton(QWidget* widget)
 {
 	m_restartGame = new QPushButton(widget);
-	m_restartGame->setStyleSheet(createBackButtonStyle());
+	m_restartGame->setStyleSheet(createRestartButtonStyle());
 	m_restartGame->setGeometry(50, 10, 30, 30);
 	connect(m_restartGame, &QPushButton::clicked, this, &BoardWidget::restartGame);
 	
@@ -149,23 +164,28 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 	}
 }
 
+void BoardWidget::checkWinnersAndLosers(QString& winName, QString& lossesName)
+{
+	if (m_game.getCurrentPlayer().getTeam() == Team::red) {
+		winName = QString::fromStdString(m_game.getCurrentPlayer().getName());
+		lossesName = QString::fromStdString(m_game.getBlackPlayer().getName());
+	}
+	else if (m_game.getCurrentPlayer().getTeam() == Team::black) {
+		winName = QString::fromStdString(m_game.getCurrentPlayer().getName());
+		lossesName = QString::fromStdString(m_game.getRedPlayer().getName());
+	}
+	if (winName != "default")
+		m_game.getDataBase().updatePlayerStats(winName, m_game.getDataBase().getWins(winName) + 1, m_game.getDataBase().getLosses(winName));
+	if (lossesName != "default")
+		m_game.getDataBase().updatePlayerStats(lossesName, m_game.getDataBase().getWins(lossesName), m_game.getDataBase().getLosses(lossesName) + 1);
+}
+
 void BoardWidget::checkEnd()
 {
 	if (m_game.checkWinCondition(m_game.getCurrentPlayer()))
 	{
 		QString winName{ "" }, lossesName{ "" };
-		if (m_game.getCurrentPlayer().getTeam() == Team::red) {
-			winName = QString::fromStdString(m_game.getCurrentPlayer().getName());
-			lossesName = QString::fromStdString(m_game.getBlackPlayer().getName());
-		}
-		else if (m_game.getCurrentPlayer().getTeam() == Team::black) {
-			winName = QString::fromStdString(m_game.getCurrentPlayer().getName());
-			lossesName = QString::fromStdString(m_game.getRedPlayer().getName());
-		}
-		if(winName != "default")
-			m_game.getDataBase().updatePlayerStats(winName , m_game.getDataBase().getWins(winName) + 1, m_game.getDataBase().getLosses(winName));
-		if(lossesName != "default")
-			m_game.getDataBase().updatePlayerStats(lossesName, m_game.getDataBase().getWins(lossesName), m_game.getDataBase().getLosses(lossesName) + 1);
+		checkWinnersAndLosers(winName, lossesName);
 		emit finishGame();
 		QMessageBox::information(nullptr, "Congratulations!", winName + " wins the game!");
 		m_game.gameReset();
