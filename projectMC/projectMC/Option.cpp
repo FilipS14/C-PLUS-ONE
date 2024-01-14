@@ -99,7 +99,7 @@ void Option::applyStyles()
         "  border-left: 1px solid #795548;"
         "}"
         "QComboBox::down-arrow {"
-        "  image: url(:/images/downArrow.jpg);"
+        "  image: url(:../Textures/downArrow.jpg);"
         "}");
 
     const QString style =
