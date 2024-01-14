@@ -129,16 +129,13 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 		m_game.getBoard().removeBridge(clickedCell, m_selectCellForDelete);
 		m_selectCellForDelete = Cell();
 		updatePlayerStats();
-		m_game.gameReset();
-		if (m_game.redTurn())
-		{
-			switchToRedPlayer();
-		}
 		updatePlayerStats();
 		checkEnd();
 	}
 	else {
-		m_selectCellForDelete = clickedCell;
+		if (m_game.getBoard().areCellPlayerColor(clickedCell, m_game.getCurrentPlayer())) {
+			m_selectCellForDelete = clickedCell;
+		}
 	}
 }
 
@@ -225,8 +222,13 @@ void BoardWidget::drawHighlight() {
 	QPainter painter(this);
 	const uint8_t squareSize = 8;
 	painter.setPen(QPen(Qt::green, 1.5));
-	if(!m_selectedCell.isEmpty())
-	painter.drawRect(m_selectedCell.getCoordinates().x(), m_selectedCell.getCoordinates().y(), squareSize, squareSize);
+	if (!m_selectedCell.isEmpty()){
+		painter.drawRect(m_selectedCell.getCoordinates().x(), m_selectedCell.getCoordinates().y(), squareSize, squareSize);
+	}
+	painter.setPen(QPen(Qt::yellow, 1.5));
+	if (!m_selectCellForDelete.isEmpty()) {
+		painter.drawRect(m_selectCellForDelete.getCoordinates().x(), m_selectCellForDelete.getCoordinates().y(), squareSize, squareSize);
+	}
 }
 
 bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)
