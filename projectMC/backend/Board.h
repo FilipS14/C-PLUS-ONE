@@ -13,6 +13,7 @@
 #include <memory>
 #include <array>
 #include <random>
+#include <fstream>
 
 struct TwoPoint {
 	QPoint point1;
@@ -107,6 +108,8 @@ public:
 	__declspec(dllexport) Cell getCellAtCoordinates(const QPoint& coordinates) const;
 	__declspec(dllexport) void iterateThroughBridgesAndBulldoze(QPoint pillarCoord);
 	__declspec(dllexport) void generateBuldozerist();
+
+	__declspec(dllexport) void saveData(const std::string& filename);
 
 
 private:

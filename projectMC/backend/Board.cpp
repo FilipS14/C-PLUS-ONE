@@ -436,3 +436,47 @@ void Board::generateBuldozerist() {
 	}
 
 }
+
+
+void Board::saveData(const std::string& filename) {
+	std::ofstream outFile{ filename, std::ios::trunc };
+
+	if (outFile.is_open()) {
+		outFile << m_pillars.size() << std::endl;
+
+		for (const auto& pair : m_pillars) {
+			const Cell cellAtPillar = { getCellAtCoordinates(pair.first) };
+			if (pair.second.getColor() == Qt::red) {
+				outFile << (int)cellAtPillar.getLine() << " " << (int)cellAtPillar.getColumn() << " " << 1;
+			}
+			else {
+				outFile << (int)cellAtPillar.getLine() << " " << (int)cellAtPillar.getColumn() << " " << 2;
+			}
+			outFile << std::endl;  // Add a newline after each entry if needed
+		}
+
+		outFile << m_bridges.size() << std::endl;
+
+		for (const auto& bridges : m_bridges) {
+			const Cell cellAtPoint1{ getCellAtCoordinates(bridges.first.point1) };
+			const Cell cellAtPoint2{ getCellAtCoordinates(bridges.first.point2) };
+
+			if (bridges.second.getColor() == Qt::red) {
+				outFile << (int)cellAtPoint1.getLine() << " " << (int)cellAtPoint1.getColumn() << " "
+					<< (int)cellAtPoint2.getLine() << " " << (int)cellAtPoint2.getColumn() << " " << 1;
+			}
+			else
+			{
+				outFile << (int)cellAtPoint1.getLine() << " " << (int)cellAtPoint1.getColumn() << " "
+					<< (int)cellAtPoint2.getLine() << " " << (int)cellAtPoint2.getColumn() << " " << 2;
+			}
+			outFile << std::endl;  // Add a newline after each entry if needed
+		}
+
+		outFile.close();
+		std::cout << "Data saved to " << filename << std::endl;
+	}
+	else {
+		std::cerr << "Unable to open file: " << filename << std::endl;
+	}
+}
