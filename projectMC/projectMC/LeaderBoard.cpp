@@ -1,23 +1,24 @@
 #include "LeaderBoard.h"
 
-LeaderBoard::LeaderBoard(QWidget* parent) : 
-    QWidget{parent}
+LeaderBoard::LeaderBoard(QWidget* parent) :
+    QWidget{ parent }
 {
     leaderboardTable = new QTableWidget(this);
+    leaderboardTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     leaderboardTable->setColumnCount(4);
     addBackButton(this);
     QStringList headers;
     headers << "ID" << "Username" << "Wins" << "Losses";
     leaderboardTable->setHorizontalHeaderLabels(headers);
     loadLeaderboard();
-    
+
     leaderboardTable->setGeometry(165, 320, 410, 240);
 }
 
 void LeaderBoard::loadLeaderboard() {
     QSqlQuery query("SELECT * FROM player_stats ORDER BY wins DESC, losses ASC");
     int row = 0;
-
+    leaderboardTable->setRowCount(1);
     while (query.next()) {
         QString id = query.value(0).toString();
         QString username = query.value(1).toString();
@@ -84,11 +85,11 @@ void LeaderBoard::updatePlayerStats(const QString& playerName, int wins, int los
     int rowCount = leaderboardTable->rowCount();
     for (int row = 0; row < rowCount; ++row) {
         if (leaderboardTable->item(row, 1)->text() == playerName) {
-           
+
             leaderboardTable->item(row, 2)->setText(QString::number(wins));
             leaderboardTable->item(row, 3)->setText(QString::number(losses));
             update();
-            break; 
+            break;
         }
     }
 }

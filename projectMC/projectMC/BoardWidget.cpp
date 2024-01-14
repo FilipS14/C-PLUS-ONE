@@ -153,9 +153,21 @@ void BoardWidget::checkEnd()
 {
 	if (m_game.checkWinCondition(m_game.getCurrentPlayer()))
 	{
-		QString playerName = QString::fromStdString(m_game.getCurrentPlayer().getName());
-		m_game.getDataBase().updatePlayerStats(QString::fromStdString(m_game.getCurrentPlayer().getName()), m_game.getDataBase().getWins(playerName) + 1, 0);
-		QMessageBox::information(nullptr, "Congratulations!", playerName + " wins the game!");
+		QString winName{ "" }, lossesName{ "" };
+		if (m_game.getCurrentPlayer().getTeam() == Team::red) {
+			winName = QString::fromStdString(m_game.getCurrentPlayer().getName());
+			lossesName = QString::fromStdString(m_game.getBlackPlayer().getName());
+		}
+		else if (m_game.getCurrentPlayer().getTeam() == Team::black) {
+			winName = QString::fromStdString(m_game.getCurrentPlayer().getName());
+			lossesName = QString::fromStdString(m_game.getRedPlayer().getName());
+		}
+		if(winName != "default")
+			m_game.getDataBase().updatePlayerStats(winName , m_game.getDataBase().getWins(winName) + 1, m_game.getDataBase().getLosses(winName));
+		if(lossesName != "default")
+			m_game.getDataBase().updatePlayerStats(lossesName, m_game.getDataBase().getWins(lossesName), m_game.getDataBase().getLosses(lossesName) + 1);
+		emit finishGame();
+		QMessageBox::information(nullptr, "Congratulations!", winName + " wins the game!");
 		m_game.gameReset();
 		if (m_game.redTurn())
 		{

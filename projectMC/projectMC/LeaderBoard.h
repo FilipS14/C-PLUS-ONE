@@ -13,7 +13,6 @@ class LeaderBoard : public QWidget {
 public:
     LeaderBoard(QWidget* parent);
     ~LeaderBoard() = default;
-    void loadLeaderboard();
     void updatePlayerStats(const QString& playerName, int wins, int losses);
 private:
     void addBackButton(QWidget*);
@@ -24,6 +23,7 @@ signals:
 public slots:
     void goBackToMenuLeaderBoard();
     void isPlayerSaved(const QString& playerName);
+    void loadLeaderboard();
 
 protected:
     void paintEvent(QPaintEvent* event) override;

@@ -99,7 +99,7 @@ void Option::applyStyles()
         "  border-left: 1px solid #795548;"
         "}"
         "QComboBox::down-arrow {"
-        "  image: url(:../Textures/downArrow.jpg);"
+        "image: url(:../Textures/downArrow.jpg);"
         "}");
 
     const QString style =
@@ -180,6 +180,8 @@ void Option::saveNameBlackPlayerSlot()
 
 bool Option::isValidPlayerName(const std::string& playerName)
 {
+    if (playerName.empty())
+        return false;
     if (playerName.size() > 7) {
         QMessageBox::information(nullptr, "Error", "Player name is too long (maximum 7 characters allowed).");
         return false;

@@ -78,6 +78,7 @@ private:
 
 signals:
 	void backToMenuSignal();
+	void finishGame();
 
 public slots:
 	void backToMenu();

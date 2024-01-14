@@ -24,7 +24,7 @@ void DataBaseManager::createTable() {
 void DataBaseManager::updatePlayerStats(const QString& playerName, int wins, int losses)
 {
     QSqlQuery query;
-    query.prepare("INSERT OR REPLACE INTO player_stats (username, wins, losses) VALUES (?, ?, ?)");
+    query.prepare("REPLACE INTO player_stats (username, wins, losses) VALUES (?, ?, ?)");
     query.bindValue(0, playerName);
     query.bindValue(1, wins);
     query.bindValue(2, losses);
@@ -46,6 +46,20 @@ int DataBaseManager::getWins(const QString& playerName)
 {
     QSqlQuery query;
     query.prepare("SELECT wins FROM player_stats WHERE username = ?");
+    query.bindValue(0, playerName);
+
+    if (query.exec() && query.next()) {
+        return query.value(0).toInt();
+    }
+    else {
+        return -1;
+    }
+}
+
+int DataBaseManager::getLosses(const QString& playerName)
+{
+    QSqlQuery query;
+    query.prepare("SELECT losses FROM player_stats WHERE username = ?");
     query.bindValue(0, playerName);
 
     if (query.exec() && query.next()) {

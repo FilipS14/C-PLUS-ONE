@@ -42,6 +42,8 @@ MainWindow::MainWindow(QWidget* parent) :
 	connect(m_pageOptions.get(), SIGNAL(playerSaved(const QString&)), m_pageLeaderBoard.get(), SLOT(isPlayerSaved(const QString&)));
 	connect(m_pageOptions.get(), &Option::saveNameRedPlayerSignal, m_boardWidget.get(), &BoardWidget::saveNameRedPlayer);
 	connect(m_pageOptions.get(), &Option::saveNameBlackPlayerSignal, m_boardWidget.get(), &BoardWidget::saveNameBlackPlayer);
+	connect(m_boardWidget.get(), SIGNAL(finishGame()), m_pageLeaderBoard.get(), SLOT(loadLeaderboard()));
+
 
 	m_mainMenu->show();
 	m_boardWidget->close();
