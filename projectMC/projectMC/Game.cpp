@@ -3,7 +3,7 @@
 Game::Game() :
     m_board(std::make_unique<Board>()),
     m_redPlayer(std::make_unique<Player>("default", Team::red)),
-    m_blackPlayer(std::make_unique<Player>("deafult", Team::black)),
+    m_blackPlayer(std::make_unique<Player>("default", Team::black)),
     m_currentPlayer(m_redPlayer.get())
 {}
 

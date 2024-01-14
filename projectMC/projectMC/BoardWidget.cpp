@@ -116,7 +116,6 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 		}
 		updatePlayerStats();
 	}
-	checkEnd();
 }
 
 void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
@@ -124,6 +123,7 @@ void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
 		m_game.placeBridge(clickedCell, m_selectedCell, m_game.getCurrentPlayer());
 		m_selectedCell = Cell();
 		updatePlayerStats();
+		checkEnd();
 	}
 	else {
 		if (m_game.getBoard().arePillar(clickedCell) &&
@@ -139,8 +139,6 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 		m_game.getBoard().removeBridge(clickedCell, m_selectCellForDelete);
 		m_selectCellForDelete = Cell();
 		updatePlayerStats();
-		updatePlayerStats();
-		checkEnd();
 	}
 	else {
 		if (m_game.getBoard().arePillar(clickedCell) &&
