@@ -39,7 +39,6 @@ void BoardWidget::addBackButton(QWidget* widget) {
 	m_backButton->setStyleSheet(createBackButtonStyle());
 	m_backButton->setGeometry(10, 10, 30, 30);
 	connect(m_backButton, &QPushButton::clicked, this, &BoardWidget::backToMenu);
-
 }
 
 void BoardWidget::addRestartGameButton(QWidget* widget)
@@ -60,6 +59,7 @@ void BoardWidget::paintEvent(QPaintEvent* event) {
 	drawPillars();
 	drawBirdges();
 	drawBuldozerist();
+	drawHighlight();
 	drawBoxForPlayer();
 	drawNamePlayer();
 }
@@ -118,7 +118,9 @@ void BoardWidget::handleRightButtonClick(const Cell& clickedCell) {
 		updatePlayerStats();
 	}
 	else {
-		m_selectedCell = clickedCell;
+		if (m_game.getBoard().areCellPlayerColor(clickedCell, m_game.getCurrentPlayer())) {
+			m_selectedCell = clickedCell;
+		}
 	}
 }
 
@@ -126,6 +128,12 @@ void BoardWidget::handleMiddleButtonClick(const Cell& clickedCell) {
 	if (!m_selectCellForDelete.getCoordinates().isNull()) {
 		m_game.getBoard().removeBridge(clickedCell, m_selectCellForDelete);
 		m_selectCellForDelete = Cell();
+		updatePlayerStats();
+		m_game.gameReset();
+		if (m_game.redTurn())
+		{
+			switchToRedPlayer();
+		}
 		updatePlayerStats();
 		checkEnd();
 	}
@@ -211,6 +219,14 @@ void BoardWidget::drawBoxForPlayer() {
 	painter.drawRect(260, 657, 190, 85);
 	QPixmap blackPlayerImage("../Textures/BLACKplayer.jpg");
 	painter.drawPixmap(265, 664, blackPlayerImage);
+}
+
+void BoardWidget::drawHighlight() {
+	QPainter painter(this);
+	const uint8_t squareSize = 8;
+	painter.setPen(QPen(Qt::green, 1.5));
+	if(!m_selectedCell.isEmpty())
+	painter.drawRect(m_selectedCell.getCoordinates().x(), m_selectedCell.getCoordinates().y(), squareSize, squareSize);
 }
 
 bool BoardWidget::isCorner(size_t row, size_t col, uint8_t line, uint8_t column)

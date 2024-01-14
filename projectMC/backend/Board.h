@@ -87,6 +87,7 @@ public:
 	__declspec(dllexport) bool areCellsOccupied(const Cell& startCell, const Cell& endCell);
 	__declspec(dllexport) bool areCellsPillars(const Cell& startCell, const Cell& endCell);
 	__declspec(dllexport) bool arePillarsSameColor(const Cell& startCell, const Cell& endCell);
+	__declspec(dllexport) bool areCellPlayerColor(const Cell& Cell, const Player& player);
 	__declspec(dllexport) bool arePillarsPlayerColor(const Cell& startCell, const Cell& endCell, const Player& player);
 	__declspec(dllexport) bool checkDistaceToBridge(const Cell& startCell, const Cell& endCell);
 	__declspec(dllexport) bool checkBridgesIntersection(const Cell& startCell, const Cell& endCell);

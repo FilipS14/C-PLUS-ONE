@@ -241,6 +241,17 @@ bool Board::arePillarsSameColor(const Cell& startCell, const Cell& endCell)
 	return true;
 }
 
+bool Board::areCellPlayerColor(const Cell& Cell, const Player& player)
+{
+	auto startPillar = m_pillars.find(Cell.getCoordinates());
+
+	QColor color = (player.getTeam() == Team::red) ? Qt::red : Qt::black;
+	if (startPillar->second.getColor() != color)
+		return false;
+
+	return true;
+}
+
 bool Board::arePillarsPlayerColor(const Cell& startCell, const Cell& endCell, const Player& player)
 {
 	auto startPillar = m_pillars.find(startCell.getCoordinates());

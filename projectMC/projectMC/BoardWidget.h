@@ -39,6 +39,7 @@ private:
 	void drawCells();
 	void drawBuldozerist();
 	void drawBoxForPlayer();
+	void drawHighlight();
 	void drawNamePlayer();
 	bool isCorner(size_t row, size_t col, uint8_t line, uint8_t column);
 	void switchTeam();
