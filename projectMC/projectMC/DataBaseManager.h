@@ -11,6 +11,9 @@ public:
     bool playerExists(const QString& playerName);
     void addPlayer(const QString& playerName);
     void resetDatabase();
+    int getWins(const QString& playerName);
+    int getLosses(const QString& playerName);
+
 private:
     QSqlDatabase db;
 };

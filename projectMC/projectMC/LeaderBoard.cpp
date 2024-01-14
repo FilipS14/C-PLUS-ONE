@@ -64,3 +64,16 @@ void LeaderBoard::paintEvent(QPaintEvent* event)
 void LeaderBoard::goBackToMenuLeaderBoard() {
     emit goBackToMenuSignalLeaderBoard();
 }
+
+void LeaderBoard::updatePlayerStats(const QString& playerName, int wins, int losses) {
+    int rowCount = leaderboardTable->rowCount();
+    for (int row = 0; row < rowCount; ++row) {
+        if (leaderboardTable->item(row, 1)->text() == playerName) {
+           
+            leaderboardTable->item(row, 2)->setText(QString::number(wins));
+            leaderboardTable->item(row, 3)->setText(QString::number(losses));
+            update();
+            break; 
+        }
+    }
+}

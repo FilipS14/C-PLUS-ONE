@@ -83,7 +83,7 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 		else {
 			m_firstPlace++;
 			m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
-			m_game->getBoard().generateBuldozerist();
+			//m_game->getBoard().generateBuldozerist();
 		}
 		if (m_firstPlace == 2) {
 			m_switchPlayerForFirstRound->deleteLater();
@@ -121,7 +121,7 @@ void BoardWidget::checkEnd()
 	if (m_game->checkWinCondition(m_game->getCurrentPlayer()))
 	{
 		QString playerName = QString::fromStdString(m_game->getCurrentPlayer().getName());
-		m_game->getDataBase().updatePlayerStats(QString::fromStdString(m_game->getCurrentPlayer().getName()), 0, 0);
+		m_game->getDataBase().updatePlayerStats(QString::fromStdString(m_game->getCurrentPlayer().getName()), m_game->getDataBase().getWins(playerName) + 1, 0);
 		QMessageBox::information(nullptr, "Congratulations!", playerName + " wins the game!");
 		m_game->gameReset();
 		if (m_game->redTurn())
@@ -364,8 +364,8 @@ BoardWidget::BoardWidget(QWidget* parent, std::shared_ptr<Game> game) :
 	m_game->initializationGame(24, 24);
 	initializeUI();
 	setupBoardCells();
-	m_game->getBoard().generateMines();
-	m_game->getBoard().generateBuldozerist();
+	//m_game->getBoard().generateMines();
+	//m_game->getBoard().generateBuldozerist();
 }
 
 QWidget* BoardWidget::createMainWidget() {

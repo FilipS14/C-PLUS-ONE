@@ -14,6 +14,7 @@ public:
     LeaderBoard(QWidget* parent);
     ~LeaderBoard() = default;
     void loadLeaderboard();
+    void updatePlayerStats(const QString& playerName, int wins, int losses);
 private:
     void addBackButton(QWidget*);
 

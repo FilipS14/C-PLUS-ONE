@@ -42,6 +42,21 @@ void DataBaseManager::resetDatabase() {
     createTable();
 }
 
+int DataBaseManager::getWins(const QString& playerName)
+{
+    QSqlQuery query;
+    query.prepare("SELECT wins FROM player_stats WHERE username = ?");
+    query.bindValue(0, playerName);
+
+    if (query.exec() && query.next()) {
+        return query.value(0).toInt();
+    }
+    else {
+        return -1;
+    }
+}
+
+
 bool DataBaseManager::playerExists(const QString& playerName)
 {
     QSqlQuery query;
