@@ -190,3 +190,52 @@ void Game::mineSwitchTurn(Cell& cell, Player& player) {
     player.updateNumberOfPillars(1);
     player.setMovePillar(true);
 }
+
+void Game::loadPillars(std::ifstream& inFile) {
+    int pillarCount;
+    inFile >> pillarCount;
+    Player* pillar_m_currentPlayer;
+    for (int i = 0; i < pillarCount; ++i) {
+        int line, column, color;
+        inFile >> line >> column >> color;
+        if (color == 1) {
+            pillar_m_currentPlayer = m_redPlayer.get();
+        }
+        else {
+            pillar_m_currentPlayer = m_blackPlayer.get();
+        }
+        placePillar(m_board->getMatrix()[line][column], *pillar_m_currentPlayer);
+    }
+}
+
+void Game::loadBridges(std::ifstream& inFile) {
+    int bridgeCount;
+    inFile >> bridgeCount;
+    Player* bride_m_currentPlayer;
+    for (int i = 0; i < bridgeCount; ++i) {
+        int line1, column1, line2, column2, color;
+        inFile >> line1 >> column1 >> line2 >> column2 >> color;
+        if (color == 1) {
+            bride_m_currentPlayer = m_redPlayer.get();
+        }
+        else {
+            bride_m_currentPlayer = m_blackPlayer.get();
+        }
+        placeBridge(m_board->getMatrix()[line1][column1], m_board->getMatrix()[line2][column2], *bride_m_currentPlayer);
+    }
+}
+
+void Game::loadData(const std::string& filename) {
+    std::ifstream inFile(filename);
+
+    if (inFile.is_open()) {
+        loadPillars(inFile);
+        loadBridges(inFile);
+
+        inFile.close();
+        std::cout << "Data loaded from " << filename << std::endl;
+    }
+    else {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+    }
+}

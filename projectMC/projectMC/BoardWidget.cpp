@@ -83,6 +83,10 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 		else {
 			m_firstPlace++;
 			m_game->placePillar(clickedCell, m_game->getCurrentPlayer());
+			if (m_firstPlace % 2 == 0)
+			{
+				m_game->getBoard().saveData("savefile.txt");
+			}
 			//m_game->getBoard().generateBuldozerist();
 		}
 		if (m_firstPlace == 2) {
@@ -364,6 +368,13 @@ BoardWidget::BoardWidget(QWidget* parent, std::shared_ptr<Game> game) :
 	m_game->initializationGame(24, 24);
 	initializeUI();
 	setupBoardCells();
+	m_game->loadData("savefile.txt");
+	updatePlayerStats();
+	if (m_game->getBoard().getPillars().size() > 0) {
+		switchToBlackPlayer();
+		switchToRedPlayer();
+	}
+
 	//m_game->getBoard().generateMines();
 	//m_game->getBoard().generateBuldozerist();
 }

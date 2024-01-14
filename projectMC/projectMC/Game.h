@@ -61,6 +61,9 @@ public:
 	bool redTurn();
 	void mineSwitchTurn(Cell& cell, Player& player);
 
+	void loadPillars(std::ifstream& inFile);
+	void loadBridges(std::ifstream& inFile);
+	void loadData(const std::string& filename);
 
 private:
 	DataBaseManager m_dataBase;
