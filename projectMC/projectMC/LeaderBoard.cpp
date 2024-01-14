@@ -1,17 +1,18 @@
 #include "LeaderBoard.h"
-#include <QTableWidgetItem>
 
-LeaderBoard::LeaderBoard(QWidget* parent) : QWidget(parent) {
-   
+
+
+LeaderBoard::LeaderBoard(QWidget* parent) : 
+    QWidget{parent}
+{
     leaderboardTable = new QTableWidget(this);
     leaderboardTable->setColumnCount(4);
     addBackButton(this);
     QStringList headers;
     headers << "ID" << "Username" << "Wins" << "Losses";
     leaderboardTable->setHorizontalHeaderLabels(headers);
-
     loadLeaderboard();
-
+    
     leaderboardTable->setGeometry(165, 320, 410, 240);
 }
 
@@ -33,6 +34,7 @@ void LeaderBoard::loadLeaderboard() {
 
         ++row;
     }
+    update();
 }
 
 void LeaderBoard::addBackButton(QWidget* widget)
@@ -40,6 +42,16 @@ void LeaderBoard::addBackButton(QWidget* widget)
     goBackButton = new QPushButton(widget);
     goBackButton->setGeometry(10, 10, 40, 40);
     connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuLeaderBoard()));
+}
+
+void LeaderBoard::isPlayerSaved(const QString& playerName) {
+    int row = leaderboardTable->rowCount();
+    leaderboardTable->insertRow(row);
+    leaderboardTable->setItem(row, 0, new QTableWidgetItem(QString::number(row + 1)));
+    leaderboardTable->setItem(row, 1, new QTableWidgetItem(playerName));
+    leaderboardTable->setItem(row, 2, new QTableWidgetItem("0"));
+    leaderboardTable->setItem(row, 3, new QTableWidgetItem("0"));
+    update();
 }
 
 void LeaderBoard::paintEvent(QPaintEvent* event)

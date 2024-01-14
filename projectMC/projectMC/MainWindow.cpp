@@ -40,12 +40,13 @@ MainWindow::MainWindow(QWidget* parent) :
 	connect(pageInstructions, SIGNAL(goBackToMenuSignalInstruction()), this, SLOT(backToMenuIntruction()));
 	connect(pageOptions, SIGNAL(goBackToMenuSignalOptions()), this, SLOT(backToMenuOption()));
 	connect(pageLeaderBoard, SIGNAL(goBackToMenuSignalLeaderBoard()), this, SLOT(backToMenuLeaderBoard()));
+	connect(pageOptions, SIGNAL(playerSaved(const QString&)), pageLeaderBoard, SLOT(isPlayerSaved(const QString&)));
 
 	mainMenu->show();
-	boardWidget->hide();
-	pageInstructions->hide();
-	pageOptions->hide();
-	pageLeaderBoard->hide();
+	boardWidget->close();
+	pageInstructions->close();
+	pageOptions->close();
+	pageLeaderBoard->close();
 	setFixedSize(750, 760);
 }
 
@@ -58,43 +59,43 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::startGame() {
-	mainMenu->hide();
+	mainMenu->close();
 	boardWidget->show();
 }
 
 void MainWindow::backToMenu() {
-	boardWidget->hide();
+	boardWidget->close();
 	mainMenu->show();
 }
 
 void MainWindow::backToMenuIntruction() {
-	pageInstructions->hide();
+	pageInstructions->close();
 	mainMenu->show();
 }
 
 void MainWindow::backToMenuOption()
 {
-	pageOptions->hide();
+	pageOptions->close();
 	mainMenu->show();
 }
 
 void MainWindow::backToMenuLeaderBoard()
 {
-	pageLeaderBoard->hide();
+	pageLeaderBoard->close();
 	mainMenu->show();
 }
 
 void MainWindow::showInstructions() {
-	mainMenu->hide();
+	mainMenu->close();
 	pageInstructions->show();
 }
 
 void MainWindow::showLeaderBoard() {
-	mainMenu->hide();
+	mainMenu->close();
 	pageLeaderBoard->show();
 }
 
 void MainWindow::showOptions() {
-	mainMenu->hide();
+	mainMenu->close();
 	pageOptions->show();
 }

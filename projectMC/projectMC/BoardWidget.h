@@ -45,6 +45,7 @@ private:
 	void createPlayerInfoLabels(QWidget* parent);
 	QString createBackButtonStyle();
 	QString createSwitchButtonStyle();
+
 private:
 	short m_firstPlace{ 0 };
 	std::shared_ptr<Game> m_game;
@@ -65,6 +66,7 @@ private:
 protected:
 	void paintEvent(QPaintEvent* event) override;
 	void mousePressEvent(QMouseEvent* event)override;
+
 private:
 	void handleLeftButtonClick(Cell& clickedCell);
 	void handleRightButtonClick(const Cell& clickedCell);

@@ -5,6 +5,7 @@
 #include <functional>
 #include <memory>
 #include <stack>
+#include "DataBaseManager.h"
 
 namespace std {
 	template <>
@@ -38,6 +39,7 @@ public:
 	Player& getRedPlayer() const;
 	Player& getBlackPlayer() const;
 	Player& getCurrentPlayer() const;
+	DataBaseManager getDataBase() const;
 
 	//PLACEMENT OF PILLARS AND BRIDGES
 	void placePillar(Cell& cell, Player& player);
@@ -61,6 +63,7 @@ public:
 
 
 private:
+	DataBaseManager m_dataBase;
 	std::unique_ptr<Board> m_board;
 	std::unique_ptr<Player> m_redPlayer;
 	std::unique_ptr<Player> m_blackPlayer;

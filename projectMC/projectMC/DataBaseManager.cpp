@@ -41,3 +41,34 @@ void DataBaseManager::resetDatabase() {
 
     createTable();
 }
+
+bool DataBaseManager::playerExists(const QString& playerName)
+{
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM player_stats WHERE username = ?");
+    query.bindValue(0, playerName);
+    query.exec();
+
+    if (query.next()) {
+        int count = query.value(0).toInt();
+        return count > 0;
+    }
+
+    return false;
+}
+
+void DataBaseManager::addPlayer(const QString& playerName)
+{
+    if (!playerExists(playerName)) {
+        QSqlQuery query;
+        query.prepare("INSERT INTO player_stats (username, wins, losses) VALUES (?, ?, ?)");
+        query.bindValue(0, playerName);
+        query.bindValue(1, 0);
+        query.bindValue(2, 0);
+        query.exec();
+    }
+    else {
+        qDebug() << "Player already exists in the database.";
+    }
+}
+

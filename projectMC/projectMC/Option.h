@@ -10,19 +10,22 @@
 #include <QLabel>
 #include <QPainter>
 #include "Game.h"
+#include "DataBaseManager.h"
 
 class Option : public QWidget
 {
     Q_OBJECT
-
 public:
-    Option(QWidget* parent = nullptr, std::shared_ptr<Game> game = nullptr);
+    Option(QWidget* parent, std::shared_ptr<Game> game);
     ~Option() = default;
 
 signals:
+    void playerSaved(const QString& playerName);
     void goBackToMenuSignalOptions();
     void saveNameRedPlayerSignal(const QString& redPlayerName);
     void saveNameBlackPlayerSignal(const QString& blackPlayerName);
+    
+
 public slots:
     void goBackToMenuOptions();
     void saveNameRedPlayerSlot();
@@ -37,6 +40,7 @@ private:
     void positionWidgets();
     void addBackButton(QWidget*);
 private:
+    DataBaseManager m_dataBase;
     std::shared_ptr<Game> m_game;
     QSlider* volumeSlider;
     QComboBox* comboBoxBoardSize;

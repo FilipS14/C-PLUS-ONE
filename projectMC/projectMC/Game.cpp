@@ -27,6 +27,11 @@ Player& Game::getCurrentPlayer() const {
     return *m_currentPlayer;
 }
 
+DataBaseManager Game::getDataBase() const
+{
+    return m_dataBase;
+}
+
 bool Game::redTurn() {
     if (m_currentPlayer == m_redPlayer.get()) {
         return true;
