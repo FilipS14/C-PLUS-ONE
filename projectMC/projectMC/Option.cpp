@@ -153,10 +153,11 @@ void Option::positionWidgets()
 void Option::saveNameRedPlayerSlot()
 {
     std::string redPlayerName = lineEditPlayer1->text().toStdString(); 
-    
-    //o functie care verifica numele cu regex
+    if (!isValidPlayerName(redPlayerName))
+        return;
     if (!m_dataBase.playerExists(lineEditPlayer1->text())) {
         m_dataBase.addPlayer(lineEditPlayer1->text());
+        emit saveNameRedPlayerSignal(lineEditPlayer1->text());
         emit playerSaved(lineEditPlayer1->text());
     }
     else
@@ -166,12 +167,28 @@ void Option::saveNameRedPlayerSlot()
 void Option::saveNameBlackPlayerSlot()
 {
     std::string blackPlayerName = lineEditPlayer2->text().toStdString();
-    
-     //o functie care verifica numele cu regex
+    if (!isValidPlayerName(blackPlayerName))
+        return;
     if (!m_dataBase.playerExists(lineEditPlayer2->text())) {
         m_dataBase.addPlayer(lineEditPlayer2->text());
+        emit saveNameBlackPlayerSignal(lineEditPlayer2->text());
         emit playerSaved(lineEditPlayer2->text());
     }
     else
         QMessageBox::information(nullptr, "Error", "Player already exists");
+}
+
+bool Option::isValidPlayerName(const std::string& playerName)
+{
+    if (playerName.size() > 7) {
+        QMessageBox::information(nullptr, "Error", "Player name is too long (maximum 7 characters allowed).");
+        return false;
+    }
+
+    std::regex validNameRegex("^[a-zA-Z0-9]+$");
+    if (!std::regex_match(playerName, validNameRegex)) {
+        QMessageBox::information(nullptr, "Error", "Invalid characters in the player name. Please use only letters, numbers");
+        return false;
+    }
+    return true;
 }

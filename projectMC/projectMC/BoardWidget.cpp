@@ -471,3 +471,13 @@ void BoardWidget::switchTeam()
 	}
 
 }
+
+void BoardWidget::saveNameRedPlayer(const QString& playerName)
+{
+	m_game.getRedPlayer().setName(playerName.toStdString());
+}
+
+void BoardWidget::saveNameBlackPlayer(const QString& playerName)
+{
+	m_game.getBlackPlayer().setName(playerName.toStdString());
+}

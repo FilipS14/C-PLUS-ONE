@@ -81,6 +81,8 @@ signals:
 
 public slots:
 	void backToMenu();
+	void saveNameRedPlayer(const QString& playerName);
+	void saveNameBlackPlayer(const QString& playerName);
 
 private slots:
 	void switchToRedPlayer();

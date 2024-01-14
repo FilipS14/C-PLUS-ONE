@@ -11,6 +11,7 @@
 #include <QPainter>
 #include "Game.h"
 #include "DataBaseManager.h"
+#include <regex>
 
 class Option : public QWidget
 {
@@ -20,11 +21,10 @@ public:
     ~Option() = default;
 
 signals:
-    void playerSaved(const QString& playerName);
+    void playerSaved(const QString& );
     void goBackToMenuSignalOptions();
-    void saveNameRedPlayerSignal(const QString& redPlayerName);
-    void saveNameBlackPlayerSignal(const QString& blackPlayerName);
-    
+    void saveNameRedPlayerSignal(const QString&);
+    void saveNameBlackPlayerSignal(const QString&);
 
 public slots:
     void goBackToMenuOptions();
@@ -39,6 +39,7 @@ private:
     void applyStyles();
     void positionWidgets();
     void addBackButton(QWidget*);
+    bool isValidPlayerName(const std::string&);
 private:
     DataBaseManager m_dataBase;
     QSlider* volumeSlider;
