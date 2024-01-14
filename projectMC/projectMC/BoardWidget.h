@@ -47,7 +47,6 @@ private:
 	void createPlayerInfoLabels(QWidget* parent);
 	QString createBackButtonStyle();
 	QString createSwitchButtonStyle();
-
 private:
 	short m_firstPlace{ 0 };
 	Game m_game;
@@ -84,6 +83,7 @@ public slots:
 	void backToMenu();
 	void saveNameRedPlayer(const QString& playerName);
 	void saveNameBlackPlayer(const QString& playerName);
+	void restartGame();
 
 private slots:
 	void switchToRedPlayer();

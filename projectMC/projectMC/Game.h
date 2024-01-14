@@ -7,6 +7,7 @@
 #include <stack>
 #include "DataBaseManager.h"
 
+
 namespace std {
 	template <>
 	struct hash<QPoint> {
@@ -55,16 +56,15 @@ public:
 	bool reachedEnd(const Cell& cell) const;
 	void processNeighborCell(Player& player, const Cell& currentCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, int dX, int dY, std::stack<Cell>& stackDfs) const;
 	void handleBridge(Player& player, const Cell& currentCell, const Cell& neighborCell, std::unordered_set<Cell, CellHash, CellEqual>& visitedCells, std::stack<Cell>& stackDfs) const;
-	void gameReset();
-
 	//MINE
 	bool redTurn();
 	void mineSwitchTurn(Cell& cell, Player& player);
-
 	void loadPillars(std::ifstream& inFile);
 	void loadBridges(std::ifstream& inFile);
 	void loadData(const std::string& filename);
+	void gameReset();
 
+	
 private:
 	DataBaseManager m_dataBase;
 	std::unique_ptr<Board> m_board;

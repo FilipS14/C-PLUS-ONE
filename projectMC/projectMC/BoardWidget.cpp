@@ -1,5 +1,4 @@
 ﻿#include "BoardWidget.h";
-#include <qobject.h>
 
 //Button
 void BoardWidget::backToMenu() {
@@ -34,6 +33,16 @@ QString BoardWidget::createSwitchButtonStyle()
 		"}";
 }
 
+void BoardWidget::restartGame()
+{
+	m_game.gameReset();
+	if (m_game.redTurn())
+	{
+		switchToRedPlayer();
+	}
+	updatePlayerStats();
+}
+
 void BoardWidget::addBackButton(QWidget* widget) {
 	m_backButton = new QPushButton(widget);
 	m_backButton->setStyleSheet(createBackButtonStyle());
@@ -46,8 +55,7 @@ void BoardWidget::addRestartGameButton(QWidget* widget)
 	m_restartGame = new QPushButton(widget);
 	m_restartGame->setStyleSheet(createBackButtonStyle());
 	m_restartGame->setGeometry(50, 10, 30, 30);
-
-	//trebuie sa ii fac conexiunea.
+	connect(m_restartGame, &QPushButton::clicked, this, &BoardWidget::restartGame);
 }
 
 //Game handle
