@@ -27,8 +27,24 @@ Instruction::Instruction(QWidget* parent) :
 void Instruction::addBackButton(QWidget* widget)
 {
 	goBackButton = new QPushButton(widget);
-	goBackButton->setGeometry(10, 10, 40, 40);
+	goBackButton->setGeometry(10, 10, 30, 30);
+	goBackButton->setStyleSheet(createBackButtonStyle());
 	connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuIntruction()));
+}
+
+QString Instruction::createBackButtonStyle() {
+	return "QPushButton {"
+		"background-color: #D2691E;"
+		"background-image: url(../Textures/backToMenu.jpg);"
+		"border: 2px solid #000000;"
+		"color: #ffffff;"
+		"font: Bold;"
+		"font-size: 40px;"
+		"padding: 10px 20px;"
+		"}"
+		"QPushButton:hover {"
+		"background-color: #DEB887;"
+		"}";
 }
 
 void Instruction::paintEvent(QPaintEvent* event)

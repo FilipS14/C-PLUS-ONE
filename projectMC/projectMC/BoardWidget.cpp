@@ -56,6 +56,7 @@ void BoardWidget::addRestartGameButton(QWidget* widget)
 	m_restartGame->setStyleSheet(createBackButtonStyle());
 	m_restartGame->setGeometry(50, 10, 30, 30);
 	connect(m_restartGame, &QPushButton::clicked, this, &BoardWidget::restartGame);
+	
 }
 
 //Game handle

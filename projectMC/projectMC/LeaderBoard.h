@@ -17,7 +17,7 @@ public:
     void updatePlayerStats(const QString& playerName, int wins, int losses);
 private:
     void addBackButton(QWidget*);
-
+    QString createBackButtonStyle();
 signals:
     void goBackToMenuSignalLeaderBoard();
 

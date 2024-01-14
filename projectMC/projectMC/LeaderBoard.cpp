@@ -1,7 +1,5 @@
 #include "LeaderBoard.h"
 
-
-
 LeaderBoard::LeaderBoard(QWidget* parent) : 
     QWidget{parent}
 {
@@ -40,8 +38,25 @@ void LeaderBoard::loadLeaderboard() {
 void LeaderBoard::addBackButton(QWidget* widget)
 {
     goBackButton = new QPushButton(widget);
-    goBackButton->setGeometry(10, 10, 40, 40);
+    goBackButton->setGeometry(10, 10, 30, 30);
+    goBackButton->setStyleSheet(createBackButtonStyle());
     connect(goBackButton, SIGNAL(clicked()), this, SLOT(goBackToMenuLeaderBoard()));
+}
+
+QString LeaderBoard::createBackButtonStyle()
+{
+    return "QPushButton {"
+        "background-color: #D2691E;"
+        "background-image: url(../Textures/backToMenu.jpg);"
+        "border: 2px solid #000000;"
+        "color: #ffffff;"
+        "font: Bold;"
+        "font-size: 40px;"
+        "padding: 10px 20px;"
+        "}"
+        "QPushButton:hover {"
+        "background-color: #DEB887;"
+        "}";
 }
 
 void LeaderBoard::isPlayerSaved(const QString& playerName) {

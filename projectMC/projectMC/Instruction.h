@@ -18,7 +18,7 @@ public:
 	~Instruction() = default;
 private:
 	void addBackButton(QWidget*);
-
+	QString createBackButtonStyle();
 signals:
 	void goBackToMenuSignalInstruction();
 
