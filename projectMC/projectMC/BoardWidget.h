@@ -50,6 +50,7 @@ private:
 	QString createRestartButtonStyle();
 	QString createSwitchButtonStyle();
 private:
+	std::string m_gameMode;
 	short m_firstPlace{ 0 };
 	Game m_game;
 	Cell m_selectedCell;

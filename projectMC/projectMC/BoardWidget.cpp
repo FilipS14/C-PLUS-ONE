@@ -60,6 +60,7 @@ void BoardWidget::restartGame()
 
 void BoardWidget::setGameMode(const QString& gameMode)
 {
+	m_gameMode = gameMode.toStdString();
 }
 
 void BoardWidget::addBackButton(QWidget* widget) {
@@ -128,8 +129,7 @@ void BoardWidget::handleLeftButtonClick(Cell& clickedCell) {
 			}
 
 			m_game.placePillar(clickedCell, m_game.getCurrentPlayer());
-
-			//m_game->getBoard().generateBuldozerist();
+			m_game.getBoard().generateBuldozerist();
 		}
 		if (m_firstPlace == 2) {
 			m_switchPlayerForFirstRound->deleteLater();
@@ -456,8 +456,9 @@ BoardWidget::BoardWidget(QWidget* parent) :
 		switchToRedPlayer();
 	}
 
-	//m_game->getBoard().generateMines();
-	//m_game->getBoard().generateBuldozerist();
+	m_game.getBoard().generateMines();
+	m_game.getBoard().generateBuldozerist();
+	m_game.getBoard().generateBuldozerist();
 }
 
 QWidget* BoardWidget::createMainWidget() {
