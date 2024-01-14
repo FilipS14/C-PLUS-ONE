@@ -41,19 +41,25 @@ void Option::paintEvent(QPaintEvent* event)
     painter.drawPixmap(20, 100, 700, 710, backgroundPixmap);
 }
 
+void Option::handleGameModeSelection(const QString& selectedMode)
+{
+    emit gameModeSelected(selectedMode);
+}
+
 void Option::setupUI()
 {
     volumeSlider = new QSlider(Qt::Horizontal, this);
     volumeSlider->setRange(0, 100);
     volumeSlider->setValue(50);
 
-    comboBoxBoardSize = new QComboBox(this);
-    comboBoxBoardSize->addItems({ "24 x 24", "22 x 22" , "20 x 20", "18 x 18", "16 x 16", "14 x 14" });
+    comboBoxGameMode = new QComboBox(this);
+    comboBoxGameMode->addItems({ "Default", "Mine", "Buldozerist", "Both" });
+    connect(comboBoxGameMode, SIGNAL(activated(const QString&)), this, SLOT(handleGameModeSelection(const QString&)));
 
     lineEditPlayer1 = new QLineEdit(this);
     lineEditPlayer2 = new QLineEdit(this);
 
-    labelBoardSize = new QLabel("Board Size:", this);
+    labelBoardSize = new QLabel("Game Mode:", this);
     labelNamePlayerRed = new QLabel("Name red player:", this);
     labelNamePlayerBlack = new QLabel("Name black player:", this);
     labelSetVolume = new QLabel("Volume:", this);
@@ -81,7 +87,7 @@ void Option::applyStyles()
         "  border-radius: 15px;"
         "}");
 
-    comboBoxBoardSize->setStyleSheet("QComboBox {"
+    comboBoxGameMode->setStyleSheet("QComboBox {"
         "  border: 4px solid #795548;"
         "  background-color: #FFF3E0;"
         "  padding: 5px;"
@@ -132,7 +138,7 @@ void Option::positionWidgets()
     int yPos = 320;
     int xPos = 360;
 
-    comboBoxBoardSize->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
+    comboBoxGameMode->setGeometry(xPos, yPos, widgetWidth, widgetHeight);
     labelBoardSize->setGeometry(xPos - 180, yPos, widgetWidth, widgetHeight);//123
     yPos += widgetHeight + padding;
 
@@ -177,6 +183,7 @@ void Option::saveNameBlackPlayerSlot()
     else
         QMessageBox::information(nullptr, "Error", "Player already exists");
 }
+
 
 bool Option::isValidPlayerName(const std::string& playerName)
 {

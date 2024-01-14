@@ -18,7 +18,7 @@ LeaderBoard::LeaderBoard(QWidget* parent) :
 void LeaderBoard::loadLeaderboard() {
     QSqlQuery query("SELECT * FROM player_stats ORDER BY wins DESC, losses ASC");
     int row = 0;
-    leaderboardTable->setRowCount(1);
+    leaderboardTable->setRowCount(0);
     while (query.next()) {
         QString id = query.value(0).toString();
         QString username = query.value(1).toString();

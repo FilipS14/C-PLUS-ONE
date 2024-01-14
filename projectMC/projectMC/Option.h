@@ -25,11 +25,14 @@ signals:
     void goBackToMenuSignalOptions();
     void saveNameRedPlayerSignal(const QString&);
     void saveNameBlackPlayerSignal(const QString&);
+    void gameModeSelected(const QString& selectedMode);
 
 public slots:
     void goBackToMenuOptions();
     void saveNameRedPlayerSlot();
     void saveNameBlackPlayerSlot();
+    void handleGameModeSelection(const QString& selectedMode);
+   
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -43,7 +46,7 @@ private:
 private:
     DataBaseManager m_dataBase;
     QSlider* volumeSlider;
-    QComboBox* comboBoxBoardSize;
+    QComboBox* comboBoxGameMode;
     QLineEdit* lineEditPlayer1;
     QLineEdit* lineEditPlayer2;
     QPushButton* setNamePlayerRed;

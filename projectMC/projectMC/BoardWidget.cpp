@@ -58,6 +58,10 @@ void BoardWidget::restartGame()
 	updatePlayerStats();
 }
 
+void BoardWidget::setGameMode(const QString& gameMode)
+{
+}
+
 void BoardWidget::addBackButton(QWidget* widget) {
 	m_backButton = new QPushButton(widget);
 	m_backButton->setStyleSheet(createBackButtonStyle());

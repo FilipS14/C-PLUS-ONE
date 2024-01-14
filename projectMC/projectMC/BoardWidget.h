@@ -87,6 +87,7 @@ public slots:
 	void saveNameRedPlayer(const QString& playerName);
 	void saveNameBlackPlayer(const QString& playerName);
 	void restartGame();
+	void setGameMode(const QString& gameMode);
 
 private slots:
 	void switchToRedPlayer();
